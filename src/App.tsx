@@ -4,6 +4,7 @@ import {Home} from './screens/Home';
 import {ThemeProvider} from 'styled-components';
 import {theme} from './theme';
 import {createGlobalStyle} from 'styled-components';
+import {Practice} from './screens/Practice';
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -19,6 +20,7 @@ class App extends Component {
         <ThemeProvider theme={theme}>
           <Router>
             <Route exact path="/" component={Home} />
+            <Route path="/practice" component={Practice} />
           </Router>
         </ThemeProvider>
       </div>
