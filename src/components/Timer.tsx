@@ -1,12 +1,7 @@
 import * as React from 'react';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faClock} from '@fortawesome/free-solid-svg-icons';
-import styled from 'styled-components';
 import {Flex, Text} from 'rebass';
-
-const Icon = styled(FontAwesomeIcon)`
-  color: ${props => props.theme.colors.primary};
-`;
+import {PrimaryIcon} from './PrimaryIcon';
 
 export const Timer = () => {
   const [timer, setTimer] = React.useState(0);
@@ -16,10 +11,10 @@ export const Timer = () => {
   });
   const hours = Math.floor(timer / 3600);
   const minutes = Math.floor(timer / 60);
-  const seconds = timer % 60;
+  const seconds = `${timer % 60}`.padStart(2, '0');
   return (
     <Flex alignItems="center">
-      <Icon icon={faClock} size="3x" />
+      <PrimaryIcon icon={faClock} size="3x" />
       <Text ml={15} color="primary" fontSize={2} fontFamily="kalam">
         {`${hours ? `${hours}:` : ''}${minutes}:${seconds}`}
       </Text>
