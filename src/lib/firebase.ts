@@ -17,3 +17,9 @@ export const addToTest = (value: string) =>
     .firestore()
     .collection('test')
     .add({text: value});
+
+export const getTopics = () =>
+  firebaseApp
+    .firestore()
+    .collection('topics')
+    .get();
