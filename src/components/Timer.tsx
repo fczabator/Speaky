@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {faClock} from '@fortawesome/free-solid-svg-icons';
 import {Flex, Text} from 'rebass';
-import {PrimaryIcon} from './PrimaryIcon';
+import {Icon} from './Icon';
 
 export const Timer = () => {
   const [timer, setTimer] = React.useState(0);
@@ -14,8 +14,8 @@ export const Timer = () => {
   const seconds = `${timer % 60}`.padStart(2, '0');
   return (
     <Flex alignItems="center">
-      <PrimaryIcon icon={faClock} size="3x" />
-      <Text ml={15} color="primary" fontSize={2} fontFamily="kalam">
+      <Icon color="#fff" icon={faClock} size="3x" />
+      <Text ml={15} color="#fff" fontSize={2} fontFamily="kalam">
         {`${hours ? `${hours}:` : ''}${minutes}:${seconds}`}
       </Text>
     </Flex>
