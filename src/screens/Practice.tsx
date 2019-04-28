@@ -4,10 +4,6 @@ import {Card, Text} from 'rebass';
 import {BottomPanel} from '../components/BottomPanel';
 import {getTopics} from '../lib/firebase';
 
-const loremIpsum = `
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-`;
-
 type Topic = {
   content: string;
 };
@@ -19,14 +15,20 @@ const fetchTopics = async (setTopics: (topics: Topic[]) => void) => {
   setTopics(topics);
 };
 
+const nextTopic = () => {};
+
 export const Practice = () => {
   const [topics, setTopics] = React.useState<Topic[]>();
-  const [currentTopic, setCurrentTopic] = React.useState(0);
+  let [currentTopic, setCurrentTopic] = React.useState(0);
 
   React.useEffect(() => {
-    console.log('useeffect');
     fetchTopics(setTopics);
   }, [false]);
+
+  const handleNextTopic = React.useCallback(
+    () => setCurrentTopic(currentTopic++),
+    []
+  );
 
   return (
     <Screen
@@ -41,7 +43,7 @@ export const Practice = () => {
           {topics ? topics[currentTopic].content : 'Loading'}
         </Text>
       </Card>
-      <BottomPanel />
+      <BottomPanel onNextTopic={handleNextTopic} />
     </Screen>
   );
 };
