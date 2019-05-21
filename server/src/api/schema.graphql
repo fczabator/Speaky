@@ -1,0 +1,11 @@
+type Topic {
+    id: ID!
+    description: string
+}
+
+type Mutation {}
+
+type Query {
+    topic(id: ID!): Topic
+    topics: [Topic!]!
+}
