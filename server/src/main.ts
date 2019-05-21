@@ -3,7 +3,7 @@ import resolvers from './api/resolvers';
 import fs from 'fs';
 import path from 'path';
 
-const typeDefsPath = path.resolve(__dirname, '../api/schema.graphql');
+const typeDefsPath = path.resolve(__dirname, './api/schema.graphql');
 const typeDefs = gql(fs.readFileSync(typeDefsPath).toString());
 
 const server = new ApolloServer({resolvers, typeDefs});
