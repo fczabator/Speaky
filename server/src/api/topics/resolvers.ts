@@ -1,10 +1,10 @@
 export default {
   Topic: {},
   Query: {
-    topics: async (parent, args, context) => {
+    topics: async (parent: void, args: void) => {
       return [{id: 'aosdjiasd', description: 'asdpasod'}];
     },
-    topic: async (parent, args, context) => {
+    topic: async (parent: void, args: void) => {
       return {id: 'aosdjiasd', description: 'asdpasod'};
     }
   },
