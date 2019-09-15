@@ -9,13 +9,14 @@ export const typeDef = gql`
     translate: String!
   }
 `;
+
 export const resolvers = {
-  Query: {
-    words: () => {
-      return [
-        {word: 'hehe', translate: 'translate'},
-        {word: 'hehe2', translate: 'translate2'},
-      ];
-    },
-  },
+    Query: {
+        words: () => {
+            return [
+                { word: 'hehe', translate: 'translate' },
+                { word: 'hehe2', translate: 'translate2' }
+            ];
+        }
+    }
 };
