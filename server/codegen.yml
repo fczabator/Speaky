@@ -1,0 +1,9 @@
+schema: http://localhost:3333/graphql
+# documents: ./src/graphql/word.ts
+generates:
+  ./src/types/apolloTypes.ts:
+    config:
+      contextType: ../context#Context
+    plugins:
+      - typescript
+      - typescript-resolvers

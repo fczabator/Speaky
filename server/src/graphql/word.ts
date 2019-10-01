@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { QueryResolvers, Resolvers } from '../types/apolloTypes';
 
 export const typeDef = gql`
   extend type Query {
@@ -10,13 +11,18 @@ export const typeDef = gql`
   }
 `;
 
-export const resolvers = {
+export const resolvers: Resolvers = {
     Query: {
-        words: () => {
-            return [
-                { word: 'hehe', translate: 'translate' },
-                { word: 'hehe2', translate: 'translate2' }
-            ];
+        words: (root, input, context) => {
+            console.log('context', context);
+            context.DB.collection('words').insert({
+                word: 'abc',
+                translate: 'cba'
+            });
+
+            return context.DB.collection('words')
+                .find()
+                .toArray();
         }
     }
 };

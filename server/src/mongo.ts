@@ -1,16 +1,16 @@
 import { MongoClient } from 'mongodb';
 import config from './config';
 
-let client : MongoClient = null;
+let client: MongoClient = null;
 export const getDb = async () => {
-  if (client === null) {
+    if (client === null) {
     // First connection, initialize the DB
-    client = await MongoClient.connect(config.mongo.url, {
-      useNewUrlParser: true,
-    });
-  }
+        client = await MongoClient.connect(config.mongo.url, {
+            useNewUrlParser: true
+        });
+    }
 
-  return client.db();
+    return client.db();
 };
 
 /**
@@ -20,30 +20,30 @@ export const getDb = async () => {
  * @returns {Promise<void>} - resolves when connected, throws otherwise
  */
 export async function waitForConnection(retries = 3, delay = 1000) {
-  let lastErr;
-  for (let retry = 0; retry < retries; retry++) {
+    let lastErr;
+    for (let retry = 0; retry < retries; retry++) {
     // Try to connect with DB and remember last error
-    const db = await getDb().catch(err => {
-      lastErr = err;
-      return null;
-    });
+        const db = await getDb().catch(err => {
+            lastErr = err;
+            return null;
+        });
 
-    // Verify the connection
-    if (db && client && client.isConnected()) {
-      // eslint-disable-next-line no-console
-      console.log('🖥️  Connected to MongoDB');
-      return;
-    }
+        // Verify the connection
+        if (db && client && client.isConnected()) {
+            // eslint-disable-next-line no-console
+            console.log('🖥️  Connected to MongoDB');
+            return;
+        }
 
-    if (retry) {
-      // Hide message for first failure - popular use case in development
-      // eslint-disable-next-line vazco/no-console
-      console.info(
-        `Cannot connect to db, will retry ${retries - retry} more times`,
-      );
+        if (retry) {
+            // Hide message for first failure - popular use case in development
+            // eslint-disable-next-line vazco/no-console
+            console.info(
+                `Cannot connect to db, will retry ${retries - retry} more times`
+            );
+        }
+        // Not yet connected, wait and try again
+        await new Promise(resolve => setTimeout(resolve, delay));
     }
-    // Not yet connected, wait and try again
-    await new Promise(resolve => setTimeout(resolve, delay));
-  }
-  throw lastErr;
+    throw lastErr;
 }
