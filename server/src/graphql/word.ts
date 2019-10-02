@@ -1,9 +1,12 @@
 import gql from 'graphql-tag';
-import { QueryResolvers, Resolvers } from '../types/apolloTypes';
+import { Resolvers } from '../types/apolloTypes';
 
 export const typeDef = gql`
   extend type Query {
     words: [Word!]!
+  }
+  type Mutation {
+    createWord(word: String!, translate: String!): Word
   }
   type Word {
     word: String!
@@ -14,15 +17,18 @@ export const typeDef = gql`
 export const resolvers: Resolvers = {
     Query: {
         words: (root, input, context) => {
-            console.log('context', context);
-            context.DB.collection('words').insert({
-                word: 'abc',
-                translate: 'cba'
-            });
-
             return context.DB.collection('words')
                 .find()
                 .toArray();
+        }
+    },
+    Mutation: {
+        createWord: async (root, input, context) => {
+            const result = await context.DB.collection('words').insertOne({
+                ...input
+            });
+
+            return result.ops[0];
         }
     }
 };

@@ -1,6 +1,7 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { Context } from '../context';
 export type Maybe<T> = T | null;
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string,
@@ -8,6 +9,17 @@ export type Scalars = {
   Boolean: boolean,
   Int: number,
   Float: number,
+};
+
+export type Mutation = {
+   __typename?: 'Mutation',
+  createWord?: Maybe<Word>,
+};
+
+
+export type MutationCreateWordArgs = {
+  word: Scalars['String'],
+  translate: Scalars['String']
 };
 
 export type Query = {
@@ -95,6 +107,7 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>,
   String: ResolverTypeWrapper<Scalars['String']>,
   Word: ResolverTypeWrapper<Word>,
+  Mutation: ResolverTypeWrapper<{}>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
 };
 
@@ -103,7 +116,12 @@ export type ResolversParentTypes = {
   Query: {},
   String: Scalars['String'],
   Word: Word,
+  Mutation: {},
   Boolean: Scalars['Boolean'],
+};
+
+export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createWord?: Resolver<Maybe<ResolversTypes['Word']>, ParentType, ContextType, RequireFields<MutationCreateWordArgs, 'word' | 'translate'>>,
 };
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -117,6 +135,7 @@ export type WordResolvers<ContextType = Context, ParentType extends ResolversPar
 };
 
 export type Resolvers<ContextType = Context> = {
+  Mutation?: MutationResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   Word?: WordResolvers<ContextType>,
 };
