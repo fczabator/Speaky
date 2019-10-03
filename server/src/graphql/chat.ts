@@ -4,34 +4,35 @@ import { ApolloError } from 'apollo-server-core';
 
 export const typeDef = gql`
   extend type Query {
-    words: [Word!]!
+    chats: [Chat!]!
   }
   extend type Mutation {
-    createWord(word: String!, translate: String!): Word!
+    createChat(name: String!, wordIds: [String!]!, topicIds: [String!]!): Chat!
   }
-  type Word {
+  type Chat {
     _id: ID!
-    word: String!
-    translate: String!
+    name: String!
+    words: [Word!]!
+    topics: [Topic!]!
   }
 `;
 
 export const resolvers: Resolvers = {
     Query: {
-        words: (root, input, context) => {
-            return context.DB.collection('words')
+        chats: (root, input, context) => {
+            return context.DB.collection('chats')
                 .find()
                 .toArray();
         }
     },
     Mutation: {
-        createWord: async (root, input, context) => {
-            const result = await context.DB.collection('words').insertOne({
+        createChat: async (root, input, context) => {
+            const result = await context.DB.collection('chats').insertOne({
                 ...input
             });
 
             if (!result.ops || !result.ops[0]) {
-                throw new ApolloError('Could not create word');
+                throw new ApolloError('Could not create chat');
             }
 
             return result.ops[0];
