@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
@@ -12,7 +13,9 @@
     "@types/react-dom": "16.9.1",
     "@types/react-router-dom": "^5.1.0",
     "@types/rebass": "^4.0.1",
+    "apollo-boost": "^0.4.4",
     "eslint-plugin-react-hooks": "^2.1.2",
+    "graphql": "^14.5.8",
     "grommet": "^2.7.9",
     "grommet-icons": "^4.3.0",
     "react": "^16.8.6",
