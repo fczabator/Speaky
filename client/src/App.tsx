@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { AppBar } from './components/AppBar';
+import { AppLayout } from './components/AppLayout';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Grommet } from 'grommet';
 import { Home } from './screens/Home';
@@ -14,8 +14,9 @@ export const App = () => (
       <Grommet>
         <ThemeProvider theme={theme}>
           <Router>
-            <AppBar />
-            <Route exact path="/" component={Home} />
+            <AppLayout>
+              <Route exact path="/" component={Home} />
+            </AppLayout>
           </Router>
         </ThemeProvider>
       </Grommet>

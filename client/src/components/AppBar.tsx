@@ -1,19 +1,25 @@
 import * as React from 'react';
-import { Box } from 'grommet';
+import { Box, Heading, Button } from 'grommet';
+import { Menu } from 'grommet-icons';
 
-type Props = {};
+type Props = {
+  onSidebarOpen: () => void;
+};
 
-export const AppBar: React.FC<Props> = () => (
+export const AppBar: React.FC<Props> = ({ onSidebarOpen }) => (
   <Box
     tag="header"
     direction="row"
     align="center"
-    justify="between"
+    justify="start"
     background="brand"
     pad={{ left: 'medium', right: 'small', vertical: 'small' }}
     elevation="medium"
     style={{ zIndex: 1 }}
   >
-    Speaky
+    <Button icon={<Menu />} onClick={() => onSidebarOpen()}></Button>
+    <Heading level="3" margin="none">
+      Speaky
+    </Heading>
   </Box>
 );
