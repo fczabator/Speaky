@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { RouteComponentProps } from 'react-router';

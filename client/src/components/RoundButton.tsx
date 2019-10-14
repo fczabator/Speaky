@@ -1,5 +1,5 @@
-// import * as React from 'react';
-import {Button} from 'rebass';
+// import React from 'react';
+import { Button } from 'rebass';
 
 // type Props = {
 //   children: React.ReactNode;

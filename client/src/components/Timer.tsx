@@ -1,7 +1,7 @@
-import * as React from 'react';
-import {faHourglassHalf} from '@fortawesome/free-solid-svg-icons';
-import {Flex, Text} from 'rebass';
-import {Icon} from './Icon';
+import React from 'react';
+import { faHourglassHalf } from '@fortawesome/free-solid-svg-icons';
+import { Flex, Text } from 'rebass';
+import { Icon } from './Icon';
 
 export const Timer = () => {
   const [timer, setTimer] = React.useState(0);

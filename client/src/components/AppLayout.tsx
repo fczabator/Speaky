@@ -1,13 +1,5 @@
-import * as React from 'react';
-import {
-  Box,
-  Heading,
-  Button,
-  Layer,
-  ResponsiveContext,
-  Collapsible
-} from 'grommet';
-import { FormClose } from 'grommet-icons';
+import React from 'react';
+import { Box, Collapsible } from 'grommet';
 import { AppBar } from './AppBar';
 
 export const AppLayout: React.FC = () => {
@@ -17,42 +9,19 @@ export const AppLayout: React.FC = () => {
 
   return (
     <>
-      <AppBar onSidebarOpen={handleOpen} />
-      <ResponsiveContext.Consumer>
-        {size => (
-          <>
-            {!isOpen || size !== 'small' ? (
-              <Collapsible direction="horizontal" open={isOpen}>
-                <Box
-                  flex
-                  width="medium"
-                  background="light-2"
-                  elevation="small"
-                  align="center"
-                  justify="center"
-                >
-                  sidebar
-                </Box>
-              </Collapsible>
-            ) : (
-              <Layer>
-                <Box
-                  background="light-2"
-                  tag="header"
-                  justify="end"
-                  align="center"
-                  direction="row"
-                >
-                  <Button icon={<FormClose />} onClick={handleOpen} />
-                </Box>
-                <Box fill background="light-2" align="center" justify="center">
-                  sidebar
-                </Box>
-              </Layer>
-            )}
-          </>
-        )}
-      </ResponsiveContext.Consumer>
+      <AppBar onSidebarOpen={handleOpen} isOpen={isOpen} />
+      <Collapsible direction="horizontal" open={isOpen}>
+        <Box
+          flex
+          fill="vertical"
+          width="medium"
+          background="brand"
+          align="center"
+          justify="center"
+        >
+          sidebar
+        </Box>
+      </Collapsible>
     </>
   );
 };
