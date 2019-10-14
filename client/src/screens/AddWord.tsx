@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import { Box, TextInput, Button } from 'grommet';
+import { TextInput, Button } from 'grommet';
 import { gql } from 'apollo-boost';
 import { RouteComponentProps } from 'react-router';
 import { Screen } from '../components/Screen';
@@ -21,6 +21,12 @@ export const AddWord: React.FC<RouteComponentProps> = props => {
   const [createWord, { data }] = useMutation(ADD_WORD);
   console.log('data', data);
 
+  const handleAddWord = () => {
+    createWord({ variables: { word, translate: translation } });
+    setWord('');
+    setTranslation('');
+  };
+
   return (
     <Screen>
       <TextInput
@@ -33,12 +39,7 @@ export const AddWord: React.FC<RouteComponentProps> = props => {
         value={translation}
         onChange={e => setTranslation(e.target.value)}
       />
-      <Button
-        label="Add new word!"
-        onClick={() =>
-          createWord({ variables: { word, translate: translation } })
-        }
-      />
+      <Button label="Add new word!" onClick={handleAddWord} />
     </Screen>
   );
 };
