@@ -7,6 +7,7 @@ import { Home } from './screens/Home';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './theme';
 import { client } from './lib/apollo';
+import { AddWord } from './screens/AddWord';
 
 export const App = () => (
   <ApolloProvider client={client}>
@@ -16,6 +17,7 @@ export const App = () => (
           <Router>
             <AppLayout>
               <Route exact path="/" component={Home} />
+              <Route path="/add-word" component={AddWord} />
             </AppLayout>
           </Router>
         </ThemeProvider>

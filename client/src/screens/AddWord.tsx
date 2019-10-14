@@ -1,0 +1,44 @@
+import React from 'react';
+import { useMutation } from '@apollo/react-hooks';
+import { Box, TextInput, Button } from 'grommet';
+import { gql } from 'apollo-boost';
+import { RouteComponentProps } from 'react-router';
+import { Screen } from '../components/Screen';
+
+const ADD_WORD = gql`
+  mutation createWord($word: String!, $translate: String!) {
+    createWord(word: $word, translate: $translate) {
+      _id
+      word
+      translate
+    }
+  }
+`;
+
+export const AddWord: React.FC<RouteComponentProps> = props => {
+  const [word, setWord] = React.useState('');
+  const [translation, setTranslation] = React.useState('');
+  const [createWord, { data }] = useMutation(ADD_WORD);
+  console.log('data', data);
+
+  return (
+    <Screen>
+      <TextInput
+        placeholder="Word"
+        value={word}
+        onChange={e => setWord(e.target.value)}
+      />
+      <TextInput
+        placeholder="Translation"
+        value={translation}
+        onChange={e => setTranslation(e.target.value)}
+      />
+      <Button
+        label="Add new word!"
+        onClick={() =>
+          createWord({ variables: { word, translate: translation } })
+        }
+      />
+    </Screen>
+  );
+};

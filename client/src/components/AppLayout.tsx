@@ -1,8 +1,9 @@
 import React from 'react';
-import { Box, Collapsible } from 'grommet';
+import { Layer, Box, Collapsible } from 'grommet';
 import { AppBar } from './AppBar';
+import { Navigation } from './Navigation';
 
-export const AppLayout: React.FC = () => {
+export const AppLayout: React.FC = ({ children }) => {
   const [isOpen, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(!isOpen);
@@ -10,18 +11,21 @@ export const AppLayout: React.FC = () => {
   return (
     <>
       <AppBar onSidebarOpen={handleOpen} isOpen={isOpen} />
-      <Collapsible direction="horizontal" open={isOpen}>
-        <Box
-          flex
-          fill="vertical"
-          width="medium"
-          background="brand"
-          align="center"
-          justify="center"
-        >
-          sidebar
-        </Box>
-      </Collapsible>
+      <div style={{ position: 'absolute', zIndex: 2 }}>
+        <Collapsible direction="vertical" open={isOpen}>
+          <Box
+            flex
+            fill="vertical"
+            width="medium"
+            background="brand"
+            align="center"
+            justify="center"
+          >
+            <Navigation />
+          </Box>
+        </Collapsible>
+      </div>
+      {children}
     </>
   );
 };

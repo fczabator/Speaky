@@ -1,4 +1,8 @@
-import {Flex, Box} from 'rebass';
-import styled from 'styled-components';
+import React from 'react';
+import { Box } from 'grommet';
 
-export const Screen = styled(Flex)``;
+export const Screen: React.FC = ({ children }) => (
+  <Box pad="small" gap="small">
+    {children}
+  </Box>
+);
