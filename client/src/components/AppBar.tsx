@@ -4,10 +4,10 @@ import { Menu, FormClose } from 'grommet-icons';
 
 type Props = {
   onSidebarOpen: () => void;
-  isOpen: Boolean;
+  isSidebarOpen: Boolean;
 };
 
-export const AppBar: React.FC<Props> = ({ onSidebarOpen, isOpen }) => (
+export const AppBar: React.FC<Props> = ({ onSidebarOpen, isSidebarOpen }) => (
   <Box
     tag="header"
     direction="row"
@@ -19,7 +19,7 @@ export const AppBar: React.FC<Props> = ({ onSidebarOpen, isOpen }) => (
     style={{ zIndex: 1 }}
   >
     <Button
-      icon={isOpen ? <FormClose /> : <Menu />}
+      icon={isSidebarOpen ? <FormClose /> : <Menu />}
       onClick={() => onSidebarOpen()}
     ></Button>
     <Heading level="3" margin="none">

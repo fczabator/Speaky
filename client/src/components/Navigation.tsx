@@ -2,15 +2,21 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Anchor, Box } from 'grommet';
 
-export const Navigation = () => {
+type Props = {
+  onSelect: () => void;
+};
+
+export const Navigation: React.FC<Props> = ({ onSelect }) => {
   const history = useHistory();
+
+  const handleClick = () => {
+    onSelect();
+    history.push('/add-word');
+  };
+
   return (
     <Box direction="column" justify="center" align="center">
-      <Anchor
-        margin="small"
-        onClick={() => history.push('/add-word')}
-        label="Add"
-      />
+      <Anchor margin="small" onClick={handleClick} label="Add" />
     </Box>
   );
 };
