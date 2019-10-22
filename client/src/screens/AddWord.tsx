@@ -9,8 +9,8 @@ const ADD_WORD = gql`
   mutation createWord($word: String!, $translate: String!) {
     createWord(word: $word, translate: $translate) {
       _id
-      word
       translate
+      word
     }
   }
 `;
@@ -18,8 +18,7 @@ const ADD_WORD = gql`
 export const AddWord: React.FC<RouteComponentProps> = props => {
   const [word, setWord] = React.useState('');
   const [translation, setTranslation] = React.useState('');
-  const [createWord, { data }] = useMutation(ADD_WORD);
-  console.log('data', data);
+  const [createWord] = useMutation(ADD_WORD);
 
   const handleAddWord = () => {
     createWord({ variables: { word, translate: translation } });

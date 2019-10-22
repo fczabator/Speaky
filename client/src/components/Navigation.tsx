@@ -2,6 +2,17 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Anchor, Box } from 'grommet';
 
+const navigationItems = [
+  {
+    label: 'Add word',
+    route: 'add-word'
+  },
+  {
+    label: 'Words',
+    route: 'words'
+  }
+];
+
 type Props = {
   onSelect: () => void;
 };
@@ -9,14 +20,20 @@ type Props = {
 export const Navigation: React.FC<Props> = ({ onSelect }) => {
   const history = useHistory();
 
-  const handleClick = () => {
+  const handleClick = (route: string) => {
     onSelect();
-    history.push('/add-word');
+    history.push(route);
   };
 
   return (
     <Box direction="column" justify="center" align="center">
-      <Anchor margin="small" onClick={handleClick} label="Add" />
+      {navigationItems.map(({ label, route }) => (
+        <Anchor
+          margin="small"
+          onClick={() => handleClick(route)}
+          label={label}
+        />
+      ))}
     </Box>
   );
 };

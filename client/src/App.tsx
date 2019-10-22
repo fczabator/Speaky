@@ -8,6 +8,7 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from './theme';
 import { client } from './lib/apollo';
 import { AddWord } from './screens/AddWord';
+import { Words } from './screens/Words';
 
 export const App = () => (
   <ApolloProvider client={client}>
@@ -18,6 +19,7 @@ export const App = () => (
             <AppLayout>
               <Route exact path="/" component={Home} />
               <Route path="/add-word" component={AddWord} />
+              <Route path="/words" component={Words} />
             </AppLayout>
           </Router>
         </ThemeProvider>

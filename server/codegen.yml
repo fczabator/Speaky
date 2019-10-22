@@ -1,7 +1,7 @@
 schema: http://localhost:3333/graphql
-# documents: ./src/graphql/word.ts
+documents: ./server/src/graphql/*.ts
 generates:
-  ./src/types/apolloTypes.ts:
+  ./client/src/types/apolloTypes.ts:
     config:
       contextType: ../context#Context
     plugins:
