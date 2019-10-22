@@ -66,6 +66,17 @@ export type Word = {
   translate: Scalars['String'],
 };
 
+export type WordsQueryVariables = {};
+
+
+export type WordsQuery = (
+  { __typename?: 'Query' }
+  & { words: Array<(
+    { __typename?: 'Word' }
+    & Pick<Word, '_id' | 'word' | 'translate'>
+  )> }
+);
+
 export type CreateWordMutationVariables = {
   word: Scalars['String'],
   translate: Scalars['String']
@@ -91,18 +102,41 @@ export type Unnamed_1_Query = (
   )> }
 );
 
-export type WordsQueryVariables = {};
 
+export const WordsDocument = gql`
+    query words {
+  words {
+    _id
+    word
+    translate
+  }
+}
+    `;
 
-export type WordsQuery = (
-  { __typename?: 'Query' }
-  & { words: Array<(
-    { __typename?: 'Word' }
-    & Pick<Word, '_id' | 'word' | 'translate'>
-  )> }
-);
-
-
+/**
+ * __useWordsQuery__
+ *
+ * To run a query within a React component, call `useWordsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useWordsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useWordsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useWordsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<WordsQuery, WordsQueryVariables>) {
+        return ApolloReactHooks.useQuery<WordsQuery, WordsQueryVariables>(WordsDocument, baseOptions);
+      }
+export function useWordsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<WordsQuery, WordsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<WordsQuery, WordsQueryVariables>(WordsDocument, baseOptions);
+        }
+export type WordsQueryHookResult = ReturnType<typeof useWordsQuery>;
+export type WordsLazyQueryHookResult = ReturnType<typeof useWordsLazyQuery>;
+export type WordsQueryResult = ApolloReactCommon.QueryResult<WordsQuery, WordsQueryVariables>;
 export const CreateWordDocument = gql`
     mutation createWord($word: String!, $translate: String!) {
   createWord(word: $word, translate: $translate) {
@@ -138,37 +172,3 @@ export function useCreateWordMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type CreateWordMutationHookResult = ReturnType<typeof useCreateWordMutation>;
 export type CreateWordMutationResult = ApolloReactCommon.MutationResult<CreateWordMutation>;
 export type CreateWordMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateWordMutation, CreateWordMutationVariables>;
-export const WordsDocument = gql`
-    query words {
-  words {
-    _id
-    word
-    translate
-  }
-}
-    `;
-
-/**
- * __useWordsQuery__
- *
- * To run a query within a React component, call `useWordsQuery` and pass it any options that fit your needs.
- * When your component renders, `useWordsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useWordsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useWordsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<WordsQuery, WordsQueryVariables>) {
-        return ApolloReactHooks.useQuery<WordsQuery, WordsQueryVariables>(WordsDocument, baseOptions);
-      }
-export function useWordsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<WordsQuery, WordsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<WordsQuery, WordsQueryVariables>(WordsDocument, baseOptions);
-        }
-export type WordsQueryHookResult = ReturnType<typeof useWordsQuery>;
-export type WordsLazyQueryHookResult = ReturnType<typeof useWordsLazyQuery>;
-export type WordsQueryResult = ApolloReactCommon.QueryResult<WordsQuery, WordsQueryVariables>;

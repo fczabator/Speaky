@@ -1,22 +1,12 @@
 import React from 'react';
-import { gql } from 'apollo-boost';
+import { InfiniteScroll } from 'grommet';
 import { RouteComponentProps } from 'react-router';
 import { Screen } from '../components/Screen';
-import { Box } from 'grommet';
+import { WordBox } from '../components/WordBox';
 import { useWordsQuery } from '../types/apolloTypes';
 
-const GET_WORDS = gql`
-  query words {
-    words {
-      _id
-      word
-      translate
-    }
-  }
-`;
-
-export const Words: React.FC<RouteComponentProps> = props => {
-  const { data, loading, error } = useWordsQuery();
+export const Words: React.FC<RouteComponentProps> = () => {
+  const { data, loading } = useWordsQuery();
 
   if (loading || !data) {
     return <div>Loading...</div>;
@@ -24,9 +14,9 @@ export const Words: React.FC<RouteComponentProps> = props => {
 
   return (
     <Screen>
-      {data.words.map(({ word, translate }) => (
-        <Box>{`${word} ${translate}`}</Box>
-      ))}
+      <InfiniteScroll items={data.words}>
+        {word => <WordBox {...word} key={word._id} />}
+      </InfiniteScroll>
     </Screen>
   );
 };

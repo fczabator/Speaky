@@ -29,6 +29,7 @@ export const Navigation: React.FC<Props> = ({ onSelect }) => {
     <Box direction="column" justify="center" align="center">
       {navigationItems.map(({ label, route }) => (
         <Anchor
+          key={route}
           margin="small"
           onClick={() => handleClick(route)}
           label={label}
