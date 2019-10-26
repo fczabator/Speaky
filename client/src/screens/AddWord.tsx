@@ -1,7 +1,6 @@
 import React from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { TextInput, Button } from 'grommet';
-import { RouteComponentProps } from 'react-router';
 import { Screen } from '../components/Screen';
 import wordsQuery from '../api/queries/words';
 import createWordMutation from '../api/mutations/createWord';

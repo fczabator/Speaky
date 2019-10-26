@@ -1,7 +1,6 @@
 schema: http://localhost:3333/graphql
-documents: ./server/src/graphql/*.ts
 generates:
-  ./client/src/types/apolloTypes.ts:
+  ./src/types/apolloTypes.ts:
     config:
       contextType: ../context#Context
     plugins:

@@ -12,7 +12,7 @@ import { Words } from './screens/Words';
 
 export const App = () => (
   <ApolloProvider client={client}>
-    <div style={{ height: '100%' }}>
+    <div style={{ height: '100vh', backgroundColor: '#D3D3D3' }}>
       <Grommet>
         <ThemeProvider theme={theme}>
           <Router>
