@@ -11,7 +11,7 @@ import { AddWord } from './screens/AddWord';
 import { Words } from './screens/Words';
 import { SelectWords } from './screens/SelectWords';
 import { CreateChat } from './screens/CreateChat';
-import { ChatProvider } from './context/chatContext';
+import { AppBarProvider } from './context/appBarContext';
 import { ChatView } from './screens/ChatView';
 
 export const App = () => (
@@ -19,7 +19,7 @@ export const App = () => (
     <div style={{ height: '100vh', backgroundColor: '#FAFAFA' }}>
       <Grommet>
         <ThemeProvider theme={theme}>
-          <ChatProvider>
+          <AppBarProvider>
             <Router>
               <AppLayout>
                 <Route exact path="/" component={Home} />
@@ -30,7 +30,7 @@ export const App = () => (
                 <Route path="/chat/:_id" component={ChatView} />
               </AppLayout>
             </Router>
-          </ChatProvider>
+          </AppBarProvider>
         </ThemeProvider>
       </Grommet>
     </div>

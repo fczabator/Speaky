@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { InfiniteScroll } from 'grommet';
 import { RouteComponentProps } from 'react-router';
 import { Screen } from '../components/Screen';
 import { WordBox } from '../components/WordBox';
 import { useWordsQuery, Word } from '../types/apolloTypes';
-import { useChatContext } from '../context/chatContext';
+import { useAppBarContext } from '../context/appBarContext';
 
 export const SelectWords: React.FC<RouteComponentProps> = () => {
   const { data, loading } = useWordsQuery();
-  const { selected, toggleSelected } = useChatContext();
+  const { selected, toggleSelected, setMode } = useAppBarContext();
+  console.log('selected', selected);
+
+  useEffect(() => setMode('addToChat'), []);
 
   if (loading || !data) {
     return null;

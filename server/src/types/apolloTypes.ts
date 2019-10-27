@@ -15,6 +15,7 @@ export type Chat = {
    __typename?: 'Chat',
   _id: Scalars['ID'],
   name: Scalars['String'],
+  wordIds: Array<Scalars['String']>,
   words: Array<Word>,
   topics?: Maybe<Array<Topic>>,
 };
@@ -25,6 +26,7 @@ export type Mutation = {
   createWord: Word,
   deleteWord: Scalars['Boolean'],
   createChat: Chat,
+  removeWordsFromChat: Scalars['Boolean'],
   createTopic: Topic,
 };
 
@@ -44,6 +46,12 @@ export type MutationCreateChatArgs = {
   name: Scalars['String'],
   wordIds: Array<Scalars['String']>,
   topicIds?: Maybe<Array<Scalars['String']>>
+};
+
+
+export type MutationRemoveWordsFromChatArgs = {
+  _id: Scalars['String'],
+  wordIds: Array<Scalars['String']>
 };
 
 
@@ -179,6 +187,7 @@ export type ResolversParentTypes = {
 export type ChatResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Chat'] = ResolversParentTypes['Chat']> = {
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  wordIds?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
   words?: Resolver<Array<ResolversTypes['Word']>, ParentType, ContextType>,
   topics?: Resolver<Maybe<Array<ResolversTypes['Topic']>>, ParentType, ContextType>,
 };
@@ -188,6 +197,7 @@ export type MutationResolvers<ContextType = Context, ParentType extends Resolver
   createWord?: Resolver<ResolversTypes['Word'], ParentType, ContextType, RequireFields<MutationCreateWordArgs, 'word' | 'translate'>>,
   deleteWord?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteWordArgs, '_id'>>,
   createChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationCreateChatArgs, 'name' | 'wordIds'>>,
+  removeWordsFromChat?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationRemoveWordsFromChatArgs, '_id' | 'wordIds'>>,
   createTopic?: Resolver<ResolversTypes['Topic'], ParentType, ContextType, RequireFields<MutationCreateTopicArgs, 'name'>>,
 };
 

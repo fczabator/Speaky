@@ -3,13 +3,13 @@ import get from 'lodash/get';
 import { TextInput, Button } from 'grommet';
 import { RouteComponentProps, useHistory } from 'react-router';
 import { Screen } from '../components/Screen';
-import { useChatContext } from '../context/chatContext';
 import { useCreateChatMutation } from '../types/apolloTypes';
+import { useAppBarContext } from '../context/appBarContext';
 
 export const CreateChat: React.FC<RouteComponentProps> = () => {
   const [name, setName] = React.useState('');
   const [createChat] = useCreateChatMutation();
-  const { selected } = useChatContext();
+  const { selected, clearAll } = useAppBarContext();
   const history = useHistory();
 
   const handleAddChat = async () => {
@@ -17,6 +17,7 @@ export const CreateChat: React.FC<RouteComponentProps> = () => {
     const _id = get(result.data, 'createChat._id');
     if (_id) {
       history.push(`/chat/${_id}`);
+      clearAll();
     }
   };
 

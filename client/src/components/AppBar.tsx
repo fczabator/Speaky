@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Heading, Button } from 'grommet';
 import { Menu, FormClose, Checkmark } from 'grommet-icons';
-import { useChatContext } from '../context/chatContext';
 import { useHistory } from 'react-router-dom';
+import { Actions } from './Actions';
 
 type Props = {
   onSidebarOpen: () => void;
@@ -10,8 +10,8 @@ type Props = {
 };
 
 export const AppBar: React.FC<Props> = ({ onSidebarOpen, isSidebarOpen }) => {
-  const { selected } = useChatContext();
   const history = useHistory();
+  console.log('history', history);
 
   return (
     <Box
@@ -33,13 +33,7 @@ export const AppBar: React.FC<Props> = ({ onSidebarOpen, isSidebarOpen }) => {
           Speaky
         </Heading>
       </Box>
-      {selected.length ? (
-        <Button
-          icon={<Checkmark />}
-          label={selected.length}
-          onClick={() => history.push('/create-chat')}
-        />
-      ) : null}
+      <Actions />
     </Box>
   );
 };

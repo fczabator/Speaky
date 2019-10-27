@@ -5,15 +5,15 @@ import { Anchor, Box } from 'grommet';
 const navigationItems = [
   {
     label: 'New word',
-    route: 'add-word'
+    route: '/add-word'
   },
   {
     label: 'Words',
-    route: 'words'
+    route: '/words'
   },
   {
     label: 'New chat',
-    route: 'select-words'
+    route: '/select-words'
   }
 ];
 
