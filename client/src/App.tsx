@@ -9,6 +9,7 @@ import { theme } from './theme';
 import { client } from './lib/apollo';
 import { AddWord } from './screens/AddWord';
 import { Words } from './screens/Words';
+import { CreateChat } from './screens/CreateChat';
 
 export const App = () => (
   <ApolloProvider client={client}>
@@ -20,6 +21,7 @@ export const App = () => (
               <Route exact path="/" component={Home} />
               <Route path="/add-word" component={AddWord} />
               <Route path="/words" component={Words} />
+              <Route path="/create-chat" component={CreateChat} />
             </AppLayout>
           </Router>
         </ThemeProvider>
