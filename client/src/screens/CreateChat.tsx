@@ -4,15 +4,11 @@ import { RouteComponentProps } from 'react-router';
 import { Screen } from '../components/Screen';
 import { WordBox } from '../components/WordBox';
 import { useWordsQuery, Word } from '../types/apolloTypes';
-import { filterIfIsNotUnique } from '../lib/helpers';
+import { useChatContext } from '../context/chatContext';
 
 export const CreateChat: React.FC<RouteComponentProps> = () => {
-  const [selected, setSelected] = useState<String[]>([]);
   const { data, loading } = useWordsQuery();
-  console.log('data', data);
-
-  const toggleSelected = (id: string) =>
-    setSelected(filterIfIsNotUnique([...selected, id]));
+  const { selected, toggleSelected } = useChatContext();
 
   if (loading || !data) {
     return null;
