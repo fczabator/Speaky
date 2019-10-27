@@ -13,7 +13,7 @@ const navigationItems = [
   },
   {
     label: 'New chat',
-    route: 'create-chat'
+    route: 'select-words'
   }
 ];
 

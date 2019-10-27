@@ -1,31 +1,33 @@
-import React, { useState } from 'react';
-import { InfiniteScroll } from 'grommet';
-import { RouteComponentProps } from 'react-router';
+import React from 'react';
+import get from 'lodash/get';
+import { TextInput, Button } from 'grommet';
+import { RouteComponentProps, useHistory } from 'react-router';
 import { Screen } from '../components/Screen';
-import { WordBox } from '../components/WordBox';
-import { useWordsQuery, Word } from '../types/apolloTypes';
 import { useChatContext } from '../context/chatContext';
+import { useCreateChatMutation } from '../types/apolloTypes';
 
 export const CreateChat: React.FC<RouteComponentProps> = () => {
-  const { data, loading } = useWordsQuery();
-  const { selected, toggleSelected } = useChatContext();
+  const [name, setName] = React.useState('');
+  const [createChat] = useCreateChatMutation();
+  const { selected } = useChatContext();
+  const history = useHistory();
 
-  if (loading || !data) {
-    return null;
-  }
+  const handleAddChat = async () => {
+    const result = await createChat({ variables: { name, wordIds: selected } });
+    const _id = get(result.data, 'createChat._id');
+    if (_id) {
+      history.push(`/chat/${_id}`);
+    }
+  };
 
   return (
     <Screen>
-      <InfiniteScroll items={data.words}>
-        {(word: Word) => (
-          <WordBox
-            word={word}
-            key={word._id}
-            onClick={toggleSelected}
-            isSelected={selected.includes(word._id)}
-          />
-        )}
-      </InfiniteScroll>
+      <TextInput
+        placeholder="Name"
+        value={name}
+        onChange={e => setName(e.target.value)}
+      />
+      <Button label="Create new chat!" onClick={handleAddChat} />
     </Screen>
   );
 };

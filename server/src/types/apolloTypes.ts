@@ -16,7 +16,7 @@ export type Chat = {
   _id: Scalars['ID'],
   name: Scalars['String'],
   words: Array<Word>,
-  topics: Array<Topic>,
+  topics?: Maybe<Array<Topic>>,
 };
 
 export type Mutation = {
@@ -43,7 +43,7 @@ export type MutationDeleteWordArgs = {
 export type MutationCreateChatArgs = {
   name: Scalars['String'],
   wordIds: Array<Scalars['String']>,
-  topicIds: Array<Scalars['String']>
+  topicIds?: Maybe<Array<Scalars['String']>>
 };
 
 
@@ -57,11 +57,17 @@ export type Query = {
   words: Array<Word>,
   word?: Maybe<Word>,
   chats: Array<Chat>,
+  chat?: Maybe<Chat>,
   topics: Array<Topic>,
 };
 
 
 export type QueryWordArgs = {
+  _id: Scalars['String']
+};
+
+
+export type QueryChatArgs = {
   _id: Scalars['String']
 };
 
@@ -174,14 +180,14 @@ export type ChatResolvers<ContextType = Context, ParentType extends ResolversPar
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   words?: Resolver<Array<ResolversTypes['Word']>, ParentType, ContextType>,
-  topics?: Resolver<Array<ResolversTypes['Topic']>, ParentType, ContextType>,
+  topics?: Resolver<Maybe<Array<ResolversTypes['Topic']>>, ParentType, ContextType>,
 };
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   createWord?: Resolver<ResolversTypes['Word'], ParentType, ContextType, RequireFields<MutationCreateWordArgs, 'word' | 'translate'>>,
   deleteWord?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteWordArgs, '_id'>>,
-  createChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationCreateChatArgs, 'name' | 'wordIds' | 'topicIds'>>,
+  createChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationCreateChatArgs, 'name' | 'wordIds'>>,
   createTopic?: Resolver<ResolversTypes['Topic'], ParentType, ContextType, RequireFields<MutationCreateTopicArgs, 'name'>>,
 };
 
@@ -190,6 +196,7 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
   words?: Resolver<Array<ResolversTypes['Word']>, ParentType, ContextType>,
   word?: Resolver<Maybe<ResolversTypes['Word']>, ParentType, ContextType, RequireFields<QueryWordArgs, '_id'>>,
   chats?: Resolver<Array<ResolversTypes['Chat']>, ParentType, ContextType>,
+  chat?: Resolver<Maybe<ResolversTypes['Chat']>, ParentType, ContextType, RequireFields<QueryChatArgs, '_id'>>,
   topics?: Resolver<Array<ResolversTypes['Topic']>, ParentType, ContextType>,
 };
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Heading, Button } from 'grommet';
 import { Menu, FormClose, Checkmark } from 'grommet-icons';
 import { useChatContext } from '../context/chatContext';
+import { useHistory } from 'react-router-dom';
 
 type Props = {
   onSidebarOpen: () => void;
@@ -10,6 +11,7 @@ type Props = {
 
 export const AppBar: React.FC<Props> = ({ onSidebarOpen, isSidebarOpen }) => {
   const { selected } = useChatContext();
+  const history = useHistory();
 
   return (
     <Box
@@ -35,7 +37,7 @@ export const AppBar: React.FC<Props> = ({ onSidebarOpen, isSidebarOpen }) => {
         <Button
           icon={<Checkmark />}
           label={selected.length}
-          onClick={() => {}}
+          onClick={() => history.push('/create-chat')}
         />
       ) : null}
     </Box>

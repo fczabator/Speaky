@@ -1,19 +1,21 @@
 import gql from 'graphql-tag';
+import { ObjectID } from 'mongodb';
 import { Resolvers } from '../types/apolloTypes';
 import { ApolloError } from 'apollo-server-core';
 
 export const typeDef = gql`
   extend type Query {
     chats: [Chat!]!
+    chat(_id: String!): Chat
   }
   extend type Mutation {
-    createChat(name: String!, wordIds: [String!]!, topicIds: [String!]!): Chat!
+    createChat(name: String!, wordIds: [String!]!, topicIds: [String!]): Chat!
   }
   type Chat {
     _id: ID!
     name: String!
     words: [Word!]!
-    topics: [Topic!]!
+    topics: [Topic!]
   }
 `;
 
@@ -23,6 +25,9 @@ export const resolvers: Resolvers = {
       return context.DB.collection('chats')
         .find()
         .toArray();
+    },
+    chat: (root, { _id }, context) => {
+      return context.DB.collection('chats').findOne({ _id: new ObjectID(_id) });
     }
   },
   Mutation: {

@@ -3,12 +3,12 @@ import { useMutation } from '@apollo/react-hooks';
 import { TextInput, Button } from 'grommet';
 import { Screen } from '../components/Screen';
 import wordsQuery from '../api/queries/words';
-import createWordMutation from '../api/mutations/createWord';
+import { useCreateWordMutation } from '../types/apolloTypes';
 
 export const AddWord: React.FC = () => {
   const [word, setWord] = React.useState('');
   const [translation, setTranslation] = React.useState('');
-  const [createWord] = useMutation(createWordMutation, {
+  const [createWord] = useCreateWordMutation({
     refetchQueries: [{ query: wordsQuery }]
   });
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Collapsible } from 'grommet';
 import { AppBar } from './AppBar';
 import { Navigation } from './Navigation';
-import { useChatContext } from '../context/chatContext';
 
 export const AppLayout: React.FC = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = React.useState(false);
