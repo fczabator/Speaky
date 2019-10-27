@@ -15,6 +15,7 @@ export type Chat = {
    __typename?: 'Chat',
   _id: Scalars['ID'],
   name: Scalars['String'],
+  wordIds: Array<Scalars['String']>,
   words: Array<Word>,
   topics?: Maybe<Array<Topic>>,
 };
@@ -25,6 +26,7 @@ export type Mutation = {
   createWord: Word,
   deleteWord: Scalars['Boolean'],
   createChat: Chat,
+  addWordsToChat: Scalars['Boolean'],
   removeWordsFromChat: Scalars['Boolean'],
   createTopic: Topic,
 };
@@ -45,6 +47,12 @@ export type MutationCreateChatArgs = {
   name: Scalars['String'],
   wordIds: Array<Scalars['String']>,
   topicIds?: Maybe<Array<Scalars['String']>>
+};
+
+
+export type MutationAddWordsToChatArgs = {
+  _id: Scalars['String'],
+  wordIds: Array<Scalars['String']>
 };
 
 
@@ -90,6 +98,17 @@ export type Word = {
   word: Scalars['String'],
   translate: Scalars['String'],
 };
+
+export type AddWordsToChatMutationVariables = {
+  _id: Scalars['String'],
+  wordIds: Array<Scalars['String']>
+};
+
+
+export type AddWordsToChatMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'addWordsToChat'>
+);
 
 export type CreateChatMutationVariables = {
   name: Scalars['String'],
@@ -181,6 +200,37 @@ export type Unnamed_1_Query = (
 );
 
 
+export const AddWordsToChatDocument = gql`
+    mutation addWordsToChat($_id: String!, $wordIds: [String!]!) {
+  addWordsToChat(_id: $_id, wordIds: $wordIds)
+}
+    `;
+export type AddWordsToChatMutationFn = ApolloReactCommon.MutationFunction<AddWordsToChatMutation, AddWordsToChatMutationVariables>;
+
+/**
+ * __useAddWordsToChatMutation__
+ *
+ * To run a mutation, you first call `useAddWordsToChatMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddWordsToChatMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addWordsToChatMutation, { data, loading, error }] = useAddWordsToChatMutation({
+ *   variables: {
+ *      _id: // value for '_id'
+ *      wordIds: // value for 'wordIds'
+ *   },
+ * });
+ */
+export function useAddWordsToChatMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddWordsToChatMutation, AddWordsToChatMutationVariables>) {
+        return ApolloReactHooks.useMutation<AddWordsToChatMutation, AddWordsToChatMutationVariables>(AddWordsToChatDocument, baseOptions);
+      }
+export type AddWordsToChatMutationHookResult = ReturnType<typeof useAddWordsToChatMutation>;
+export type AddWordsToChatMutationResult = ApolloReactCommon.MutationResult<AddWordsToChatMutation>;
+export type AddWordsToChatMutationOptions = ApolloReactCommon.BaseMutationOptions<AddWordsToChatMutation, AddWordsToChatMutationVariables>;
 export const CreateChatDocument = gql`
     mutation createChat($name: String!, $wordIds: [String!]!, $topicIds: [String!]) {
   createChat(name: $name, wordIds: $wordIds, topicIds: $topicIds) {

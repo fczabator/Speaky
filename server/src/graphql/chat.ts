@@ -12,6 +12,7 @@ export const typeDef = gql`
   }
   extend type Mutation {
     createChat(name: String!, wordIds: [String!]!, topicIds: [String!]): Chat!
+    addWordsToChat(_id: String!, wordIds: [String!]!): Boolean!
     removeWordsFromChat(_id: String!, wordIds: [String!]!): Boolean!
   }
   type Chat {
@@ -55,6 +56,13 @@ export const resolvers: Resolvers = {
       }
 
       return result.ops[0];
+    },
+    addWordsToChat: async (root, { _id, wordIds }, context) => {
+      const { modifiedCount } = await context.DB.collection('chats').updateOne(
+        { _id: new ObjectID(_id) },
+        { $push: { wordIds: { $each: wordIds } } }
+      );
+      return !!modifiedCount;
     },
     removeWordsFromChat: async (root, { _id, wordIds }, context) => {
       const { modifiedCount } = await context.DB.collection('chats').updateOne(

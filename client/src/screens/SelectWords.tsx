@@ -8,10 +8,13 @@ import { useAppBarContext } from '../context/appBarContext';
 
 export const SelectWords: React.FC<RouteComponentProps> = () => {
   const { data, loading } = useWordsQuery();
-  const { selected, toggleSelected, setMode } = useAppBarContext();
-  console.log('selected', selected);
+  const { mode, selected, toggleSelected, setMode } = useAppBarContext();
 
-  useEffect(() => setMode('addToChat'), []);
+  useEffect(() => {
+    // if (mode !== 'chatView') {
+    setMode('addToChat');
+    // }
+  }, []);
 
   if (loading || !data) {
     return null;

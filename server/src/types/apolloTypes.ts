@@ -26,6 +26,7 @@ export type Mutation = {
   createWord: Word,
   deleteWord: Scalars['Boolean'],
   createChat: Chat,
+  addWordsToChat: Scalars['Boolean'],
   removeWordsFromChat: Scalars['Boolean'],
   createTopic: Topic,
 };
@@ -46,6 +47,12 @@ export type MutationCreateChatArgs = {
   name: Scalars['String'],
   wordIds: Array<Scalars['String']>,
   topicIds?: Maybe<Array<Scalars['String']>>
+};
+
+
+export type MutationAddWordsToChatArgs = {
+  _id: Scalars['String'],
+  wordIds: Array<Scalars['String']>
 };
 
 
@@ -197,6 +204,7 @@ export type MutationResolvers<ContextType = Context, ParentType extends Resolver
   createWord?: Resolver<ResolversTypes['Word'], ParentType, ContextType, RequireFields<MutationCreateWordArgs, 'word' | 'translate'>>,
   deleteWord?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDeleteWordArgs, '_id'>>,
   createChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationCreateChatArgs, 'name' | 'wordIds'>>,
+  addWordsToChat?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationAddWordsToChatArgs, '_id' | 'wordIds'>>,
   removeWordsFromChat?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationRemoveWordsFromChatArgs, '_id' | 'wordIds'>>,
   createTopic?: Resolver<ResolversTypes['Topic'], ParentType, ContextType, RequireFields<MutationCreateTopicArgs, 'name'>>,
 };

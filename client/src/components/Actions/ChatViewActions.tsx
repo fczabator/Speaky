@@ -15,8 +15,6 @@ export const ChatViewActions: React.FC<Props> = ({
   selected,
   entity
 }) => {
-  console.log('selected', selected);
-  console.log('entity', entity);
   const [removeWordsFromChat] = useRemoveWordsFromChatMutation({
     refetchQueries: [{ query: chatQuery, variables: { _id: entity } }]
   });

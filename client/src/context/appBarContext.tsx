@@ -5,7 +5,7 @@ import { filterIfIsNotUnique } from '../lib/helpers';
 const useAppBar = () => {
   const [selected, setSelected] = useState<string[]>([]);
   const [mode, setMode] = useState<string>();
-  const [entity, setEntity] = useState<string>('');
+  const [entity, setEntity] = useState<string>();
 
   const toggleSelected = (id: string) =>
     setSelected(filterIfIsNotUnique([...selected, id]));
