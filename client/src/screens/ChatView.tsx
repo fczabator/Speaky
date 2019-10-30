@@ -18,7 +18,6 @@ export const ChatView: React.FC<RouteComponentProps<Params>> = ({
 }) => {
   const { data } = useChatQuery({ variables: { _id } });
   const { selected, setEntity, setMode, toggleSelected } = useAppBarContext();
-  console.log('selected', selected);
 
   useEffect(() => {
     setEntity(_id);
@@ -29,7 +28,7 @@ export const ChatView: React.FC<RouteComponentProps<Params>> = ({
     return null;
   }
   const { name, words } = data.chat;
-  console.log('words', words);
+
   return (
     <Screen>
       <Box justify="center" align="center">

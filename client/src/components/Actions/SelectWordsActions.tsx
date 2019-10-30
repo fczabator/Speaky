@@ -3,17 +3,20 @@ import { Button } from 'grommet';
 import { Checkmark, Add } from 'grommet-icons';
 import chatQuery from '../../api/queries/chat';
 import { useAddWordsToChatMutation } from '../../types/apolloTypes';
+import { useAppBarContext } from '../../context/appBarContext';
 
 type Props = {
   onNavigate: (route: string) => void;
   selected: string[];
   entity?: string;
+  onClearSelection: () => void;
 };
 
 export const SelectWordsActions: React.FC<Props> = ({
   onNavigate,
   selected,
-  entity
+  entity,
+  onClearSelection
 }) => {
   const [addWordsToChat] = useAddWordsToChatMutation({
     refetchQueries: [{ query: chatQuery, variables: { _id: entity } }]
@@ -22,6 +25,7 @@ export const SelectWordsActions: React.FC<Props> = ({
   const handleClick = () => {
     if (entity) {
       addWordsToChat({ variables: { _id: entity, wordIds: selected } });
+      onClearSelection();
       onNavigate(`/chat/${entity}`);
     } else {
       onNavigate('create-chat');

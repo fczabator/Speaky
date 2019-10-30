@@ -25,7 +25,7 @@ export const App = () => (
                 <Route exact path="/" component={Home} />
                 <Route path="/add-word" component={AddWord} />
                 <Route path="/words" component={Words} />
-                <Route path="/select-words" component={SelectWords} />
+                <Route path="/select-words/:chatId?" component={SelectWords} />
                 <Route path="/create-chat" component={CreateChat} />
                 <Route path="/chat/:_id" component={ChatView} />
               </AppLayout>

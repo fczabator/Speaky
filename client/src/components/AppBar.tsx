@@ -1,8 +1,7 @@
 import React from 'react';
 import { Box, Heading, Button } from 'grommet';
-import { Menu, FormClose, Checkmark } from 'grommet-icons';
-import { useHistory } from 'react-router-dom';
-import { Actions } from './Actions';
+import { Menu, FormClose } from 'grommet-icons';
+import { Actions } from './actions';
 
 type Props = {
   onSidebarOpen: () => void;
@@ -10,9 +9,6 @@ type Props = {
 };
 
 export const AppBar: React.FC<Props> = ({ onSidebarOpen, isSidebarOpen }) => {
-  const history = useHistory();
-  console.log('history', history);
-
   return (
     <Box
       tag="header"
@@ -28,7 +24,7 @@ export const AppBar: React.FC<Props> = ({ onSidebarOpen, isSidebarOpen }) => {
         <Button
           icon={isSidebarOpen ? <FormClose /> : <Menu />}
           onClick={() => onSidebarOpen()}
-        ></Button>
+        />
         <Heading level="3" margin="none">
           Speaky
         </Heading>

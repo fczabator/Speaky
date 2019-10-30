@@ -5,7 +5,7 @@ import { SelectWordsActions } from './SelectWordsActions';
 import { ChatViewActions } from './ChatViewActions';
 
 export const Actions = () => {
-  const { selected, mode, entity } = useAppBarContext();
+  const { clearAll, selected, mode, entity } = useAppBarContext();
   const history = useHistory();
 
   const handleNavigate = (route: string) => history.push(route);
@@ -17,6 +17,7 @@ export const Actions = () => {
           selected={selected}
           onNavigate={handleNavigate}
           entity={entity}
+          onClearSelection={clearAll}
         />
       );
     }
@@ -26,6 +27,7 @@ export const Actions = () => {
           selected={selected}
           onNavigate={handleNavigate}
           entity={entity}
+          onClearSelection={clearAll}
         />
       ) : null;
     }
