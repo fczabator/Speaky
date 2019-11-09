@@ -1,9 +1,9 @@
 import React from 'react';
-import { useMutation } from '@apollo/react-hooks';
 import { TextInput, Button } from 'grommet';
 import { Screen } from '../components/Screen';
 import wordsQuery from '../api/queries/words';
 import { useCreateWordMutation } from '../types/apolloTypes';
+import { useNotificationContext } from '../context/useNotification';
 
 export const AddWord: React.FC = () => {
   const [word, setWord] = React.useState('');
@@ -11,9 +11,11 @@ export const AddWord: React.FC = () => {
   const [createWord] = useCreateWordMutation({
     refetchQueries: [{ query: wordsQuery }]
   });
+  const { showNotification } = useNotificationContext();
 
   const handleAddWord = () => {
     createWord({ variables: { word, translate: translation } });
+    showNotification(`${word} has been added!`);
     setWord('');
     setTranslation('');
   };

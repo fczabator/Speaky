@@ -15,6 +15,7 @@ import { AppBarProvider } from './context/appBarContext';
 import { ChatView } from './screens/ChatView';
 import { AppState, Auth0Provider } from './lib/auth';
 import config from './lib/config.json';
+import { NotificationProvider } from './context/useNotification';
 
 const onRedirectCallback = (appState: AppState) => {
   window.history.replaceState(
@@ -39,19 +40,21 @@ export const App = () => (
         <Grommet>
           <ThemeProvider theme={theme}>
             <AppBarProvider>
-              <Router>
-                <AppLayout>
-                  <Route exact path="/" component={Home} />
-                  <Route path="/add-word" component={AddWord} />
-                  <Route path="/words" component={Words} />
-                  <Route
-                    path="/select-words/:chatId?"
-                    component={SelectWords}
-                  />
-                  <Route path="/create-chat" component={CreateChat} />
-                  <Route path="/chat/:_id" component={ChatView} />
-                </AppLayout>
-              </Router>
+              <NotificationProvider>
+                <Router>
+                  <AppLayout>
+                    <Route exact path="/" component={Home} />
+                    <Route path="/add-word" component={AddWord} />
+                    <Route path="/words" component={Words} />
+                    <Route
+                      path="/select-words/:chatId?"
+                      component={SelectWords}
+                    />
+                    <Route path="/create-chat" component={CreateChat} />
+                    <Route path="/chat/:_id" component={ChatView} />
+                  </AppLayout>
+                </Router>
+              </NotificationProvider>
             </AppBarProvider>
           </ThemeProvider>
         </Grommet>
