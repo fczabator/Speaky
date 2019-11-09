@@ -4,12 +4,9 @@ import { RouteComponentProps } from 'react-router';
 import { Screen } from '../components/Screen';
 import { WordBox } from '../components/WordBox';
 import { useWordsQuery, Word } from '../types/apolloTypes';
-import { useAuth0 } from '../lib/auth';
 
 export const Words: React.FC<RouteComponentProps> = () => {
   const { data, loading } = useWordsQuery();
-  const { user } = useAuth0();
-  console.log('user', user);
   if (loading || !data) {
     return <div />;
   }

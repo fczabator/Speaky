@@ -187,6 +187,24 @@ export type ChatQuery = (
   )> }
 );
 
+export type ChatsQueryVariables = {};
+
+
+export type ChatsQuery = (
+  { __typename?: 'Query' }
+  & { chats: Array<(
+    { __typename?: 'Chat' }
+    & Pick<Chat, '_id' | 'name'>
+    & { words: Array<(
+      { __typename?: 'Word' }
+      & Pick<Word, '_id' | 'word' | 'translate' | 'userId'>
+    )>, topics: Maybe<Array<(
+      { __typename?: 'Topic' }
+      & Pick<Topic, '_id'>
+    )>> }
+  )> }
+);
+
 export type WordsQueryVariables = {};
 
 
@@ -380,6 +398,48 @@ export function useChatLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOpt
 export type ChatQueryHookResult = ReturnType<typeof useChatQuery>;
 export type ChatLazyQueryHookResult = ReturnType<typeof useChatLazyQuery>;
 export type ChatQueryResult = ApolloReactCommon.QueryResult<ChatQuery, ChatQueryVariables>;
+export const ChatsDocument = gql`
+    query chats {
+  chats {
+    _id
+    name
+    words {
+      _id
+      word
+      translate
+      userId
+    }
+    topics {
+      _id
+    }
+  }
+}
+    `;
+
+/**
+ * __useChatsQuery__
+ *
+ * To run a query within a React component, call `useChatsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useChatsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useChatsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useChatsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ChatsQuery, ChatsQueryVariables>) {
+        return ApolloReactHooks.useQuery<ChatsQuery, ChatsQueryVariables>(ChatsDocument, baseOptions);
+      }
+export function useChatsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ChatsQuery, ChatsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ChatsQuery, ChatsQueryVariables>(ChatsDocument, baseOptions);
+        }
+export type ChatsQueryHookResult = ReturnType<typeof useChatsQuery>;
+export type ChatsLazyQueryHookResult = ReturnType<typeof useChatsLazyQuery>;
+export type ChatsQueryResult = ApolloReactCommon.QueryResult<ChatsQuery, ChatsQueryVariables>;
 export const WordsDocument = gql`
     query words {
   words {

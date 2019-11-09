@@ -1,21 +1,23 @@
 import React from 'react';
+import config from './lib/config.json';
+import { AddWord } from './screens/AddWord';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { AppBarProvider } from './context/appBarContext';
 import { AppLayout } from './components/AppLayout';
+import { AppState, Auth0Provider } from './lib/auth';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { ChatView } from './screens/ChatView';
+import { Chatting } from './screens/Chatting';
+import { CreateChat } from './screens/CreateChat';
 import { Grommet } from 'grommet';
 import { Home } from './screens/Home';
-import { ThemeProvider } from 'styled-components';
-import { theme } from './theme';
-import { client } from './lib/apollo';
-import { AddWord } from './screens/AddWord';
-import { Words } from './screens/Words';
-import { SelectWords } from './screens/SelectWords';
-import { CreateChat } from './screens/CreateChat';
-import { AppBarProvider } from './context/appBarContext';
-import { ChatView } from './screens/ChatView';
-import { AppState, Auth0Provider } from './lib/auth';
-import config from './lib/config.json';
 import { NotificationProvider } from './context/useNotification';
+import { SelectWords } from './screens/SelectWords';
+import { ThemeProvider } from 'styled-components';
+import { Words } from './screens/Words';
+import { client } from './lib/apollo';
+import { theme } from './theme';
+import { Chats } from './screens/Chats';
 
 const onRedirectCallback = (appState: AppState) => {
   window.history.replaceState(
@@ -52,6 +54,8 @@ export const App = () => (
                     />
                     <Route path="/create-chat" component={CreateChat} />
                     <Route path="/chat/:_id" component={ChatView} />
+                    <Route path="/chatting/:_id" component={Chatting} />
+                    <Route path="/chats" component={Chats} />
                   </AppLayout>
                 </Router>
               </NotificationProvider>

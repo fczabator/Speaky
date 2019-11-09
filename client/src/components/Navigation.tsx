@@ -15,6 +15,10 @@ const navigationItems = [
   {
     label: 'New chat',
     route: '/select-words'
+  },
+  {
+    label: 'Chats',
+    route: '/chats'
   }
 ];
 

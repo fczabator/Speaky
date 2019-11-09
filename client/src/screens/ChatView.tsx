@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { Text, Box } from 'grommet';
 import { useChatQuery } from '../types/apolloTypes';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, useHistory } from 'react-router';
 import { Screen } from '../components/Screen';
 import { WordBox } from '../components/WordBox';
 import { BottomPanel } from '../components/BottomPanel';
 import { useAppBarContext } from '../context/appBarContext';
 
-type Params = {
+interface Params {
   _id: string;
-};
+}
 
 export const ChatView: React.FC<RouteComponentProps<Params>> = ({
   match: {
@@ -18,6 +18,7 @@ export const ChatView: React.FC<RouteComponentProps<Params>> = ({
 }) => {
   const { data } = useChatQuery({ variables: { _id } });
   const { selected, setEntity, setMode, toggleSelected } = useAppBarContext();
+  const history = useHistory();
 
   useEffect(() => {
     setEntity(_id);
@@ -43,7 +44,13 @@ export const ChatView: React.FC<RouteComponentProps<Params>> = ({
         />
       ))}
       <BottomPanel>
-        <Box background="brand" justify="center" align="center" fill>
+        <Box
+          background="brand"
+          justify="center"
+          align="center"
+          fill
+          onClick={() => history.push(`/chatting/${_id}`)}
+        >
           Start
         </Box>
       </BottomPanel>
