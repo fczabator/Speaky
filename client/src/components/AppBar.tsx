@@ -5,7 +5,7 @@ import { Actions } from './actions';
 
 type Props = {
   onSidebarOpen: () => void;
-  isSidebarOpen: Boolean;
+  isSidebarOpen: boolean;
 };
 
 export const AppBar: React.FC<Props> = ({ onSidebarOpen, isSidebarOpen }) => {

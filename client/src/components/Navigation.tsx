@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Anchor, Box } from 'grommet';
+import { useAuth0 } from '../lib/auth';
 
 const navigationItems = [
   {
@@ -23,6 +24,7 @@ type Props = {
 
 export const Navigation: React.FC<Props> = ({ onSelect }) => {
   const history = useHistory();
+  const { logout } = useAuth0();
 
   const handleClick = (route: string) => {
     onSelect();
@@ -39,6 +41,7 @@ export const Navigation: React.FC<Props> = ({ onSelect }) => {
           label={label}
         />
       ))}
+      <Anchor key="logout" margin="small" onClick={logout} label="Logout" />
     </Box>
   );
 };

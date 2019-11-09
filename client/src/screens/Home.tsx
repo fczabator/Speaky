@@ -1,21 +1,18 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
-import { RouteComponentProps } from 'react-router';
-
-const FETCH_WORDS = gql`
-  query {
-    words {
-      word
-      _id
-      translate
-    }
-  }
-`;
+import { RouteComponentProps, Redirect } from 'react-router';
+import { useAuth0 } from '../lib/auth';
+import { Button } from 'grommet';
 
 export const Home: React.FC<RouteComponentProps> = props => {
-  const { data, error, loading } = useQuery(FETCH_WORDS);
-  console.log('data', data);
+  const { isAuthenticated, loginWithPopup } = useAuth0();
 
-  return <div>home</div>;
+  if (isAuthenticated) {
+    return <Redirect to="/words" />;
+  }
+
+  return (
+    <div>
+      <Button onClick={() => loginWithPopup()}>Login</Button>
+    </div>
+  );
 };

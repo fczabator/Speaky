@@ -1,6 +1,11 @@
 import gql from 'graphql-tag';
 import { Resolvers } from '../types/apolloTypes';
-import { ApolloError } from 'apollo-server-core';
+import {
+  ApolloError,
+  UserInputError,
+  ForbiddenError
+} from 'apollo-server-core';
+import { checkIfUserIsLoggedIn } from '../util/checks';
 
 export const typeDef = gql`
   extend type Query {
@@ -31,8 +36,10 @@ export const resolvers: Resolvers = {
   },
   Mutation: {
     createWord: async (root, input, context) => {
+      checkIfUserIsLoggedIn(context);
       const result = await context.DB.collection('words').insertOne({
-        ...input
+        ...input,
+        userId: context.userId
       });
 
       if (!result.ops || !result.ops[0]) {
@@ -42,7 +49,14 @@ export const resolvers: Resolvers = {
       return result.ops[0];
     },
     deleteWord: async (root, { _id }, context) => {
-      console.log('_id', _id);
+      checkIfUserIsLoggedIn(context);
+      const word = await context.DB.collection('words').findOne({ _id });
+      if (!word) {
+        throw new UserInputError('The word with specified id does not exist');
+      }
+      if (word.userId !== context.userId) {
+        throw new ForbiddenError('Word does not belong to the user');
+      }
       const result = await context.DB.collection('words').deleteOne({
         _id
       });
