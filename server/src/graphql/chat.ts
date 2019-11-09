@@ -31,7 +31,6 @@ export const typeDef = gql`
 export const resolvers: Resolvers = {
   Chat: {
     words: (root, input, context) => {
-      console.log('root', root);
       return context.DB.collection('words')
         .find({
           _id: { $in: mapToObjectId(root.wordIds) }
@@ -41,12 +40,17 @@ export const resolvers: Resolvers = {
   },
   Query: {
     chats: (root, input, context) => {
+      checkIfUserIsLoggedIn(context);
       return context.DB.collection('chats')
-        .find()
+        .find({ userIds: context.userId })
         .toArray();
     },
     chat: (root, { _id }, context) => {
-      return context.DB.collection('chats').findOne({ _id: new ObjectID(_id) });
+      checkIfUserIsLoggedIn(context);
+      return context.DB.collection('chats').findOne({
+        _id: new ObjectID(_id),
+        userIds: context.userId
+      });
     }
   },
   Mutation: {

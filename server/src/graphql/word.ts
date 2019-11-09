@@ -27,12 +27,17 @@ export const typeDef = gql`
 export const resolvers: Resolvers = {
   Query: {
     words: (root, input, context) => {
+      checkIfUserIsLoggedIn(context);
       return context.DB.collection('words')
-        .find()
+        .find({ userId: context.userId })
         .toArray();
     },
     word: (root, { _id }, context) => {
-      return context.DB.collection('words').findOne({ _id });
+      checkIfUserIsLoggedIn(context);
+      return context.DB.collection('words').findOne({
+        _id,
+        userId: context.userId
+      });
     }
   },
   Mutation: {
