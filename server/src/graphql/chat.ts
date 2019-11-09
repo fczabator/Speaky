@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 import { ObjectID } from 'mongodb';
 import { Resolvers } from '../types/apolloTypes';
 import { ApolloError } from 'apollo-server-core';
+import { checkIfUserIsLoggedIn } from '../util/checks';
 
 const mapToObjectId = (ids: string[]) => ids.map(id => new ObjectID(id));
 
@@ -11,16 +12,19 @@ export const typeDef = gql`
     chat(_id: String!): Chat
   }
   extend type Mutation {
-    createChat(name: String!, wordIds: [String!]!, topicIds: [String!]): Chat!
-    addWordsToChat(_id: String!, wordIds: [String!]!): Boolean!
-    removeWordsFromChat(_id: String!, wordIds: [String!]!): Boolean!
+    createChat(name: String!, wordIds: [ID!]!, topicIds: [ID!]): Chat!
+    addWordsToChat(_id: ID!, wordIds: [ID!]!): Boolean!
+    removeWordsFromChat(_id: ID!, wordIds: [ID!]!): Boolean!
+    inviteUserToChat(_id: ID!, userId: ID!): Boolean!
   }
   type Chat {
     _id: ID!
     name: String!
-    wordIds: [String!]!
+    wordIds: [ID!]!
     words: [Word!]!
     topics: [Topic!]
+    topicIds: [ID!]!
+    userIds: [ID!]!
   }
 `;
 
@@ -47,8 +51,10 @@ export const resolvers: Resolvers = {
   },
   Mutation: {
     createChat: async (root, input, context) => {
+      checkIfUserIsLoggedIn(context);
       const result = await context.DB.collection('chats').insertOne({
-        ...input
+        ...input,
+        userIds: [context.userId]
       });
 
       if (!result.ops || !result.ops[0]) {
@@ -58,6 +64,7 @@ export const resolvers: Resolvers = {
       return result.ops[0];
     },
     addWordsToChat: async (root, { _id, wordIds }, context) => {
+      checkIfUserIsLoggedIn(context);
       const { modifiedCount } = await context.DB.collection('chats').updateOne(
         { _id: new ObjectID(_id) },
         { $push: { wordIds: { $each: wordIds } } }
@@ -65,9 +72,18 @@ export const resolvers: Resolvers = {
       return !!modifiedCount;
     },
     removeWordsFromChat: async (root, { _id, wordIds }, context) => {
+      checkIfUserIsLoggedIn(context);
       const { modifiedCount } = await context.DB.collection('chats').updateOne(
         { _id: new ObjectID(_id) },
         { $pull: { wordIds: { $in: wordIds } } }
+      );
+      return !!modifiedCount;
+    },
+    inviteUserToChat: async (root, { _id, userId }, context) => {
+      checkIfUserIsLoggedIn(context);
+      const { modifiedCount } = await context.DB.collection('chats').updateOne(
+        { _id: new ObjectID(_id) },
+        { $push: { userIds: { $each: userId } } }
       );
       return !!modifiedCount;
     }

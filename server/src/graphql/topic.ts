@@ -16,22 +16,22 @@ export const typeDef = gql`
 `;
 
 export const resolvers: Resolvers = {
-    Query: {
-        topics: (root, input, context) => {
-            return context.DB.collection('topics')
-                .find()
-                .toArray();
-        }
-    },
-    Mutation: {
-        createTopic: async (root, input, context) => {
-            const result = await context.DB.collection('topics').insertOne(input);
-
-            if (!result.ops || !result.ops[0]) {
-                throw new ApolloError('Could not create topic');
-            }
-
-            return result.ops[0];
-        }
+  Query: {
+    topics: (root, input, context) => {
+      return context.DB.collection('topics')
+        .find()
+        .toArray();
     }
+  },
+  Mutation: {
+    createTopic: async (root, input, context) => {
+      const result = await context.DB.collection('topics').insertOne(input);
+
+      if (!result.ops || !result.ops[0]) {
+        throw new ApolloError('Could not create topic');
+      }
+
+      return result.ops[0];
+    }
+  }
 };

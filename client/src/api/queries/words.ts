@@ -6,6 +6,7 @@ export default gql`
       _id
       word
       translate
+      userId
     }
   }
 `;

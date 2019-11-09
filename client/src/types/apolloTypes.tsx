@@ -15,9 +15,11 @@ export type Chat = {
    __typename?: 'Chat',
   _id: Scalars['ID'],
   name: Scalars['String'],
-  wordIds: Array<Scalars['String']>,
+  wordIds: Array<Scalars['ID']>,
   words: Array<Word>,
   topics?: Maybe<Array<Topic>>,
+  topicIds: Array<Scalars['ID']>,
+  userIds: Array<Scalars['ID']>,
 };
 
 export type Mutation = {
@@ -28,13 +30,14 @@ export type Mutation = {
   createChat: Chat,
   addWordsToChat: Scalars['Boolean'],
   removeWordsFromChat: Scalars['Boolean'],
+  inviteUserToChat: Scalars['Boolean'],
   createTopic: Topic,
 };
 
 
 export type MutationCreateWordArgs = {
   word: Scalars['String'],
-  translate: Scalars['String']
+  translate?: Maybe<Scalars['String']>
 };
 
 
@@ -45,20 +48,26 @@ export type MutationDeleteWordArgs = {
 
 export type MutationCreateChatArgs = {
   name: Scalars['String'],
-  wordIds: Array<Scalars['String']>,
-  topicIds?: Maybe<Array<Scalars['String']>>
+  wordIds: Array<Scalars['ID']>,
+  topicIds?: Maybe<Array<Scalars['ID']>>
 };
 
 
 export type MutationAddWordsToChatArgs = {
-  _id: Scalars['String'],
-  wordIds: Array<Scalars['String']>
+  _id: Scalars['ID'],
+  wordIds: Array<Scalars['ID']>
 };
 
 
 export type MutationRemoveWordsFromChatArgs = {
-  _id: Scalars['String'],
-  wordIds: Array<Scalars['String']>
+  _id: Scalars['ID'],
+  wordIds: Array<Scalars['ID']>
+};
+
+
+export type MutationInviteUserToChatArgs = {
+  _id: Scalars['ID'],
+  userId: Scalars['ID']
 };
 
 
@@ -96,12 +105,13 @@ export type Word = {
    __typename?: 'Word',
   _id: Scalars['ID'],
   word: Scalars['String'],
-  translate: Scalars['String'],
+  translate?: Maybe<Scalars['String']>,
+  userId: Scalars['ID'],
 };
 
 export type AddWordsToChatMutationVariables = {
-  _id: Scalars['String'],
-  wordIds: Array<Scalars['String']>
+  _id: Scalars['ID'],
+  wordIds: Array<Scalars['ID']>
 };
 
 
@@ -112,8 +122,8 @@ export type AddWordsToChatMutation = (
 
 export type CreateChatMutationVariables = {
   name: Scalars['String'],
-  wordIds: Array<Scalars['String']>,
-  topicIds?: Maybe<Array<Scalars['String']>>
+  wordIds: Array<Scalars['ID']>,
+  topicIds?: Maybe<Array<Scalars['ID']>>
 };
 
 
@@ -134,7 +144,7 @@ export type CreateChatMutation = (
 
 export type CreateWordMutationVariables = {
   word: Scalars['String'],
-  translate: Scalars['String']
+  translate?: Maybe<Scalars['String']>
 };
 
 
@@ -147,8 +157,8 @@ export type CreateWordMutation = (
 );
 
 export type RemoveWordsFromChatMutationVariables = {
-  _id: Scalars['String'],
-  wordIds: Array<Scalars['String']>
+  _id: Scalars['ID'],
+  wordIds: Array<Scalars['ID']>
 };
 
 
@@ -169,7 +179,7 @@ export type ChatQuery = (
     & Pick<Chat, '_id' | 'name'>
     & { words: Array<(
       { __typename?: 'Word' }
-      & Pick<Word, '_id' | 'word' | 'translate'>
+      & Pick<Word, '_id' | 'word' | 'translate' | 'userId'>
     )>, topics: Maybe<Array<(
       { __typename?: 'Topic' }
       & Pick<Topic, '_id'>
@@ -184,24 +194,13 @@ export type WordsQuery = (
   { __typename?: 'Query' }
   & { words: Array<(
     { __typename?: 'Word' }
-    & Pick<Word, '_id' | 'word' | 'translate'>
-  )> }
-);
-
-export type Unnamed_1_QueryVariables = {};
-
-
-export type Unnamed_1_Query = (
-  { __typename?: 'Query' }
-  & { words: Array<(
-    { __typename?: 'Word' }
-    & Pick<Word, 'word' | '_id' | 'translate'>
+    & Pick<Word, '_id' | 'word' | 'translate' | 'userId'>
   )> }
 );
 
 
 export const AddWordsToChatDocument = gql`
-    mutation addWordsToChat($_id: String!, $wordIds: [String!]!) {
+    mutation addWordsToChat($_id: ID!, $wordIds: [ID!]!) {
   addWordsToChat(_id: $_id, wordIds: $wordIds)
 }
     `;
@@ -232,7 +231,7 @@ export type AddWordsToChatMutationHookResult = ReturnType<typeof useAddWordsToCh
 export type AddWordsToChatMutationResult = ApolloReactCommon.MutationResult<AddWordsToChatMutation>;
 export type AddWordsToChatMutationOptions = ApolloReactCommon.BaseMutationOptions<AddWordsToChatMutation, AddWordsToChatMutationVariables>;
 export const CreateChatDocument = gql`
-    mutation createChat($name: String!, $wordIds: [String!]!, $topicIds: [String!]) {
+    mutation createChat($name: String!, $wordIds: [ID!]!, $topicIds: [ID!]) {
   createChat(name: $name, wordIds: $wordIds, topicIds: $topicIds) {
     _id
     name
@@ -273,7 +272,7 @@ export type CreateChatMutationHookResult = ReturnType<typeof useCreateChatMutati
 export type CreateChatMutationResult = ApolloReactCommon.MutationResult<CreateChatMutation>;
 export type CreateChatMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateChatMutation, CreateChatMutationVariables>;
 export const CreateWordDocument = gql`
-    mutation createWord($word: String!, $translate: String!) {
+    mutation createWord($word: String!, $translate: String) {
   createWord(word: $word, translate: $translate) {
     _id
     translate
@@ -308,7 +307,7 @@ export type CreateWordMutationHookResult = ReturnType<typeof useCreateWordMutati
 export type CreateWordMutationResult = ApolloReactCommon.MutationResult<CreateWordMutation>;
 export type CreateWordMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateWordMutation, CreateWordMutationVariables>;
 export const RemoveWordsFromChatDocument = gql`
-    mutation removeWordsFromChat($_id: String!, $wordIds: [String!]!) {
+    mutation removeWordsFromChat($_id: ID!, $wordIds: [ID!]!) {
   removeWordsFromChat(_id: $_id, wordIds: $wordIds)
 }
     `;
@@ -347,6 +346,7 @@ export const ChatDocument = gql`
       _id
       word
       translate
+      userId
     }
     topics {
       _id
@@ -386,6 +386,7 @@ export const WordsDocument = gql`
     _id
     word
     translate
+    userId
   }
 }
     `;

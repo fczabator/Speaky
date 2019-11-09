@@ -13,13 +13,14 @@ export const typeDef = gql`
     word(_id: String!): Word
   }
   extend type Mutation {
-    createWord(word: String!, translate: String!): Word!
+    createWord(word: String!, translate: String): Word!
     deleteWord(_id: String!): Boolean!
   }
   type Word {
     _id: ID!
     word: String!
-    translate: String!
+    translate: String
+    userId: ID!
   }
 `;
 

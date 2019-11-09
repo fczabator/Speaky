@@ -9,6 +9,7 @@ export default gql`
         _id
         word
         translate
+        userId
       }
       topics {
         _id
