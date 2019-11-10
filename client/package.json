@@ -58,6 +58,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@testing-library/react": "^9.3.2",
     "@types/auth0-js": "^9.10.6",
     "prettier": "^1.17.0"
   }
