@@ -8,6 +8,8 @@ import { AppState, Auth0Provider } from './lib/auth';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ChatView } from './screens/ChatView';
 import { Chatting } from './screens/Chatting';
+import { ChatInvite } from './screens/ChatInvite';
+import { ChatJoin } from './screens/ChatJoin';
 import { CreateChat } from './screens/CreateChat';
 import { Grommet } from 'grommet';
 import { Home } from './screens/Home';
@@ -54,8 +56,10 @@ export const App = () => (
                     />
                     <Route path="/create-chat" component={CreateChat} />
                     <Route path="/chat/:_id" component={ChatView} />
+                    <Route path="/chat-invite/:_id" component={ChatInvite} />
                     <Route path="/chatting/:_id" component={Chatting} />
                     <Route path="/chats" component={Chats} />
+                    <Route path="/join-chat" component={ChatJoin} />
                   </AppLayout>
                 </Router>
               </NotificationProvider>

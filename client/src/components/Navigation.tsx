@@ -19,6 +19,10 @@ const navigationItems = [
   {
     label: 'Chats',
     route: '/chats'
+  },
+  {
+    label: 'Join chat',
+    route: '/join-chat'
   }
 ];
 

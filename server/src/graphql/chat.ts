@@ -1,10 +1,9 @@
 import gql from 'graphql-tag';
 import { ObjectID } from 'mongodb';
 import { Resolvers } from '../types/apolloTypes';
-import { ApolloError } from 'apollo-server-core';
+import { ApolloError, UserInputError } from 'apollo-server-core';
 import { checkIfUserIsLoggedIn } from '../util/checks';
-
-const mapToObjectId = (ids: string[]) => ids.map(id => new ObjectID(id));
+import { mapToObjectId, getInviteCode } from '../util/helpers';
 
 export const typeDef = gql`
   extend type Query {
@@ -16,6 +15,7 @@ export const typeDef = gql`
     addWordsToChat(_id: ID!, wordIds: [ID!]!): Boolean!
     removeWordsFromChat(_id: ID!, wordIds: [ID!]!): Boolean!
     inviteUserToChat(_id: ID!, userId: ID!): Boolean!
+    joinChat(inviteCode: String!): Chat!
   }
   type Chat {
     _id: ID!
@@ -25,6 +25,7 @@ export const typeDef = gql`
     topics: [Topic!]
     topicIds: [ID!]!
     userIds: [ID!]!
+    inviteCode: String!
   }
 `;
 
@@ -58,7 +59,8 @@ export const resolvers: Resolvers = {
       checkIfUserIsLoggedIn(context);
       const result = await context.DB.collection('chats').insertOne({
         ...input,
-        userIds: [context.userId]
+        userIds: [context.userId],
+        inviteCode: getInviteCode()
       });
 
       if (!result.ops || !result.ops[0]) {
@@ -90,6 +92,18 @@ export const resolvers: Resolvers = {
         { $push: { userIds: { $each: userId } } }
       );
       return !!modifiedCount;
+    },
+    joinChat: async (root, { inviteCode }, context) => {
+      checkIfUserIsLoggedIn(context);
+      const result = await context.DB.collection('chats').findOneAndUpdate(
+        { inviteCode, userIds: { $ne: context.userId } },
+        { $push: { userIds: context.userId } }
+      );
+      if (!result.value) {
+        throw new UserInputError('Wrong invitation code');
+      }
+
+      return result.value;
     }
   }
 };

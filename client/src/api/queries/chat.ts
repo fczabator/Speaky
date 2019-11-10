@@ -14,6 +14,7 @@ export default gql`
       topics {
         _id
       }
+      inviteCode
     }
   }
 `;

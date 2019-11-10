@@ -31,9 +31,13 @@ export const ChatViewActions: React.FC<Props> = ({
     onClearSelection();
   };
 
+  const handleInviteUser = () => {
+    onNavigate(`/chat-invite/${entity}`);
+  };
+
   return (
     <Box align="center" direction="row">
-      <Button>invite code</Button>
+      <Button onClick={handleInviteUser}>invite</Button>
       <Button icon={<Add />} onClick={handleAdd} />
       <Button
         icon={<Subtract />}
