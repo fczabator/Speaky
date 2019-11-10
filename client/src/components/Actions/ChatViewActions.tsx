@@ -1,6 +1,6 @@
 import React from 'react';
 import { Add, Subtract } from 'grommet-icons';
-import { Button } from 'grommet';
+import { Button, Box } from 'grommet';
 import chatQuery from '../../api/queries/chat';
 import { useRemoveWordsFromChatMutation } from '../../types/apolloTypes';
 
@@ -32,13 +32,14 @@ export const ChatViewActions: React.FC<Props> = ({
   };
 
   return (
-    <div>
+    <Box align="center" direction="row">
+      <Button>invite code</Button>
       <Button icon={<Add />} onClick={handleAdd} />
       <Button
         icon={<Subtract />}
         label={selected.length ? selected.length : 0}
         onClick={handleRemove}
       />
-    </div>
+    </Box>
   );
 };

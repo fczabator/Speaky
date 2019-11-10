@@ -6,6 +6,7 @@ import { Screen } from '../components/Screen';
 import { WordBox } from '../components/WordBox';
 import { BottomPanel } from '../components/BottomPanel';
 import { useAppBarContext } from '../context/appBarContext';
+import { Loader } from '../components/Loader';
 
 interface Params {
   _id: string;
