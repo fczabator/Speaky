@@ -1,5 +1,6 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { Context } from '../context';
+import { GraphQLDate, GraphQLDateTime, GraphQLTime } from 'graphql-iso-date';
 export type Maybe<T> = T | null;
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -9,6 +10,7 @@ export type Scalars = {
   Boolean: boolean,
   Int: number,
   Float: number,
+  DateTime: GraphQLDateTime,
 };
 
 export type Chat = {
@@ -21,7 +23,9 @@ export type Chat = {
   topicIds: Array<Scalars['ID']>,
   userIds: Array<Scalars['ID']>,
   inviteCode: Scalars['String'],
+  started: Array<StartedChat>,
 };
+
 
 export type Mutation = {
    __typename?: 'Mutation',
@@ -33,6 +37,7 @@ export type Mutation = {
   removeWordsFromChat: Scalars['Boolean'],
   inviteUserToChat: Scalars['Boolean'],
   joinChat: Chat,
+  startChat: Chat,
   createTopic: Topic,
 };
 
@@ -78,6 +83,11 @@ export type MutationJoinChatArgs = {
 };
 
 
+export type MutationStartChatArgs = {
+  _id: Scalars['ID']
+};
+
+
 export type MutationCreateTopicArgs = {
   name: Scalars['String']
 };
@@ -100,6 +110,12 @@ export type QueryWordArgs = {
 
 export type QueryChatArgs = {
   _id: Scalars['String']
+};
+
+export type StartedChat = {
+   __typename?: 'StartedChat',
+  date?: Maybe<Scalars['DateTime']>,
+  userId: Scalars['ID'],
 };
 
 export type Topic = {
@@ -192,6 +208,8 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Chat: ResolverTypeWrapper<Chat>,
   Topic: ResolverTypeWrapper<Topic>,
+  StartedChat: ResolverTypeWrapper<StartedChat>,
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']>,
   Mutation: ResolverTypeWrapper<{}>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
 };
@@ -204,6 +222,8 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'],
   Chat: Chat,
   Topic: Topic,
+  StartedChat: StartedChat,
+  DateTime: Scalars['DateTime'],
   Mutation: {},
   Boolean: Scalars['Boolean'],
 };
@@ -217,7 +237,12 @@ export type ChatResolvers<ContextType = Context, ParentType extends ResolversPar
   topicIds?: Resolver<Array<ResolversTypes['ID']>, ParentType, ContextType>,
   userIds?: Resolver<Array<ResolversTypes['ID']>, ParentType, ContextType>,
   inviteCode?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  started?: Resolver<Array<ResolversTypes['StartedChat']>, ParentType, ContextType>,
 };
+
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime'
+}
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   _empty?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -228,6 +253,7 @@ export type MutationResolvers<ContextType = Context, ParentType extends Resolver
   removeWordsFromChat?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationRemoveWordsFromChatArgs, '_id' | 'wordIds'>>,
   inviteUserToChat?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationInviteUserToChatArgs, '_id' | 'userId'>>,
   joinChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationJoinChatArgs, 'inviteCode'>>,
+  startChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationStartChatArgs, '_id'>>,
   createTopic?: Resolver<ResolversTypes['Topic'], ParentType, ContextType, RequireFields<MutationCreateTopicArgs, 'name'>>,
 };
 
@@ -238,6 +264,11 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
   chats?: Resolver<Array<ResolversTypes['Chat']>, ParentType, ContextType>,
   chat?: Resolver<Maybe<ResolversTypes['Chat']>, ParentType, ContextType, RequireFields<QueryChatArgs, '_id'>>,
   topics?: Resolver<Array<ResolversTypes['Topic']>, ParentType, ContextType>,
+};
+
+export type StartedChatResolvers<ContextType = Context, ParentType extends ResolversParentTypes['StartedChat'] = ResolversParentTypes['StartedChat']> = {
+  date?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
+  userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
 };
 
 export type TopicResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Topic'] = ResolversParentTypes['Topic']> = {
@@ -254,8 +285,10 @@ export type WordResolvers<ContextType = Context, ParentType extends ResolversPar
 
 export type Resolvers<ContextType = Context> = {
   Chat?: ChatResolvers<ContextType>,
+  DateTime?: GraphQLScalarType,
   Mutation?: MutationResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
+  StartedChat?: StartedChatResolvers<ContextType>,
   Topic?: TopicResolvers<ContextType>,
   Word?: WordResolvers<ContextType>,
 };

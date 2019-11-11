@@ -1,4 +1,5 @@
 import { makeExecutableSchema } from 'graphql-tools';
+import { GraphQLDate, GraphQLDateTime, GraphQLTime } from 'graphql-iso-date';
 import merge from 'lodash/merge';
 import { typeDef as Word, resolvers as wordResolvers } from './word';
 import { typeDef as Chat, resolvers as chatResolvers } from './chat';
@@ -13,6 +14,7 @@ const Query = gql`
   type Mutation {
     _empty: String
   }
+  scalar DateTime
 `;
 
 const resolvers: Resolvers = {};

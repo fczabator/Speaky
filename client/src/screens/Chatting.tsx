@@ -1,14 +1,13 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { useChatQuery } from '../types/apolloTypes';
-import { Loader } from '../components/Loader';
+import { FullScreenLoader } from '../components/FullScreenLoader';
 
 interface Params {
   _id: string;
 }
 
-// TODO
-const isWaiting = chat => chat.readyUserIds.length === 1;
+const isWaiting = chat => chat.started.length !== chat.userIds.length;
 
 export const Chatting: React.FC<RouteComponentProps<Params>> = ({
   match: {
@@ -17,7 +16,8 @@ export const Chatting: React.FC<RouteComponentProps<Params>> = ({
 }) => {
   const { data, loading } = useChatQuery({ variables: { _id } });
 
-  if (loading || !data || isWaiting(data.chat)) return <Loader />;
+  if (loading || !data) return null;
+  if (isWaiting(data.chat)) return <FullScreenLoader />;
 
   return <div>game</div>;
 };

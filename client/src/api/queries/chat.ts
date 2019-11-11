@@ -15,6 +15,11 @@ export default gql`
         _id
       }
       inviteCode
+      started {
+        date
+        userId
+      }
+      userIds
     }
   }
 `;

@@ -16,6 +16,11 @@ export const typeDef = gql`
     removeWordsFromChat(_id: ID!, wordIds: [ID!]!): Boolean!
     inviteUserToChat(_id: ID!, userId: ID!): Boolean!
     joinChat(inviteCode: String!): Chat!
+    startChat(_id: ID!): Chat!
+  }
+  type StartedChat {
+    date: DateTime
+    userId: ID!
   }
   type Chat {
     _id: ID!
@@ -26,6 +31,7 @@ export const typeDef = gql`
     topicIds: [ID!]!
     userIds: [ID!]!
     inviteCode: String!
+    started: [StartedChat!]!
   }
 `;
 
@@ -103,6 +109,21 @@ export const resolvers: Resolvers = {
         throw new UserInputError('Wrong invitation code');
       }
 
+      return result.value;
+    },
+    startChat: async (root, { _id }, context) => {
+      checkIfUserIsLoggedIn(context);
+      const result = await context.DB.collection('chats').findOneAndUpdate(
+        {
+          _id: new ObjectID(_id),
+          userIds: context.userId,
+          started: { $not: { $elemMatch: { userId: context.userId } } }
+        },
+        { $push: { started: { date: new Date(), userId: context.userId } } }
+      );
+      if (!result.value) {
+        throw new UserInputError('Cannot start the chat');
+      }
       return result.value;
     }
   }

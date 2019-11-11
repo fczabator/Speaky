@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { Text, Box } from 'grommet';
-import { useChatQuery } from '../types/apolloTypes';
+import { useChatQuery, useStartChatMutation } from '../types/apolloTypes';
 import { RouteComponentProps, useHistory } from 'react-router';
 import { Screen } from '../components/Screen';
 import { WordBox } from '../components/WordBox';
 import { BottomPanel } from '../components/BottomPanel';
 import { useAppBarContext } from '../context/appBarContext';
-import { Loader } from '../components/Loader';
+import chatQuery from '../api/queries/chat';
+import { useNotificationContext } from '../context/useNotification';
 
 interface Params {
   _id: string;
@@ -18,13 +19,26 @@ export const ChatView: React.FC<RouteComponentProps<Params>> = ({
   }
 }) => {
   const { data } = useChatQuery({ variables: { _id } });
+  const [startChat] = useStartChatMutation({
+    refetchQueries: [{ query: chatQuery, variables: { _id } }]
+  });
   const { selected, setEntity, setMode, toggleSelected } = useAppBarContext();
+  const { showNotification } = useNotificationContext();
   const history = useHistory();
 
   useEffect(() => {
     setEntity(_id);
     setMode('chatView');
   }, []);
+
+  const handleStart = async () => {
+    try {
+      await startChat({ variables: { _id } });
+      history.push(`/chatting/${_id}`);
+    } catch (error) {
+      showNotification('Cannot start the chat');
+    }
+  };
 
   if (!data || !data.chat) {
     return null;
@@ -50,7 +64,7 @@ export const ChatView: React.FC<RouteComponentProps<Params>> = ({
           justify="center"
           align="center"
           fill
-          onClick={() => history.push(`/chatting/${_id}`)}
+          onClick={handleStart}
         >
           Start
         </Box>

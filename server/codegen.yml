@@ -3,6 +3,13 @@ generates:
   ./src/types/apolloTypes.ts:
     config:
       contextType: ../context#Context
+      scalars:
+        DateTime: GraphQLDateTime
+        Date: GraphQLDate,
+        Time: GraphQLTime,
     plugins:
       - typescript
       - typescript-resolvers
+      - add:
+          content:
+            - "import { GraphQLDate, GraphQLDateTime, GraphQLTime } from 'graphql-iso-date';"
