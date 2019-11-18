@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Heading, Button } from 'grommet';
 import { Menu, FormClose } from 'grommet-icons';
-import { Actions } from './actions';
+import { Actions } from './Actions';
 
 type Props = {
   onSidebarOpen: () => void;

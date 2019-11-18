@@ -22,7 +22,7 @@ export type Chat = {
   topicIds: Array<Scalars['ID']>,
   userIds: Array<Scalars['ID']>,
   inviteCode: Scalars['String'],
-  started: Array<StartedChat>,
+  started?: Maybe<Array<StartedChat>>,
 };
 
 
@@ -115,6 +115,7 @@ export type StartedChat = {
    __typename?: 'StartedChat',
   date?: Maybe<Scalars['DateTime']>,
   userId: Scalars['ID'],
+  wordIds?: Maybe<Array<Scalars['String']>>,
 };
 
 export type Topic = {
@@ -224,17 +225,17 @@ export type ChatQuery = (
   { __typename?: 'Query' }
   & { chat: Maybe<(
     { __typename?: 'Chat' }
-    & Pick<Chat, '_id' | 'name' | 'inviteCode' | 'userIds'>
+    & Pick<Chat, '_id' | 'name' | 'inviteCode' | 'userIds' | 'wordIds' | 'topicIds'>
     & { words: Array<(
       { __typename?: 'Word' }
       & Pick<Word, '_id' | 'word' | 'translate' | 'userId'>
     )>, topics: Maybe<Array<(
       { __typename?: 'Topic' }
-      & Pick<Topic, '_id'>
-    )>>, started: Array<(
+      & Pick<Topic, '_id' | 'name'>
+    )>>, started: Maybe<Array<(
       { __typename?: 'StartedChat' }
-      & Pick<StartedChat, 'date' | 'userId'>
-    )> }
+      & Pick<StartedChat, 'date' | 'userId' | 'wordIds'>
+    )>> }
   )> }
 );
 
@@ -483,13 +484,17 @@ export const ChatDocument = gql`
     }
     topics {
       _id
+      name
     }
     inviteCode
     started {
       date
       userId
+      wordIds
     }
     userIds
+    wordIds
+    topicIds
   }
 }
     `;

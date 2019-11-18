@@ -13,6 +13,7 @@ export default gql`
       }
       topics {
         _id
+        name
       }
       inviteCode
       started {
@@ -21,6 +22,8 @@ export default gql`
         wordIds
       }
       userIds
+      wordIds
+      topicIds
     }
   }
 `;
