@@ -1,6 +1,6 @@
 export default {
   apollo: {
-    mocks: process.env.APOLLO_MOCKS !== 'false',
+    mocks: 'false',
     playground: process.env.APOLLO_PLAYGROUND !== 'false'
   },
   jwt: {

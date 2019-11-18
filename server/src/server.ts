@@ -30,7 +30,7 @@ const server = new ApolloServer({
   context,
   introspection: !!config.apollo.playground,
   mockEntireSchema: false,
-  mocks: !!config.apollo.mocks,
+  mocks: false,
   playground: !!config.apollo.playground,
   tracing: !!config.apollo.playground,
   schema

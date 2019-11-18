@@ -18,6 +18,7 @@ export default gql`
       started {
         date
         userId
+        wordIds
       }
       userIds
     }

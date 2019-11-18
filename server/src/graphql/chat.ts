@@ -1,9 +1,10 @@
 import gql from 'graphql-tag';
 import { ObjectID } from 'mongodb';
-import { Resolvers } from '../types/apolloTypes';
+import { Resolvers, Word } from '../types/apolloTypes';
 import { ApolloError, UserInputError } from 'apollo-server-core';
 import { checkIfUserIsLoggedIn } from '../util/checks';
 import { mapToObjectId, getInviteCode } from '../util/helpers';
+import { generateWords } from '../util/wordsGenerator';
 
 export const typeDef = gql`
   extend type Query {
@@ -21,6 +22,7 @@ export const typeDef = gql`
   type StartedChat {
     date: DateTime
     userId: ID!
+    wordIds: [String!]
   }
   type Chat {
     _id: ID!
@@ -31,7 +33,7 @@ export const typeDef = gql`
     topicIds: [ID!]!
     userIds: [ID!]!
     inviteCode: String!
-    started: [StartedChat!]!
+    started: [StartedChat!]
   }
 `;
 
@@ -119,11 +121,30 @@ export const resolvers: Resolvers = {
           userIds: context.userId,
           started: { $not: { $elemMatch: { userId: context.userId } } }
         },
-        { $push: { started: { date: new Date(), userId: context.userId } } }
+        { $push: { started: { date: new Date(), userId: context.userId } } },
+        { returnOriginal: false }
       );
       if (!result.value) {
         throw new UserInputError('Cannot start the chat');
       }
+      if (
+        result.value.started &&
+        result.value.started.length === result.value.userIds.length
+      ) {
+        const { started, wordIds } = result.value;
+        const drawedWords = generateWords(wordIds, started.length);
+
+        // TODO: aggregation
+        await Promise.all(
+          drawedWords.map((wordsSet, index) =>
+            context.DB.collection('chats').updateOne(
+              { _id: new ObjectID(_id) },
+              { $set: { [`started.${index}.wordIds`]: wordsSet } }
+            )
+          )
+        );
+      }
+
       return result.value;
     }
   }

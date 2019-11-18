@@ -7,7 +7,8 @@ interface Params {
   _id: string;
 }
 
-const isWaiting = chat => chat.started.length !== chat.userIds.length;
+const isWaiting = chat =>
+  !chat.started || chat.started.length !== chat.userIds.length;
 
 export const Chatting: React.FC<RouteComponentProps<Params>> = ({
   match: {
@@ -15,6 +16,7 @@ export const Chatting: React.FC<RouteComponentProps<Params>> = ({
   }
 }) => {
   const { data, loading } = useChatQuery({ variables: { _id } });
+  console.log('data', data);
 
   if (loading || !data) return null;
   if (isWaiting(data.chat)) return <FullScreenLoader />;
