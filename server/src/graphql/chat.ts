@@ -30,7 +30,7 @@ export const typeDef = gql`
     wordIds: [ID!]!
     words: [Word!]!
     topics: [Topic!]
-    topicIds: [ID!]!
+    topicIds: [ID!]
     userIds: [ID!]!
     inviteCode: String!
     started: [StartedChat!]
