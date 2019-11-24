@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ChatView } from './screens/ChatView';
 import { Chatting } from './screens/Chatting';
 import { ChatInvite } from './screens/ChatInvite';
+import { ChatSummary } from './screens/ChatSummary';
 import { ChatJoin } from './screens/ChatJoin';
 import { CreateChat } from './screens/CreateChat';
 import { Grommet } from 'grommet';
@@ -60,6 +61,7 @@ export const App = () => (
                     <Route path="/chatting/:_id" component={Chatting} />
                     <Route path="/chats" component={Chats} />
                     <Route path="/join-chat" component={ChatJoin} />
+                    <Route path="/summary:_id" component={ChatSummary} />
                   </AppLayout>
                 </Router>
               </NotificationProvider>

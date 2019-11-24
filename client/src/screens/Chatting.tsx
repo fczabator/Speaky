@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, useHistory } from 'react-router';
 import {
   useChatQuery,
   Chat,
@@ -10,6 +10,8 @@ import { FullScreenLoader } from '../components/FullScreenLoader';
 import { Screen } from '../components/Screen';
 import { useAuth0 } from '../lib/auth';
 import { WordBox } from '../components/WordBox';
+import { BottomPanel } from '../components/BottomPanel';
+import { Box } from 'grommet';
 
 interface Params {
   _id: string;
@@ -31,6 +33,7 @@ export const Chatting: React.FC<RouteComponentProps<Params>> = ({
   const [completeWord] = useCompleteChatWordMutation({
     refetchQueries: [{ query: chatQuery, variables: { _id } }]
   });
+  const history = useHistory();
 
   if (loading || !data || !data.chat || !user || !data.chat.started) {
     return null;
@@ -71,6 +74,17 @@ export const Chatting: React.FC<RouteComponentProps<Params>> = ({
           isSelected={chat.completedWordIds.includes(word._id)}
         />
       ))}
+      <BottomPanel>
+        <Box
+          background="brand"
+          justify="center"
+          align="center"
+          fill
+          onClick={() => history.push(`/summary/${chat._id}`)}
+        >
+          Finish
+        </Box>
+      </BottomPanel>
     </Screen>
   );
 };
