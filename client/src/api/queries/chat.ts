@@ -20,6 +20,12 @@ export default gql`
         date
         userId
         wordIds
+        words {
+          _id
+          word
+          translate
+          userId
+        }
       }
       userIds
       wordIds

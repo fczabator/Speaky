@@ -16,7 +16,6 @@ export const SelectWords: React.FC<RouteComponentProps<Params>> = ({
   }
 }) => {
   const { data, loading } = useWordsQuery();
-  console.log('data', data);
   const { selected, toggleSelected, setMode } = useAppBarContext();
   const { data: chatData } = useChatQuery({
     variables: { _id: chatId }

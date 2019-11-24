@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { ObjectID } from 'mongodb';
-import { Resolvers, Word } from '../types/apolloTypes';
+import { Resolvers } from '../types/apolloTypes';
 import { ApolloError, UserInputError } from 'apollo-server-core';
 import { checkIfUserIsLoggedIn } from '../util/checks';
 import { mapToObjectId, getInviteCode } from '../util/helpers';
@@ -22,7 +22,8 @@ export const typeDef = gql`
   type StartedChat {
     date: DateTime
     userId: ID!
-    wordIds: [String!]
+    words: [Word!]!
+    wordIds: [String!]!
   }
   type Chat {
     _id: ID!
@@ -33,12 +34,21 @@ export const typeDef = gql`
     topicIds: [ID!]
     userIds: [ID!]!
     inviteCode: String!
-    started: [StartedChat!]
+    started: [StartedChat!]!
   }
 `;
 
 export const resolvers: Resolvers = {
   Chat: {
+    words: (root, input, context) => {
+      return context.DB.collection('words')
+        .find({
+          _id: { $in: mapToObjectId(root.wordIds) }
+        })
+        .toArray();
+    }
+  },
+  StartedChat: {
     words: (root, input, context) => {
       return context.DB.collection('words')
         .find({
@@ -68,7 +78,8 @@ export const resolvers: Resolvers = {
       const result = await context.DB.collection('chats').insertOne({
         ...input,
         userIds: [context.userId],
-        inviteCode: getInviteCode()
+        inviteCode: getInviteCode(),
+        started: []
       });
 
       if (!result.ops || !result.ops[0]) {
@@ -121,7 +132,11 @@ export const resolvers: Resolvers = {
           userIds: context.userId,
           started: { $not: { $elemMatch: { userId: context.userId } } }
         },
-        { $push: { started: { date: new Date(), userId: context.userId } } },
+        {
+          $push: {
+            started: { date: new Date(), userId: context.userId, wordIds: [] }
+          }
+        },
         { returnOriginal: false }
       );
       if (!result.value) {

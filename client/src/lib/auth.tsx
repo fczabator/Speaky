@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, ReactNode } from 'react';
 import createAuth0Client from '@auth0/auth0-spa-js';
+import { Auth0UserProfile } from 'auth0-js';
 
 export interface AppState {
   targetUrl: string;
@@ -7,7 +8,7 @@ export interface AppState {
 
 interface AuthContextInterface {
   isAuthenticated: boolean;
-  user: object | null;
+  user: Auth0UserProfile | null;
   loading: boolean;
   popupOpen: boolean;
   loginWithPopup: () => void;
@@ -95,7 +96,6 @@ export const Auth0Provider: React.FC<Auth0ProviderArgs> = ({
       setPopupOpen(false);
     }
     const token = await auth0Client.getTokenSilently();
-    console.log('token', token);
     const user = await auth0Client.getUser();
     localStorage.setItem('token', token);
     setUser(user);

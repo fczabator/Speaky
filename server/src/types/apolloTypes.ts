@@ -20,7 +20,7 @@ export type Chat = {
   wordIds: Array<Scalars['ID']>,
   words: Array<Word>,
   topics?: Maybe<Array<Topic>>,
-  topicIds: Array<Scalars['ID']>,
+  topicIds?: Maybe<Array<Scalars['ID']>>,
   userIds: Array<Scalars['ID']>,
   inviteCode: Scalars['String'],
   started: Array<StartedChat>,
@@ -116,6 +116,8 @@ export type StartedChat = {
    __typename?: 'StartedChat',
   date?: Maybe<Scalars['DateTime']>,
   userId: Scalars['ID'],
+  words: Array<Word>,
+  wordIds: Array<Scalars['String']>,
 };
 
 export type Topic = {
@@ -234,7 +236,7 @@ export type ChatResolvers<ContextType = Context, ParentType extends ResolversPar
   wordIds?: Resolver<Array<ResolversTypes['ID']>, ParentType, ContextType>,
   words?: Resolver<Array<ResolversTypes['Word']>, ParentType, ContextType>,
   topics?: Resolver<Maybe<Array<ResolversTypes['Topic']>>, ParentType, ContextType>,
-  topicIds?: Resolver<Array<ResolversTypes['ID']>, ParentType, ContextType>,
+  topicIds?: Resolver<Maybe<Array<ResolversTypes['ID']>>, ParentType, ContextType>,
   userIds?: Resolver<Array<ResolversTypes['ID']>, ParentType, ContextType>,
   inviteCode?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   started?: Resolver<Array<ResolversTypes['StartedChat']>, ParentType, ContextType>,
@@ -269,6 +271,8 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
 export type StartedChatResolvers<ContextType = Context, ParentType extends ResolversParentTypes['StartedChat'] = ResolversParentTypes['StartedChat']> = {
   date?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>,
   userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  words?: Resolver<Array<ResolversTypes['Word']>, ParentType, ContextType>,
+  wordIds?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
 };
 
 export type TopicResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Topic'] = ResolversParentTypes['Topic']> = {
