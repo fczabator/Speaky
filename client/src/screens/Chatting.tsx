@@ -1,6 +1,11 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { useChatQuery, Chat } from '../types/apolloTypes';
+import {
+  useChatQuery,
+  Chat,
+  useCompleteChatWordMutation
+} from '../types/apolloTypes';
+import chatQuery from '../api/queries/chat';
 import { FullScreenLoader } from '../components/FullScreenLoader';
 import { Screen } from '../components/Screen';
 import { useAuth0 } from '../lib/auth';
@@ -18,23 +23,26 @@ export const Chatting: React.FC<RouteComponentProps<Params>> = ({
     params: { _id }
   }
 }) => {
-  const { data, loading, stopPolling } = useChatQuery({
+  const { data, loading } = useChatQuery({
     variables: { _id },
     pollInterval: 2000
   });
-
   const { user } = useAuth0();
-  console.log('user', user);
+  const [completeWord] = useCompleteChatWordMutation({
+    refetchQueries: [{ query: chatQuery, variables: { _id } }]
+  });
 
-  if (loading || !data || !data.chat || !user || !data.chat.started)
+  if (loading || !data || !data.chat || !user || !data.chat.started) {
     return null;
-  if (isWaiting(data.chat)) return <FullScreenLoader />;
+  }
 
-  stopPolling();
+  const { chat } = data;
 
-  const mySet = data.chat.started.find(gameSet => gameSet.userId === user.sub);
+  if (isWaiting(chat)) return <FullScreenLoader />;
 
-  const otherPlayerSet = data.chat.started.find(
+  const mySet = chat.started.find(gameSet => gameSet.userId === user.sub);
+
+  const otherPlayerSet = chat.started.find(
     gameSet => gameSet.userId !== user.sub
   );
 
@@ -46,11 +54,22 @@ export const Chatting: React.FC<RouteComponentProps<Params>> = ({
     <Screen>
       <span>My words</span>
       {mySet.words.map(word => (
-        <WordBox word={word} />
+        <WordBox
+          key={word._id}
+          word={word}
+          isSelected={chat.completedWordIds.includes(word._id)}
+          onClick={() =>
+            completeWord({ variables: { _id: chat._id, wordId: word._id } })
+          }
+        />
       ))}
       <span>Other player words</span>
       {otherPlayerSet.words.map(word => (
-        <WordBox word={word} />
+        <WordBox
+          key={word._id}
+          word={word}
+          isSelected={chat.completedWordIds.includes(word._id)}
+        />
       ))}
     </Screen>
   );

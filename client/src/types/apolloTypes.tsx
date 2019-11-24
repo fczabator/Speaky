@@ -23,6 +23,7 @@ export type Chat = {
   userIds: Array<Scalars['ID']>;
   inviteCode: Scalars['String'];
   started: Array<StartedChat>;
+  completedWordIds: Array<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -36,6 +37,7 @@ export type Mutation = {
   inviteUserToChat: Scalars['Boolean'];
   joinChat: Chat;
   startChat: Chat;
+  completeChatWord: Chat;
   createTopic: Topic;
 };
 
@@ -75,6 +77,11 @@ export type MutationJoinChatArgs = {
 
 export type MutationStartChatArgs = {
   _id: Scalars['ID'];
+};
+
+export type MutationCompleteChatWordArgs = {
+  _id: Scalars['ID'];
+  wordId: Scalars['ID'];
 };
 
 export type MutationCreateTopicArgs = {
@@ -130,6 +137,15 @@ export type AddWordsToChatMutation = { __typename?: 'Mutation' } & Pick<
   Mutation,
   'addWordsToChat'
 >;
+
+export type CompleteChatWordMutationVariables = {
+  _id: Scalars['ID'];
+  wordId: Scalars['ID'];
+};
+
+export type CompleteChatWordMutation = { __typename?: 'Mutation' } & {
+  completeChatWord: { __typename?: 'Chat' } & Pick<Chat, '_id'>;
+};
 
 export type CreateChatMutationVariables = {
   name: Scalars['String'];
@@ -190,7 +206,13 @@ export type ChatQuery = { __typename?: 'Query' } & {
   chat: Maybe<
     { __typename?: 'Chat' } & Pick<
       Chat,
-      '_id' | 'name' | 'inviteCode' | 'userIds' | 'wordIds' | 'topicIds'
+      | '_id'
+      | 'name'
+      | 'inviteCode'
+      | 'userIds'
+      | 'wordIds'
+      | 'topicIds'
+      | 'completedWordIds'
     > & {
         words: Array<
           { __typename?: 'Word' } & Pick<
@@ -293,6 +315,57 @@ export type AddWordsToChatMutationResult = ApolloReactCommon.MutationResult<
 export type AddWordsToChatMutationOptions = ApolloReactCommon.BaseMutationOptions<
   AddWordsToChatMutation,
   AddWordsToChatMutationVariables
+>;
+export const CompleteChatWordDocument = gql`
+  mutation completeChatWord($_id: ID!, $wordId: ID!) {
+    completeChatWord(_id: $_id, wordId: $wordId) {
+      _id
+    }
+  }
+`;
+export type CompleteChatWordMutationFn = ApolloReactCommon.MutationFunction<
+  CompleteChatWordMutation,
+  CompleteChatWordMutationVariables
+>;
+
+/**
+ * __useCompleteChatWordMutation__
+ *
+ * To run a mutation, you first call `useCompleteChatWordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCompleteChatWordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [completeChatWordMutation, { data, loading, error }] = useCompleteChatWordMutation({
+ *   variables: {
+ *      _id: // value for '_id'
+ *      wordId: // value for 'wordId'
+ *   },
+ * });
+ */
+export function useCompleteChatWordMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    CompleteChatWordMutation,
+    CompleteChatWordMutationVariables
+  >
+) {
+  return ApolloReactHooks.useMutation<
+    CompleteChatWordMutation,
+    CompleteChatWordMutationVariables
+  >(CompleteChatWordDocument, baseOptions);
+}
+export type CompleteChatWordMutationHookResult = ReturnType<
+  typeof useCompleteChatWordMutation
+>;
+export type CompleteChatWordMutationResult = ApolloReactCommon.MutationResult<
+  CompleteChatWordMutation
+>;
+export type CompleteChatWordMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CompleteChatWordMutation,
+  CompleteChatWordMutationVariables
 >;
 export const CreateChatDocument = gql`
   mutation createChat($name: String!, $wordIds: [ID!]!, $topicIds: [ID!]) {
@@ -583,6 +656,7 @@ export const ChatDocument = gql`
       userIds
       wordIds
       topicIds
+      completedWordIds
     }
   }
 `;

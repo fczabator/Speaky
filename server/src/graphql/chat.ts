@@ -18,6 +18,7 @@ export const typeDef = gql`
     inviteUserToChat(_id: ID!, userId: ID!): Boolean!
     joinChat(inviteCode: String!): Chat!
     startChat(_id: ID!): Chat!
+    completeChatWord(_id: ID!, wordId: ID!): Chat!
   }
   type StartedChat {
     date: DateTime
@@ -35,6 +36,7 @@ export const typeDef = gql`
     userIds: [ID!]!
     inviteCode: String!
     started: [StartedChat!]!
+    completedWordIds: [String!]!
   }
 `;
 
@@ -79,7 +81,8 @@ export const resolvers: Resolvers = {
         ...input,
         userIds: [context.userId],
         inviteCode: getInviteCode(),
-        started: []
+        started: [],
+        completedWordIds: []
       });
 
       if (!result.ops || !result.ops[0]) {
@@ -108,7 +111,7 @@ export const resolvers: Resolvers = {
       checkIfUserIsLoggedIn(context);
       const { modifiedCount } = await context.DB.collection('chats').updateOne(
         { _id: new ObjectID(_id) },
-        { $push: { userIds: { $each: userId } } }
+        { $push: { userIds: userId } }
       );
       return !!modifiedCount;
     },
@@ -134,7 +137,11 @@ export const resolvers: Resolvers = {
         },
         {
           $push: {
-            started: { date: new Date(), userId: context.userId, wordIds: [] }
+            started: {
+              date: new Date(),
+              userId: context.userId,
+              wordIds: []
+            }
           }
         },
         { returnOriginal: false }
@@ -158,6 +165,22 @@ export const resolvers: Resolvers = {
             )
           )
         );
+      }
+
+      return result.value;
+    },
+    completeChatWord: async (root, { _id, wordId }, context) => {
+      checkIfUserIsLoggedIn(context);
+      const result = await context.DB.collection('chats').findOneAndUpdate(
+        {
+          _id: new ObjectID(_id),
+          started: { $elemMatch: { userId: context.userId } }
+        },
+        { $push: { completedWordIds: wordId } }
+      );
+
+      if (!result.value) {
+        throw new UserInputError('Cannot complete the word in chat');
       }
 
       return result.value;

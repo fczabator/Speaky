@@ -24,6 +24,7 @@ export type Chat = {
   userIds: Array<Scalars['ID']>,
   inviteCode: Scalars['String'],
   started: Array<StartedChat>,
+  completedWordIds: Array<Scalars['String']>,
 };
 
 
@@ -38,6 +39,7 @@ export type Mutation = {
   inviteUserToChat: Scalars['Boolean'],
   joinChat: Chat,
   startChat: Chat,
+  completeChatWord: Chat,
   createTopic: Topic,
 };
 
@@ -85,6 +87,12 @@ export type MutationJoinChatArgs = {
 
 export type MutationStartChatArgs = {
   _id: Scalars['ID']
+};
+
+
+export type MutationCompleteChatWordArgs = {
+  _id: Scalars['ID'],
+  wordId: Scalars['ID']
 };
 
 
@@ -240,6 +248,7 @@ export type ChatResolvers<ContextType = Context, ParentType extends ResolversPar
   userIds?: Resolver<Array<ResolversTypes['ID']>, ParentType, ContextType>,
   inviteCode?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
   started?: Resolver<Array<ResolversTypes['StartedChat']>, ParentType, ContextType>,
+  completedWordIds?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
 };
 
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
@@ -256,6 +265,7 @@ export type MutationResolvers<ContextType = Context, ParentType extends Resolver
   inviteUserToChat?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationInviteUserToChatArgs, '_id' | 'userId'>>,
   joinChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationJoinChatArgs, 'inviteCode'>>,
   startChat?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationStartChatArgs, '_id'>>,
+  completeChatWord?: Resolver<ResolversTypes['Chat'], ParentType, ContextType, RequireFields<MutationCompleteChatWordArgs, '_id' | 'wordId'>>,
   createTopic?: Resolver<ResolversTypes['Topic'], ParentType, ContextType, RequireFields<MutationCreateTopicArgs, 'name'>>,
 };
 
