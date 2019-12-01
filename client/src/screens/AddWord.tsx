@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, Button } from 'grommet';
+import { TextInput, Button, FormField } from 'grommet';
 import { Screen } from '../components/Screen';
 import wordsQuery from '../api/queries/words';
 import { useCreateWordMutation } from '../types/apolloTypes';
@@ -14,6 +14,12 @@ export const AddWord: React.FC = () => {
   const { showNotification } = useNotificationContext();
 
   const handleAddWord = () => {
+    if (word === '' || translation === '') {
+      showNotification('Please fill the form');
+      return;
+    }
+
+    console.log('word', word);
     createWord({ variables: { word, translate: translation } });
     showNotification(`${word} has been added!`);
     setWord('');
@@ -22,17 +28,16 @@ export const AddWord: React.FC = () => {
 
   return (
     <Screen>
-      <TextInput
-        placeholder="Word"
-        value={word}
-        onChange={e => setWord(e.target.value)}
-      />
-      <TextInput
-        placeholder="Translation"
-        value={translation}
-        onChange={e => setTranslation(e.target.value)}
-      />
-      <Button label="Add new word!" onClick={handleAddWord} />
+      <FormField label="Word">
+        <TextInput value={word} onChange={e => setWord(e.target.value)} />
+      </FormField>
+      <FormField label="Translation">
+        <TextInput
+          value={translation}
+          onChange={e => setTranslation(e.target.value)}
+        />
+      </FormField>
+      <Button color="brand" label="Add new word!" onClick={handleAddWord} />
     </Screen>
   );
 };

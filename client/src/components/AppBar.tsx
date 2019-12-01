@@ -22,7 +22,13 @@ export const AppBar: React.FC<Props> = ({ onSidebarOpen, isSidebarOpen }) => {
     >
       <Box justify="start" direction="row" align="center">
         <Button
-          icon={isSidebarOpen ? <FormClose /> : <Menu />}
+          icon={
+            isSidebarOpen ? (
+              <FormClose color="#000000" />
+            ) : (
+              <Menu color="#000000" />
+            )
+          }
           onClick={() => onSidebarOpen()}
         />
         <Heading level="3" margin="none">

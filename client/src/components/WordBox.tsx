@@ -6,12 +6,14 @@ type Props = {
   word: Word;
   onClick?: (id: string) => void;
   isSelected?: boolean;
+  withTranslation?: boolean;
 };
 
 export const WordBox: React.FC<Props> = ({
   word: { _id, word, translate },
   onClick,
-  isSelected
+  isSelected,
+  withTranslation
 }) => (
   <Box
     animation={['fadeIn']}
@@ -25,6 +27,6 @@ export const WordBox: React.FC<Props> = ({
     onClick={() => onClick && onClick(_id)}
   >
     <Text size="large">{word}</Text>
-    <Text size="medium">{translate}</Text>
+    {withTranslation && <Text size="medium">{translate}</Text>}
   </Box>
 );

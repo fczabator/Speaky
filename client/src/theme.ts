@@ -70,7 +70,7 @@ export const grommetTheme = {
         light: '#666666'
       },
       border: 'background-xweak',
-      control: 'brand',
+      control: '#eeeeee',
       'active-background': 'background-weak',
       'active-text': 'text-strong',
       'selected-background': 'background-strong',

@@ -15,12 +15,11 @@ export const AppLayout: React.FC = ({ children }) => {
   return (
     <>
       <AppBar onSidebarOpen={toggleSidebar} isSidebarOpen={isSidebarOpen} />
-      <div style={{ position: 'absolute', zIndex: 2 }}>
+      <div style={{ width: '100%', position: 'absolute', zIndex: 2 }}>
         <Collapsible direction="vertical" open={isSidebarOpen}>
           <Box
             flex
-            fill="vertical"
-            width="medium"
+            basis="full"
             background="brand"
             align="center"
             justify="center"
