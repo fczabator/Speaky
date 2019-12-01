@@ -19,7 +19,7 @@ import { SelectWords } from './screens/SelectWords';
 import { ThemeProvider } from 'styled-components';
 import { Words } from './screens/Words';
 import { client } from './lib/apollo';
-import { theme } from './theme';
+import { theme, grommetTheme } from './theme';
 import { Chats } from './screens/Chats';
 
 const onRedirectCallback = (appState: AppState) => {
@@ -42,7 +42,7 @@ export const App = () => (
         onRedirectCallback={onRedirectCallback}
         audience={config.audience}
       >
-        <Grommet>
+        <Grommet theme={grommetTheme}>
           <ThemeProvider theme={theme}>
             <AppBarProvider>
               <NotificationProvider>
