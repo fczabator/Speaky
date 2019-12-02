@@ -32,7 +32,7 @@ export const ChatJoin: React.FC = () => {
         value={code}
         onChange={e => setCode(e.target.value)}
       />
-      <Button label="Join" onClick={handleJoinChat} />
+      <Button color="brand" label="Join" onClick={handleJoinChat} />
     </Screen>
   );
 };
