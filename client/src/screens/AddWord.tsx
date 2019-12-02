@@ -19,7 +19,6 @@ export const AddWord: React.FC = () => {
       return;
     }
 
-    console.log('word', word);
     createWord({ variables: { word, translate: translation } });
     showNotification(`${word} has been added!`);
     setWord('');

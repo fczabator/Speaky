@@ -4,7 +4,7 @@ import { AddWord } from './screens/AddWord';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { AppBarProvider } from './context/appBarContext';
 import { AppLayout } from './components/AppLayout';
-import { AppState, Auth0Provider } from './lib/auth';
+import { AppState, Auth0Provider, useAuth0 } from './lib/auth';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { ChatView } from './screens/ChatView';
 import { Chatting } from './screens/Chatting';
@@ -21,6 +21,7 @@ import { Words } from './screens/Words';
 import { client } from './lib/apollo';
 import { theme, grommetTheme } from './theme';
 import { Chats } from './screens/Chats';
+import { Routes } from './Routes';
 
 const onRedirectCallback = (appState: AppState) => {
   window.history.replaceState(
@@ -32,45 +33,32 @@ const onRedirectCallback = (appState: AppState) => {
   );
 };
 
-export const App = () => (
-  <ApolloProvider client={client}>
-    <div style={{ height: '100vh', backgroundColor: '#FAFAFA' }}>
-      <Auth0Provider
-        domain={config.domain}
-        client_id={config.clientId}
-        redirect_uri={window.location.origin}
-        onRedirectCallback={onRedirectCallback}
-        audience={config.audience}
-      >
-        <Grommet theme={grommetTheme}>
-          <ThemeProvider theme={theme}>
-            <AppBarProvider>
-              <NotificationProvider>
-                <Router>
-                  <AppLayout>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/add-word" component={AddWord} />
-                    <Route path="/words" component={Words} />
-                    <Route
-                      path="/select-words/:chatId?"
-                      component={SelectWords}
-                    />
-                    <Route path="/create-chat" component={CreateChat} />
-                    <Route path="/chat/:_id" component={ChatView} />
-                    <Route path="/chat-invite/:_id" component={ChatInvite} />
-                    <Route path="/chatting/:_id" component={Chatting} />
-                    <Route path="/chats" component={Chats} />
-                    <Route path="/join-chat" component={ChatJoin} />
-                    <Route path="/summary:_id" component={ChatSummary} />
-                  </AppLayout>
-                </Router>
-              </NotificationProvider>
-            </AppBarProvider>
-          </ThemeProvider>
-        </Grommet>
-      </Auth0Provider>
-    </div>
-  </ApolloProvider>
-);
+export const App = () => {
+  return (
+    <ApolloProvider client={client}>
+      <div style={{ height: '100vh', backgroundColor: '#FAFAFA' }}>
+        <Auth0Provider
+          domain={config.domain}
+          client_id={config.clientId}
+          redirect_uri={window.location.origin}
+          onRedirectCallback={onRedirectCallback}
+          audience={config.audience}
+        >
+          <Grommet theme={grommetTheme}>
+            <ThemeProvider theme={theme}>
+              <AppBarProvider>
+                <NotificationProvider>
+                  <Router>
+                    <Routes />
+                  </Router>
+                </NotificationProvider>
+              </AppBarProvider>
+            </ThemeProvider>
+          </Grommet>
+        </Auth0Provider>
+      </div>
+    </ApolloProvider>
+  );
+};
 
 export default App;

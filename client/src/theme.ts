@@ -39,7 +39,7 @@ export const grommetTheme = {
       },
       background: {
         dark: '#222222',
-        light: '#FFFFFF'
+        light: '#FAFAFA'
       },
       'background-strong': {
         dark: '#000000',
