@@ -11,7 +11,6 @@
     "apollo-boost": "^0.4.4",
     "auth0-js": "^9.11.3",
     "constate": "^1.3.2",
-    "eslint-plugin-react-hooks": "^2.2.0",
     "graphql": "^14.5.8",
     "grommet": "^2.8.0",
     "grommet-icons": "^4.4.0",
@@ -22,11 +21,8 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.2.0",
     "react-spinners": "^0.6.1",
-    "rebass": "^4.0.7",
     "redux": "^4.0.1",
-    "styled-components": "^4.4.1",
-    "tslint": "^5.20.1",
-    "typesafe-actions": "^5.1.0"
+    "styled-components": "^4.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -61,6 +57,8 @@
     "@graphql-codegen/typescript-operations": "^1.8.3",
     "@graphql-codegen/typescript-react-apollo": "^1.8.3",
     "@graphql-codegen/typescript-resolvers": "^1.8.3",
-    "typescript": "3.7.2"
+    "typescript": "3.7.2",
+    "tslint": "^5.20.1",
+    "eslint-plugin-react-hooks": "^2.2.0"
   }
 }
