@@ -29,7 +29,7 @@ export const Routes = () => {
       <AuthRoute path="/chatting/:_id" component={Chatting} />
       <AuthRoute path="/chats" component={Chats} />
       <AuthRoute path="/join-chat" component={ChatJoin} />
-      <AuthRoute path="/summary:_id" component={ChatSummary} />
+      <AuthRoute path="/summary/:_id" component={ChatSummary} />
     </AppLayout>
   );
 };

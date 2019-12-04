@@ -23,6 +23,7 @@ export const WordBox: React.FC<Props> = ({
     direction="column"
     align="center"
     justify="center"
+    fill="horizontal"
     background={isSelected ? 'brand' : 'white'}
     onClick={() => onClick && onClick(_id)}
   >

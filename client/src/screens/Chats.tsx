@@ -7,7 +7,6 @@ import { useChatsQuery, Chat } from '../types/apolloTypes';
 
 export const Chats: React.FC<RouteComponentProps> = () => {
   const { data, loading } = useChatsQuery();
-  console.log('data', data);
   const history = useHistory();
   if (loading || !data) {
     return null;
@@ -36,7 +35,7 @@ export const Chats: React.FC<RouteComponentProps> = () => {
               <ChatBox
                 chat={chat}
                 key={chat._id}
-                onClick={() => history.push(`/chat/${chat._id}`)}
+                onClick={() => history.push(`/summary/${chat._id}`)}
               />
             )}
           </InfiniteScroll>

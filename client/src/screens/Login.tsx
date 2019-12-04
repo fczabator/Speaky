@@ -15,7 +15,7 @@ export const Login: React.FC<RouteComponentProps> = props => {
     <Screen>
       <Box justify="center" align="center">
         <Heading>Welcome to Speaky!</Heading>
-        <Box pad="medium" align="center" justify="center">
+        <Box pad="medium" align="center" justify="center" fill="horizontal">
           <Button
             primary
             color="brand"
