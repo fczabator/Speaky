@@ -4,278 +4,305 @@ import * as ApolloReactHooks from '@apollo/react-hooks';
 export type Maybe<T> = T | null;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  DateTime: any;
+  ID: string,
+  String: string,
+  Boolean: boolean,
+  Int: number,
+  Float: number,
+  DateTime: any,
 };
 
 export type Chat = {
-  __typename?: 'Chat';
-  _id: Scalars['ID'];
-  name: Scalars['String'];
-  wordIds: Array<Scalars['ID']>;
-  words: Array<Word>;
-  topics?: Maybe<Array<Topic>>;
-  topicIds?: Maybe<Array<Scalars['ID']>>;
-  userIds: Array<Scalars['ID']>;
-  inviteCode: Scalars['String'];
-  started: Array<StartedChat>;
-  completedWordIds: Array<Scalars['String']>;
+   __typename?: 'Chat',
+  _id: Scalars['ID'],
+  name: Scalars['String'],
+  wordIds: Array<Scalars['ID']>,
+  words: Array<Word>,
+  topics?: Maybe<Array<Topic>>,
+  topicIds?: Maybe<Array<Scalars['ID']>>,
+  userIds: Array<Scalars['ID']>,
+  inviteCode: Scalars['String'],
+  started: Array<StartedChat>,
+  completedWordIds: Array<Scalars['String']>,
+  isCompleted: Scalars['Boolean'],
 };
+
 
 export type Mutation = {
-  __typename?: 'Mutation';
-  _empty?: Maybe<Scalars['String']>;
-  createWord: Word;
-  deleteWord: Scalars['Boolean'];
-  createChat: Chat;
-  addWordsToChat: Scalars['Boolean'];
-  removeWordsFromChat: Scalars['Boolean'];
-  inviteUserToChat: Scalars['Boolean'];
-  joinChat: Chat;
-  startChat: Chat;
-  completeChatWord: Chat;
-  createTopic: Topic;
+   __typename?: 'Mutation',
+  _empty?: Maybe<Scalars['String']>,
+  createWord: Word,
+  deleteWord: Scalars['Boolean'],
+  createChat: Chat,
+  addWordsToChat: Scalars['Boolean'],
+  removeWordsFromChat: Scalars['Boolean'],
+  inviteUserToChat: Scalars['Boolean'],
+  joinChat: Chat,
+  startChat: Chat,
+  completeChatWord: Chat,
+  createTopic: Topic,
 };
+
 
 export type MutationCreateWordArgs = {
-  word: Scalars['String'];
-  translate?: Maybe<Scalars['String']>;
+  word: Scalars['String'],
+  translate?: Maybe<Scalars['String']>
 };
+
 
 export type MutationDeleteWordArgs = {
-  _id: Scalars['String'];
+  _id: Scalars['String']
 };
+
 
 export type MutationCreateChatArgs = {
-  name: Scalars['String'];
-  wordIds: Array<Scalars['ID']>;
-  topicIds?: Maybe<Array<Scalars['ID']>>;
+  name: Scalars['String'],
+  wordIds: Array<Scalars['ID']>,
+  topicIds?: Maybe<Array<Scalars['ID']>>
 };
+
 
 export type MutationAddWordsToChatArgs = {
-  _id: Scalars['ID'];
-  wordIds: Array<Scalars['ID']>;
+  _id: Scalars['ID'],
+  wordIds: Array<Scalars['ID']>
 };
+
 
 export type MutationRemoveWordsFromChatArgs = {
-  _id: Scalars['ID'];
-  wordIds: Array<Scalars['ID']>;
+  _id: Scalars['ID'],
+  wordIds: Array<Scalars['ID']>
 };
+
 
 export type MutationInviteUserToChatArgs = {
-  _id: Scalars['ID'];
-  userId: Scalars['ID'];
+  _id: Scalars['ID'],
+  userId: Scalars['ID']
 };
+
 
 export type MutationJoinChatArgs = {
-  inviteCode: Scalars['String'];
+  inviteCode: Scalars['String']
 };
+
 
 export type MutationStartChatArgs = {
-  _id: Scalars['ID'];
+  _id: Scalars['ID']
 };
+
 
 export type MutationCompleteChatWordArgs = {
-  _id: Scalars['ID'];
-  wordId: Scalars['ID'];
+  _id: Scalars['ID'],
+  wordId: Scalars['ID']
 };
 
+
 export type MutationCreateTopicArgs = {
-  name: Scalars['String'];
+  name: Scalars['String']
 };
 
 export type Query = {
-  __typename?: 'Query';
-  _empty?: Maybe<Scalars['String']>;
-  words: Array<Word>;
-  word?: Maybe<Word>;
-  chats: Array<Chat>;
-  chat?: Maybe<Chat>;
-  topics: Array<Topic>;
+   __typename?: 'Query',
+  _empty?: Maybe<Scalars['String']>,
+  words: Array<Word>,
+  word?: Maybe<Word>,
+  chats: Array<Chat>,
+  chat?: Maybe<Chat>,
+  topics: Array<Topic>,
 };
+
 
 export type QueryWordArgs = {
-  _id: Scalars['String'];
+  _id: Scalars['String']
 };
 
+
 export type QueryChatArgs = {
-  _id: Scalars['String'];
+  _id: Scalars['String']
 };
 
 export type StartedChat = {
-  __typename?: 'StartedChat';
-  date?: Maybe<Scalars['DateTime']>;
-  userId: Scalars['ID'];
-  words: Array<Word>;
-  wordIds: Array<Scalars['String']>;
+   __typename?: 'StartedChat',
+  date?: Maybe<Scalars['DateTime']>,
+  userId: Scalars['ID'],
+  words: Array<Word>,
+  wordIds: Array<Scalars['String']>,
 };
 
 export type Topic = {
-  __typename?: 'Topic';
-  _id: Scalars['ID'];
-  name: Scalars['String'];
+   __typename?: 'Topic',
+  _id: Scalars['ID'],
+  name: Scalars['String'],
 };
 
 export type Word = {
-  __typename?: 'Word';
-  _id: Scalars['ID'];
-  word: Scalars['String'];
-  translate?: Maybe<Scalars['String']>;
-  userId: Scalars['ID'];
+   __typename?: 'Word',
+  _id: Scalars['ID'],
+  word: Scalars['String'],
+  translate?: Maybe<Scalars['String']>,
+  userId: Scalars['ID'],
 };
 
 export type AddWordsToChatMutationVariables = {
-  _id: Scalars['ID'];
-  wordIds: Array<Scalars['ID']>;
+  _id: Scalars['ID'],
+  wordIds: Array<Scalars['ID']>
 };
 
-export type AddWordsToChatMutation = { __typename?: 'Mutation' } & Pick<
-  Mutation,
-  'addWordsToChat'
->;
+
+export type AddWordsToChatMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'addWordsToChat'>
+);
 
 export type CompleteChatWordMutationVariables = {
-  _id: Scalars['ID'];
-  wordId: Scalars['ID'];
+  _id: Scalars['ID'],
+  wordId: Scalars['ID']
 };
 
-export type CompleteChatWordMutation = { __typename?: 'Mutation' } & {
-  completeChatWord: { __typename?: 'Chat' } & Pick<Chat, '_id'>;
-};
+
+export type CompleteChatWordMutation = (
+  { __typename?: 'Mutation' }
+  & { completeChatWord: (
+    { __typename?: 'Chat' }
+    & Pick<Chat, '_id'>
+  ) }
+);
 
 export type CreateChatMutationVariables = {
-  name: Scalars['String'];
-  wordIds: Array<Scalars['ID']>;
-  topicIds?: Maybe<Array<Scalars['ID']>>;
+  name: Scalars['String'],
+  wordIds: Array<Scalars['ID']>,
+  topicIds?: Maybe<Array<Scalars['ID']>>
 };
 
-export type CreateChatMutation = { __typename?: 'Mutation' } & {
-  createChat: { __typename?: 'Chat' } & Pick<Chat, '_id' | 'name'> & {
-      words: Array<{ __typename?: 'Word' } & Pick<Word, '_id'>>;
-      topics: Maybe<Array<{ __typename?: 'Topic' } & Pick<Topic, '_id'>>>;
-    };
-};
+
+export type CreateChatMutation = (
+  { __typename?: 'Mutation' }
+  & { createChat: (
+    { __typename?: 'Chat' }
+    & Pick<Chat, '_id' | 'name'>
+    & { words: Array<(
+      { __typename?: 'Word' }
+      & Pick<Word, '_id'>
+    )>, topics: Maybe<Array<(
+      { __typename?: 'Topic' }
+      & Pick<Topic, '_id'>
+    )>> }
+  ) }
+);
 
 export type CreateWordMutationVariables = {
-  word: Scalars['String'];
-  translate?: Maybe<Scalars['String']>;
+  word: Scalars['String'],
+  translate?: Maybe<Scalars['String']>
 };
 
-export type CreateWordMutation = { __typename?: 'Mutation' } & {
-  createWord: { __typename?: 'Word' } & Pick<
-    Word,
-    '_id' | 'translate' | 'word'
-  >;
-};
+
+export type CreateWordMutation = (
+  { __typename?: 'Mutation' }
+  & { createWord: (
+    { __typename?: 'Word' }
+    & Pick<Word, '_id' | 'translate' | 'word'>
+  ) }
+);
 
 export type JoinChatMutationVariables = {
-  inviteCode: Scalars['String'];
+  inviteCode: Scalars['String']
 };
 
-export type JoinChatMutation = { __typename?: 'Mutation' } & {
-  joinChat: { __typename?: 'Chat' } & Pick<Chat, '_id'>;
-};
+
+export type JoinChatMutation = (
+  { __typename?: 'Mutation' }
+  & { joinChat: (
+    { __typename?: 'Chat' }
+    & Pick<Chat, '_id'>
+  ) }
+);
 
 export type RemoveWordsFromChatMutationVariables = {
-  _id: Scalars['ID'];
-  wordIds: Array<Scalars['ID']>;
+  _id: Scalars['ID'],
+  wordIds: Array<Scalars['ID']>
 };
 
-export type RemoveWordsFromChatMutation = { __typename?: 'Mutation' } & Pick<
-  Mutation,
-  'removeWordsFromChat'
->;
+
+export type RemoveWordsFromChatMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'removeWordsFromChat'>
+);
 
 export type StartChatMutationVariables = {
-  _id: Scalars['ID'];
+  _id: Scalars['ID']
 };
 
-export type StartChatMutation = { __typename?: 'Mutation' } & {
-  startChat: { __typename?: 'Chat' } & Pick<Chat, '_id'>;
-};
+
+export type StartChatMutation = (
+  { __typename?: 'Mutation' }
+  & { startChat: (
+    { __typename?: 'Chat' }
+    & Pick<Chat, '_id'>
+  ) }
+);
 
 export type ChatQueryVariables = {
-  _id: Scalars['String'];
+  _id: Scalars['String']
 };
 
-export type ChatQuery = { __typename?: 'Query' } & {
-  chat: Maybe<
-    { __typename?: 'Chat' } & Pick<
-      Chat,
-      | '_id'
-      | 'name'
-      | 'inviteCode'
-      | 'userIds'
-      | 'wordIds'
-      | 'topicIds'
-      | 'completedWordIds'
-    > & {
-        words: Array<
-          { __typename?: 'Word' } & Pick<
-            Word,
-            '_id' | 'word' | 'translate' | 'userId'
-          >
-        >;
-        topics: Maybe<
-          Array<{ __typename?: 'Topic' } & Pick<Topic, '_id' | 'name'>>
-        >;
-        started: Array<
-          { __typename?: 'StartedChat' } & Pick<
-            StartedChat,
-            'date' | 'userId' | 'wordIds'
-          > & {
-              words: Array<
-                { __typename?: 'Word' } & Pick<
-                  Word,
-                  '_id' | 'word' | 'translate' | 'userId'
-                >
-              >;
-            }
-        >;
-      }
-  >;
-};
+
+export type ChatQuery = (
+  { __typename?: 'Query' }
+  & { chat: Maybe<(
+    { __typename?: 'Chat' }
+    & Pick<Chat, '_id' | 'name' | 'isCompleted' | 'inviteCode' | 'userIds' | 'wordIds' | 'topicIds' | 'completedWordIds'>
+    & { words: Array<(
+      { __typename?: 'Word' }
+      & Pick<Word, '_id' | 'word' | 'translate' | 'userId'>
+    )>, topics: Maybe<Array<(
+      { __typename?: 'Topic' }
+      & Pick<Topic, '_id' | 'name'>
+    )>>, started: Array<(
+      { __typename?: 'StartedChat' }
+      & Pick<StartedChat, 'date' | 'userId' | 'wordIds'>
+      & { words: Array<(
+        { __typename?: 'Word' }
+        & Pick<Word, '_id' | 'word' | 'translate' | 'userId'>
+      )> }
+    )> }
+  )> }
+);
 
 export type ChatsQueryVariables = {};
 
-export type ChatsQuery = { __typename?: 'Query' } & {
-  chats: Array<
-    { __typename?: 'Chat' } & Pick<Chat, '_id' | 'name'> & {
-        words: Array<
-          { __typename?: 'Word' } & Pick<
-            Word,
-            '_id' | 'word' | 'translate' | 'userId'
-          >
-        >;
-        topics: Maybe<Array<{ __typename?: 'Topic' } & Pick<Topic, '_id'>>>;
-      }
-  >;
-};
+
+export type ChatsQuery = (
+  { __typename?: 'Query' }
+  & { chats: Array<(
+    { __typename?: 'Chat' }
+    & Pick<Chat, '_id' | 'name' | 'isCompleted'>
+    & { words: Array<(
+      { __typename?: 'Word' }
+      & Pick<Word, '_id' | 'word' | 'translate' | 'userId'>
+    )>, topics: Maybe<Array<(
+      { __typename?: 'Topic' }
+      & Pick<Topic, '_id'>
+    )>> }
+  )> }
+);
 
 export type WordsQueryVariables = {};
 
-export type WordsQuery = { __typename?: 'Query' } & {
-  words: Array<
-    { __typename?: 'Word' } & Pick<
-      Word,
-      '_id' | 'word' | 'translate' | 'userId'
-    >
-  >;
-};
+
+export type WordsQuery = (
+  { __typename?: 'Query' }
+  & { words: Array<(
+    { __typename?: 'Word' }
+    & Pick<Word, '_id' | 'word' | 'translate' | 'userId'>
+  )> }
+);
+
 
 export const AddWordsToChatDocument = gql`
-  mutation addWordsToChat($_id: ID!, $wordIds: [ID!]!) {
-    addWordsToChat(_id: $_id, wordIds: $wordIds)
-  }
-`;
-export type AddWordsToChatMutationFn = ApolloReactCommon.MutationFunction<
-  AddWordsToChatMutation,
-  AddWordsToChatMutationVariables
->;
+    mutation addWordsToChat($_id: ID!, $wordIds: [ID!]!) {
+  addWordsToChat(_id: $_id, wordIds: $wordIds)
+}
+    `;
+export type AddWordsToChatMutationFn = ApolloReactCommon.MutationFunction<AddWordsToChatMutation, AddWordsToChatMutationVariables>;
 
 /**
  * __useAddWordsToChatMutation__
@@ -295,38 +322,20 @@ export type AddWordsToChatMutationFn = ApolloReactCommon.MutationFunction<
  *   },
  * });
  */
-export function useAddWordsToChatMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    AddWordsToChatMutation,
-    AddWordsToChatMutationVariables
-  >
-) {
-  return ApolloReactHooks.useMutation<
-    AddWordsToChatMutation,
-    AddWordsToChatMutationVariables
-  >(AddWordsToChatDocument, baseOptions);
-}
-export type AddWordsToChatMutationHookResult = ReturnType<
-  typeof useAddWordsToChatMutation
->;
-export type AddWordsToChatMutationResult = ApolloReactCommon.MutationResult<
-  AddWordsToChatMutation
->;
-export type AddWordsToChatMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  AddWordsToChatMutation,
-  AddWordsToChatMutationVariables
->;
+export function useAddWordsToChatMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddWordsToChatMutation, AddWordsToChatMutationVariables>) {
+        return ApolloReactHooks.useMutation<AddWordsToChatMutation, AddWordsToChatMutationVariables>(AddWordsToChatDocument, baseOptions);
+      }
+export type AddWordsToChatMutationHookResult = ReturnType<typeof useAddWordsToChatMutation>;
+export type AddWordsToChatMutationResult = ApolloReactCommon.MutationResult<AddWordsToChatMutation>;
+export type AddWordsToChatMutationOptions = ApolloReactCommon.BaseMutationOptions<AddWordsToChatMutation, AddWordsToChatMutationVariables>;
 export const CompleteChatWordDocument = gql`
-  mutation completeChatWord($_id: ID!, $wordId: ID!) {
-    completeChatWord(_id: $_id, wordId: $wordId) {
-      _id
-    }
+    mutation completeChatWord($_id: ID!, $wordId: ID!) {
+  completeChatWord(_id: $_id, wordId: $wordId) {
+    _id
   }
-`;
-export type CompleteChatWordMutationFn = ApolloReactCommon.MutationFunction<
-  CompleteChatWordMutation,
-  CompleteChatWordMutationVariables
->;
+}
+    `;
+export type CompleteChatWordMutationFn = ApolloReactCommon.MutationFunction<CompleteChatWordMutation, CompleteChatWordMutationVariables>;
 
 /**
  * __useCompleteChatWordMutation__
@@ -346,45 +355,27 @@ export type CompleteChatWordMutationFn = ApolloReactCommon.MutationFunction<
  *   },
  * });
  */
-export function useCompleteChatWordMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    CompleteChatWordMutation,
-    CompleteChatWordMutationVariables
-  >
-) {
-  return ApolloReactHooks.useMutation<
-    CompleteChatWordMutation,
-    CompleteChatWordMutationVariables
-  >(CompleteChatWordDocument, baseOptions);
-}
-export type CompleteChatWordMutationHookResult = ReturnType<
-  typeof useCompleteChatWordMutation
->;
-export type CompleteChatWordMutationResult = ApolloReactCommon.MutationResult<
-  CompleteChatWordMutation
->;
-export type CompleteChatWordMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  CompleteChatWordMutation,
-  CompleteChatWordMutationVariables
->;
+export function useCompleteChatWordMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CompleteChatWordMutation, CompleteChatWordMutationVariables>) {
+        return ApolloReactHooks.useMutation<CompleteChatWordMutation, CompleteChatWordMutationVariables>(CompleteChatWordDocument, baseOptions);
+      }
+export type CompleteChatWordMutationHookResult = ReturnType<typeof useCompleteChatWordMutation>;
+export type CompleteChatWordMutationResult = ApolloReactCommon.MutationResult<CompleteChatWordMutation>;
+export type CompleteChatWordMutationOptions = ApolloReactCommon.BaseMutationOptions<CompleteChatWordMutation, CompleteChatWordMutationVariables>;
 export const CreateChatDocument = gql`
-  mutation createChat($name: String!, $wordIds: [ID!]!, $topicIds: [ID!]) {
-    createChat(name: $name, wordIds: $wordIds, topicIds: $topicIds) {
+    mutation createChat($name: String!, $wordIds: [ID!]!, $topicIds: [ID!]) {
+  createChat(name: $name, wordIds: $wordIds, topicIds: $topicIds) {
+    _id
+    name
+    words {
       _id
-      name
-      words {
-        _id
-      }
-      topics {
-        _id
-      }
+    }
+    topics {
+      _id
     }
   }
-`;
-export type CreateChatMutationFn = ApolloReactCommon.MutationFunction<
-  CreateChatMutation,
-  CreateChatMutationVariables
->;
+}
+    `;
+export type CreateChatMutationFn = ApolloReactCommon.MutationFunction<CreateChatMutation, CreateChatMutationVariables>;
 
 /**
  * __useCreateChatMutation__
@@ -405,40 +396,22 @@ export type CreateChatMutationFn = ApolloReactCommon.MutationFunction<
  *   },
  * });
  */
-export function useCreateChatMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    CreateChatMutation,
-    CreateChatMutationVariables
-  >
-) {
-  return ApolloReactHooks.useMutation<
-    CreateChatMutation,
-    CreateChatMutationVariables
-  >(CreateChatDocument, baseOptions);
-}
-export type CreateChatMutationHookResult = ReturnType<
-  typeof useCreateChatMutation
->;
-export type CreateChatMutationResult = ApolloReactCommon.MutationResult<
-  CreateChatMutation
->;
-export type CreateChatMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  CreateChatMutation,
-  CreateChatMutationVariables
->;
+export function useCreateChatMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateChatMutation, CreateChatMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateChatMutation, CreateChatMutationVariables>(CreateChatDocument, baseOptions);
+      }
+export type CreateChatMutationHookResult = ReturnType<typeof useCreateChatMutation>;
+export type CreateChatMutationResult = ApolloReactCommon.MutationResult<CreateChatMutation>;
+export type CreateChatMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateChatMutation, CreateChatMutationVariables>;
 export const CreateWordDocument = gql`
-  mutation createWord($word: String!, $translate: String) {
-    createWord(word: $word, translate: $translate) {
-      _id
-      translate
-      word
-    }
+    mutation createWord($word: String!, $translate: String) {
+  createWord(word: $word, translate: $translate) {
+    _id
+    translate
+    word
   }
-`;
-export type CreateWordMutationFn = ApolloReactCommon.MutationFunction<
-  CreateWordMutation,
-  CreateWordMutationVariables
->;
+}
+    `;
+export type CreateWordMutationFn = ApolloReactCommon.MutationFunction<CreateWordMutation, CreateWordMutationVariables>;
 
 /**
  * __useCreateWordMutation__
@@ -458,38 +431,20 @@ export type CreateWordMutationFn = ApolloReactCommon.MutationFunction<
  *   },
  * });
  */
-export function useCreateWordMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    CreateWordMutation,
-    CreateWordMutationVariables
-  >
-) {
-  return ApolloReactHooks.useMutation<
-    CreateWordMutation,
-    CreateWordMutationVariables
-  >(CreateWordDocument, baseOptions);
-}
-export type CreateWordMutationHookResult = ReturnType<
-  typeof useCreateWordMutation
->;
-export type CreateWordMutationResult = ApolloReactCommon.MutationResult<
-  CreateWordMutation
->;
-export type CreateWordMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  CreateWordMutation,
-  CreateWordMutationVariables
->;
+export function useCreateWordMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateWordMutation, CreateWordMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateWordMutation, CreateWordMutationVariables>(CreateWordDocument, baseOptions);
+      }
+export type CreateWordMutationHookResult = ReturnType<typeof useCreateWordMutation>;
+export type CreateWordMutationResult = ApolloReactCommon.MutationResult<CreateWordMutation>;
+export type CreateWordMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateWordMutation, CreateWordMutationVariables>;
 export const JoinChatDocument = gql`
-  mutation joinChat($inviteCode: String!) {
-    joinChat(inviteCode: $inviteCode) {
-      _id
-    }
+    mutation joinChat($inviteCode: String!) {
+  joinChat(inviteCode: $inviteCode) {
+    _id
   }
-`;
-export type JoinChatMutationFn = ApolloReactCommon.MutationFunction<
-  JoinChatMutation,
-  JoinChatMutationVariables
->;
+}
+    `;
+export type JoinChatMutationFn = ApolloReactCommon.MutationFunction<JoinChatMutation, JoinChatMutationVariables>;
 
 /**
  * __useJoinChatMutation__
@@ -508,34 +463,18 @@ export type JoinChatMutationFn = ApolloReactCommon.MutationFunction<
  *   },
  * });
  */
-export function useJoinChatMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    JoinChatMutation,
-    JoinChatMutationVariables
-  >
-) {
-  return ApolloReactHooks.useMutation<
-    JoinChatMutation,
-    JoinChatMutationVariables
-  >(JoinChatDocument, baseOptions);
-}
+export function useJoinChatMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<JoinChatMutation, JoinChatMutationVariables>) {
+        return ApolloReactHooks.useMutation<JoinChatMutation, JoinChatMutationVariables>(JoinChatDocument, baseOptions);
+      }
 export type JoinChatMutationHookResult = ReturnType<typeof useJoinChatMutation>;
-export type JoinChatMutationResult = ApolloReactCommon.MutationResult<
-  JoinChatMutation
->;
-export type JoinChatMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  JoinChatMutation,
-  JoinChatMutationVariables
->;
+export type JoinChatMutationResult = ApolloReactCommon.MutationResult<JoinChatMutation>;
+export type JoinChatMutationOptions = ApolloReactCommon.BaseMutationOptions<JoinChatMutation, JoinChatMutationVariables>;
 export const RemoveWordsFromChatDocument = gql`
-  mutation removeWordsFromChat($_id: ID!, $wordIds: [ID!]!) {
-    removeWordsFromChat(_id: $_id, wordIds: $wordIds)
-  }
-`;
-export type RemoveWordsFromChatMutationFn = ApolloReactCommon.MutationFunction<
-  RemoveWordsFromChatMutation,
-  RemoveWordsFromChatMutationVariables
->;
+    mutation removeWordsFromChat($_id: ID!, $wordIds: [ID!]!) {
+  removeWordsFromChat(_id: $_id, wordIds: $wordIds)
+}
+    `;
+export type RemoveWordsFromChatMutationFn = ApolloReactCommon.MutationFunction<RemoveWordsFromChatMutation, RemoveWordsFromChatMutationVariables>;
 
 /**
  * __useRemoveWordsFromChatMutation__
@@ -555,38 +494,20 @@ export type RemoveWordsFromChatMutationFn = ApolloReactCommon.MutationFunction<
  *   },
  * });
  */
-export function useRemoveWordsFromChatMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    RemoveWordsFromChatMutation,
-    RemoveWordsFromChatMutationVariables
-  >
-) {
-  return ApolloReactHooks.useMutation<
-    RemoveWordsFromChatMutation,
-    RemoveWordsFromChatMutationVariables
-  >(RemoveWordsFromChatDocument, baseOptions);
-}
-export type RemoveWordsFromChatMutationHookResult = ReturnType<
-  typeof useRemoveWordsFromChatMutation
->;
-export type RemoveWordsFromChatMutationResult = ApolloReactCommon.MutationResult<
-  RemoveWordsFromChatMutation
->;
-export type RemoveWordsFromChatMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  RemoveWordsFromChatMutation,
-  RemoveWordsFromChatMutationVariables
->;
+export function useRemoveWordsFromChatMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<RemoveWordsFromChatMutation, RemoveWordsFromChatMutationVariables>) {
+        return ApolloReactHooks.useMutation<RemoveWordsFromChatMutation, RemoveWordsFromChatMutationVariables>(RemoveWordsFromChatDocument, baseOptions);
+      }
+export type RemoveWordsFromChatMutationHookResult = ReturnType<typeof useRemoveWordsFromChatMutation>;
+export type RemoveWordsFromChatMutationResult = ApolloReactCommon.MutationResult<RemoveWordsFromChatMutation>;
+export type RemoveWordsFromChatMutationOptions = ApolloReactCommon.BaseMutationOptions<RemoveWordsFromChatMutation, RemoveWordsFromChatMutationVariables>;
 export const StartChatDocument = gql`
-  mutation startChat($_id: ID!) {
-    startChat(_id: $_id) {
-      _id
-    }
+    mutation startChat($_id: ID!) {
+  startChat(_id: $_id) {
+    _id
   }
-`;
-export type StartChatMutationFn = ApolloReactCommon.MutationFunction<
-  StartChatMutation,
-  StartChatMutationVariables
->;
+}
+    `;
+export type StartChatMutationFn = ApolloReactCommon.MutationFunction<StartChatMutation, StartChatMutationVariables>;
 
 /**
  * __useStartChatMutation__
@@ -605,67 +526,53 @@ export type StartChatMutationFn = ApolloReactCommon.MutationFunction<
  *   },
  * });
  */
-export function useStartChatMutation(
-  baseOptions?: ApolloReactHooks.MutationHookOptions<
-    StartChatMutation,
-    StartChatMutationVariables
-  >
-) {
-  return ApolloReactHooks.useMutation<
-    StartChatMutation,
-    StartChatMutationVariables
-  >(StartChatDocument, baseOptions);
-}
-export type StartChatMutationHookResult = ReturnType<
-  typeof useStartChatMutation
->;
-export type StartChatMutationResult = ApolloReactCommon.MutationResult<
-  StartChatMutation
->;
-export type StartChatMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  StartChatMutation,
-  StartChatMutationVariables
->;
+export function useStartChatMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<StartChatMutation, StartChatMutationVariables>) {
+        return ApolloReactHooks.useMutation<StartChatMutation, StartChatMutationVariables>(StartChatDocument, baseOptions);
+      }
+export type StartChatMutationHookResult = ReturnType<typeof useStartChatMutation>;
+export type StartChatMutationResult = ApolloReactCommon.MutationResult<StartChatMutation>;
+export type StartChatMutationOptions = ApolloReactCommon.BaseMutationOptions<StartChatMutation, StartChatMutationVariables>;
 export const ChatDocument = gql`
-  query chat($_id: String!) {
-    chat(_id: $_id) {
+    query chat($_id: String!) {
+  chat(_id: $_id) {
+    _id
+    name
+    isCompleted
+    words {
+      _id
+      word
+      translate
+      userId
+    }
+    topics {
       _id
       name
+    }
+    inviteCode
+    started {
+      date
+      userId
+      wordIds
       words {
         _id
         word
         translate
         userId
       }
-      topics {
-        _id
-        name
-      }
-      inviteCode
-      started {
-        date
-        userId
-        wordIds
-        words {
-          _id
-          word
-          translate
-          userId
-        }
-      }
-      userIds
-      wordIds
-      topicIds
-      completedWordIds
     }
+    userIds
+    wordIds
+    topicIds
+    completedWordIds
   }
-`;
+}
+    `;
 
 /**
  * __useChatQuery__
  *
  * To run a query within a React component, call `useChatQuery` and pass it any options that fit your needs.
- * When your component renders, `useChatQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * When your component renders, `useChatQuery` returns an object from Apollo Client that contains loading, error, and data properties 
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
@@ -677,54 +584,39 @@ export const ChatDocument = gql`
  *   },
  * });
  */
-export function useChatQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<ChatQuery, ChatQueryVariables>
-) {
-  return ApolloReactHooks.useQuery<ChatQuery, ChatQueryVariables>(
-    ChatDocument,
-    baseOptions
-  );
-}
-export function useChatLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    ChatQuery,
-    ChatQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<ChatQuery, ChatQueryVariables>(
-    ChatDocument,
-    baseOptions
-  );
-}
+export function useChatQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ChatQuery, ChatQueryVariables>) {
+        return ApolloReactHooks.useQuery<ChatQuery, ChatQueryVariables>(ChatDocument, baseOptions);
+      }
+export function useChatLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ChatQuery, ChatQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ChatQuery, ChatQueryVariables>(ChatDocument, baseOptions);
+        }
 export type ChatQueryHookResult = ReturnType<typeof useChatQuery>;
 export type ChatLazyQueryHookResult = ReturnType<typeof useChatLazyQuery>;
-export type ChatQueryResult = ApolloReactCommon.QueryResult<
-  ChatQuery,
-  ChatQueryVariables
->;
+export type ChatQueryResult = ApolloReactCommon.QueryResult<ChatQuery, ChatQueryVariables>;
 export const ChatsDocument = gql`
-  query chats {
-    chats {
+    query chats {
+  chats {
+    _id
+    name
+    isCompleted
+    words {
       _id
-      name
-      words {
-        _id
-        word
-        translate
-        userId
-      }
-      topics {
-        _id
-      }
+      word
+      translate
+      userId
+    }
+    topics {
+      _id
     }
   }
-`;
+}
+    `;
 
 /**
  * __useChatsQuery__
  *
  * To run a query within a React component, call `useChatsQuery` and pass it any options that fit your needs.
- * When your component renders, `useChatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * When your component renders, `useChatsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
@@ -735,50 +627,31 @@ export const ChatsDocument = gql`
  *   },
  * });
  */
-export function useChatsQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    ChatsQuery,
-    ChatsQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<ChatsQuery, ChatsQueryVariables>(
-    ChatsDocument,
-    baseOptions
-  );
-}
-export function useChatsLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    ChatsQuery,
-    ChatsQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<ChatsQuery, ChatsQueryVariables>(
-    ChatsDocument,
-    baseOptions
-  );
-}
+export function useChatsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<ChatsQuery, ChatsQueryVariables>) {
+        return ApolloReactHooks.useQuery<ChatsQuery, ChatsQueryVariables>(ChatsDocument, baseOptions);
+      }
+export function useChatsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<ChatsQuery, ChatsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<ChatsQuery, ChatsQueryVariables>(ChatsDocument, baseOptions);
+        }
 export type ChatsQueryHookResult = ReturnType<typeof useChatsQuery>;
 export type ChatsLazyQueryHookResult = ReturnType<typeof useChatsLazyQuery>;
-export type ChatsQueryResult = ApolloReactCommon.QueryResult<
-  ChatsQuery,
-  ChatsQueryVariables
->;
+export type ChatsQueryResult = ApolloReactCommon.QueryResult<ChatsQuery, ChatsQueryVariables>;
 export const WordsDocument = gql`
-  query words {
-    words {
-      _id
-      word
-      translate
-      userId
-    }
+    query words {
+  words {
+    _id
+    word
+    translate
+    userId
   }
-`;
+}
+    `;
 
 /**
  * __useWordsQuery__
  *
  * To run a query within a React component, call `useWordsQuery` and pass it any options that fit your needs.
- * When your component renders, `useWordsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * When your component renders, `useWordsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
@@ -789,31 +662,12 @@ export const WordsDocument = gql`
  *   },
  * });
  */
-export function useWordsQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    WordsQuery,
-    WordsQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<WordsQuery, WordsQueryVariables>(
-    WordsDocument,
-    baseOptions
-  );
-}
-export function useWordsLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    WordsQuery,
-    WordsQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<WordsQuery, WordsQueryVariables>(
-    WordsDocument,
-    baseOptions
-  );
-}
+export function useWordsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<WordsQuery, WordsQueryVariables>) {
+        return ApolloReactHooks.useQuery<WordsQuery, WordsQueryVariables>(WordsDocument, baseOptions);
+      }
+export function useWordsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<WordsQuery, WordsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<WordsQuery, WordsQueryVariables>(WordsDocument, baseOptions);
+        }
 export type WordsQueryHookResult = ReturnType<typeof useWordsQuery>;
 export type WordsLazyQueryHookResult = ReturnType<typeof useWordsLazyQuery>;
-export type WordsQueryResult = ApolloReactCommon.QueryResult<
-  WordsQuery,
-  WordsQueryVariables
->;
+export type WordsQueryResult = ApolloReactCommon.QueryResult<WordsQuery, WordsQueryVariables>;

@@ -1,23 +1,25 @@
 import React from 'react';
-import { AppLayout } from './components/AppLayout';
-import { Route } from 'react-router-dom';
 import { AddWord } from './screens/AddWord';
-import { Words } from './screens/Words';
-import { SelectWords } from './screens/SelectWords';
-import { CreateChat } from './screens/CreateChat';
-import { ChatView } from './screens/ChatView';
+import { AppLayout } from './components/AppLayout';
+import { AuthRoute } from './components/AuthRoute';
 import { ChatInvite } from './screens/ChatInvite';
-import { Chatting } from './screens/Chatting';
-import { Chats } from './screens/Chats';
 import { ChatJoin } from './screens/ChatJoin';
 import { ChatSummary } from './screens/ChatSummary';
-import { AuthRoute } from './components/AuthRoute';
+import { ChatView } from './screens/ChatView';
+import { Chats } from './screens/Chats';
+import { Chatting } from './screens/Chatting';
+import { CreateChat } from './screens/CreateChat';
+import { Home } from './screens/Home';
 import { Login } from './screens/Login';
+import { Route } from 'react-router-dom';
+import { SelectWords } from './screens/SelectWords';
+import { Words } from './screens/Words';
 
 export const Routes = () => {
   return (
     <AppLayout>
       <Route exact path="/login" component={Login} />
+      <AuthRoute exact path="/" component={Home} />
       <AuthRoute path="/add-word" component={AddWord} />
       <AuthRoute path="/words" component={Words} />
       <AuthRoute path="/select-words/:chatId?" component={SelectWords} />

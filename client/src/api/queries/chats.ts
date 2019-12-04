@@ -5,6 +5,7 @@ export default gql`
     chats {
       _id
       name
+      isCompleted
       words {
         _id
         word

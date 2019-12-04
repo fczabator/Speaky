@@ -5,6 +5,7 @@ export default gql`
     chat(_id: $_id) {
       _id
       name
+      isCompleted
       words {
         _id
         word

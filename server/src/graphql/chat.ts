@@ -37,24 +37,28 @@ export const typeDef = gql`
     inviteCode: String!
     started: [StartedChat!]!
     completedWordIds: [String!]!
+    isCompleted: Boolean!
   }
 `;
 
 export const resolvers: Resolvers = {
   Chat: {
-    words: (root, input, context) => {
+    words: ({ wordIds }, input, context) => {
       return context.DB.collection('words')
         .find({
-          _id: { $in: mapToObjectId(root.wordIds) }
+          _id: { $in: mapToObjectId(wordIds) }
         })
         .toArray();
+    },
+    isCompleted: ({ wordIds, completedWordIds }, input, context) => {
+      return wordIds.length && completedWordIds.length === wordIds.length;
     }
   },
   StartedChat: {
-    words: (root, input, context) => {
+    words: ({ wordIds }, input, context) => {
       return context.DB.collection('words')
         .find({
-          _id: { $in: mapToObjectId(root.wordIds) }
+          _id: { $in: mapToObjectId(wordIds) }
         })
         .toArray();
     }

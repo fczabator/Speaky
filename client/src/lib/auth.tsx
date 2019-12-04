@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, ReactNode } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import { Auth0UserProfile } from 'auth0-js';
 

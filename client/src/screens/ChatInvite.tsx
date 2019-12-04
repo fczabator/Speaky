@@ -14,7 +14,6 @@ export const ChatInvite: React.FC<RouteComponentProps<Params>> = ({
   }
 }) => {
   const { data } = useChatQuery({ variables: { _id } });
-  const history = useHistory();
 
   if (!data || !data.chat) {
     return null;

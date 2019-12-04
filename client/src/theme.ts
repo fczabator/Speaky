@@ -55,7 +55,7 @@ export const grommetTheme = {
       },
       text: {
         dark: '#EEEEEE',
-        light: '#eeeee'
+        light: '#000000'
       },
       'text-strong': {
         dark: '#FFFFFF',
@@ -70,7 +70,7 @@ export const grommetTheme = {
         light: '#666666'
       },
       border: 'background-xweak',
-      control: '#eeeeee',
+      control: '#000000',
       'active-background': 'background-weak',
       'active-text': 'text-strong',
       'selected-background': 'background-strong',

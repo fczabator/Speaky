@@ -15,6 +15,7 @@ export const ChatSummary: React.FC<RouteComponentProps<Params>> = ({
   const { data, loading } = useChatQuery({
     variables: { _id }
   });
+  console.log('data', data);
 
   if (loading || !data || !data.chat) {
     return null;
