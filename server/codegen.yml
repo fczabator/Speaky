@@ -4,12 +4,7 @@ generates:
     config:
       contextType: ../context#Context
       scalars:
-        DateTime: GraphQLDateTime
-        Date: GraphQLDate,
-        Time: GraphQLTime,
+        Date: Date,
     plugins:
       - typescript
       - typescript-resolvers
-      - add:
-          content:
-            - "import { GraphQLDate, GraphQLDateTime, GraphQLTime } from 'graphql-iso-date';"
