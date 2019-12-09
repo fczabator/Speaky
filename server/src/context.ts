@@ -72,7 +72,7 @@ const getAuthInfo = async (req: Request) => {
     });
 
     return {
-      userId: (<TokenData>data).sub
+      userId: (data as TokenData).sub
     };
   } catch (e) {
     console.log('e', e);
