@@ -1,5 +1,5 @@
 import React from 'react';
-import config from './lib/config.json';
+import config from './config';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { AppBarProvider } from './context/appBarContext';
 import { AppState, Auth0Provider } from './lib/auth';
