@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import { Auth0UserProfile } from 'auth0-js';
-
 export interface AppState {
   targetUrl: string;
 }
-
 interface AuthContextInterface {
   isAuthenticated: boolean;
   user: Auth0UserProfile | null;
