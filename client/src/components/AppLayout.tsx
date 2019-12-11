@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Collapsible } from 'grommet';
-import { AppBar } from './AppBar';
+import { AppBar } from '../features/AppBar/AppBar';
 import { Navigation } from './Navigation';
 import { Notification } from './Notification';
 import { useNotificationContext } from '../context/useNotification';

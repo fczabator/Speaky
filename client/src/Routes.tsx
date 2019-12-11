@@ -1,19 +1,19 @@
 import React from 'react';
-import { AddWord } from './screens/AddWord';
+import { AddWord } from './features/AddWord';
 import { AppLayout } from './components/AppLayout';
 import { AuthRoute } from './components/AuthRoute';
-import { ChatInvite } from './screens/ChatInvite';
-import { ChatJoin } from './screens/ChatJoin';
-import { ChatSummary } from './screens/ChatSummary';
-import { ChatView } from './screens/ChatView';
-import { Chats } from './screens/Chats';
-import { Chatting } from './screens/Chatting';
-import { CreateChat } from './screens/CreateChat';
-import { Home } from './screens/Home';
-import { Login } from './screens/Login';
+import { ChatInvite } from './features/ChatInvite';
+import { ChatJoin } from './features/ChatJoin';
+import { ChatSummary } from './features/ChatSummary';
+import { ChatView } from './features/ChatView';
+import { Chats } from './features/Chats';
+import { Chatting } from './features/Chatting';
+import { CreateChat } from './features/CreateChat';
+import { Home } from './features/Home';
+import { Login } from './features/Login';
 import { Route } from 'react-router-dom';
-import { SelectWords } from './screens/SelectWords';
-import { Words } from './screens/Words';
+import { SelectWords } from './features/SelectWords';
+import { Words } from './features/Words';
 
 export const Routes = () => {
   return (
