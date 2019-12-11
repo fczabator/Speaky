@@ -9,5 +9,9 @@ export default {
     'REACT_APP_AUTH_CLIENT_ID',
     'vO1tFp61lYvDf3t73yl0sPbpsPGp8FGP'
   ),
-  audience: getEnv('REACT_APP_AUTH_AUDIENCE', 'http://localhost:3333')
+  audience: getEnv('REACT_APP_AUTH_AUDIENCE', 'http://localhost:3333'),
+  backendEndpoint: getEnv(
+    'REACT_APP_BACKEND_ENDPOINT',
+    'http://localhost:3333/graphql'
+  )
 };

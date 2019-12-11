@@ -36,10 +36,6 @@ export const App = () => {
               <AppBarProvider>
                 <NotificationProvider>
                   <Router>
-                    <span>
-                      `${config.audience} ${config.clientId} ${config.domain} $
-                      {window.location.origin}`
-                    </span>
                     <Routes />
                   </Router>
                 </NotificationProvider>
