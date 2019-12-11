@@ -11,6 +11,7 @@ export default gql`
         word
         translate
         userId
+        learned
       }
       topics {
         _id
@@ -26,6 +27,7 @@ export default gql`
           word
           translate
           userId
+          learned
         }
       }
       userIds

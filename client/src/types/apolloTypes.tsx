@@ -9,6 +9,7 @@ export type Scalars = {
   Boolean: boolean,
   Int: number,
   Float: number,
+  /** Use JavaScript Date object for date/time fields. */
   DateTime: any,
 };
 
@@ -137,9 +138,10 @@ export type Topic = {
 export type Word = {
    __typename?: 'Word',
   _id: Scalars['ID'],
-  word: Scalars['String'],
+  learned: Scalars['Boolean'],
   translate?: Maybe<Scalars['String']>,
   userId: Scalars['ID'],
+  word: Scalars['String'],
 };
 
 export type AddWordsToChatMutationVariables = {
@@ -252,7 +254,7 @@ export type ChatQuery = (
     & Pick<Chat, '_id' | 'name' | 'isCompleted' | 'inviteCode' | 'userIds' | 'wordIds' | 'topicIds' | 'completedWordIds'>
     & { words: Array<(
       { __typename?: 'Word' }
-      & Pick<Word, '_id' | 'word' | 'translate' | 'userId'>
+      & Pick<Word, '_id' | 'word' | 'translate' | 'userId' | 'learned'>
     )>, topics: Maybe<Array<(
       { __typename?: 'Topic' }
       & Pick<Topic, '_id' | 'name'>
@@ -261,7 +263,7 @@ export type ChatQuery = (
       & Pick<StartedChat, 'date' | 'userId' | 'wordIds'>
       & { words: Array<(
         { __typename?: 'Word' }
-        & Pick<Word, '_id' | 'word' | 'translate' | 'userId'>
+        & Pick<Word, '_id' | 'word' | 'translate' | 'userId' | 'learned'>
       )> }
     )> }
   )> }
@@ -277,7 +279,7 @@ export type ChatsQuery = (
     & Pick<Chat, '_id' | 'name' | 'isCompleted'>
     & { words: Array<(
       { __typename?: 'Word' }
-      & Pick<Word, '_id' | 'word' | 'translate' | 'userId'>
+      & Pick<Word, '_id' | 'word' | 'translate' | 'userId' | 'learned'>
     )>, topics: Maybe<Array<(
       { __typename?: 'Topic' }
       & Pick<Topic, '_id'>
@@ -292,7 +294,7 @@ export type WordsQuery = (
   { __typename?: 'Query' }
   & { words: Array<(
     { __typename?: 'Word' }
-    & Pick<Word, '_id' | 'word' | 'translate' | 'userId'>
+    & Pick<Word, '_id' | 'word' | 'translate' | 'userId' | 'learned'>
   )> }
 );
 
@@ -543,6 +545,7 @@ export const ChatDocument = gql`
       word
       translate
       userId
+      learned
     }
     topics {
       _id
@@ -558,6 +561,7 @@ export const ChatDocument = gql`
         word
         translate
         userId
+        learned
       }
     }
     userIds
@@ -604,6 +608,7 @@ export const ChatsDocument = gql`
       word
       translate
       userId
+      learned
     }
     topics {
       _id
@@ -643,6 +648,7 @@ export const WordsDocument = gql`
     word
     translate
     userId
+    learned
   }
 }
     `;

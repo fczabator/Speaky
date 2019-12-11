@@ -138,9 +138,10 @@ export type Topic = {
 export type Word = {
    __typename?: 'Word',
   _id: Scalars['ID'],
-  word: Scalars['String'],
+  learned: Scalars['Boolean'],
   translate?: Maybe<Scalars['String']>,
   userId: Scalars['ID'],
+  word: Scalars['String'],
 };
 
 
@@ -217,11 +218,11 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']>,
   Word: ResolverTypeWrapper<Word>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   Chat: ResolverTypeWrapper<Chat>,
   Topic: ResolverTypeWrapper<Topic>,
   StartedChat: ResolverTypeWrapper<StartedChat>,
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>,
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   Mutation: ResolverTypeWrapper<{}>,
 };
 
@@ -231,11 +232,11 @@ export type ResolversParentTypes = {
   String: Scalars['String'],
   Word: Word,
   ID: Scalars['ID'],
+  Boolean: Scalars['Boolean'],
   Chat: Chat,
   Topic: Topic,
   StartedChat: StartedChat,
   DateTime: Scalars['DateTime'],
-  Boolean: Scalars['Boolean'],
   Mutation: {},
 };
 
@@ -294,9 +295,10 @@ export type TopicResolvers<ContextType = Context, ParentType extends ResolversPa
 
 export type WordResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Word'] = ResolversParentTypes['Word']> = {
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
-  word?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  learned?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
   translate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  word?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
 };
 
 export type Resolvers<ContextType = Context> = {

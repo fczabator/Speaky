@@ -18,13 +18,26 @@ export const typeDef = gql`
   }
   type Word {
     _id: ID!
-    word: String!
+    learned: Boolean!
     translate: String
     userId: ID!
+    word: String!
   }
 `;
 
 export const resolvers: Resolvers = {
+  Word: {
+    learned: async ({ _id }, input, context) => {
+      const numberOfChatsWhereWordIsUsed = await context.DB.collection(
+        'chat'
+      ).countDocuments({
+        userIds: context.userId,
+        wordIds: _id
+      });
+
+      return !!numberOfChatsWhereWordIsUsed;
+    }
+  },
   Query: {
     words: (root, input, context) => {
       checkIfUserIsLoggedIn(context);

@@ -7,6 +7,7 @@ export default gql`
       word
       translate
       userId
+      learned
     }
   }
 `;

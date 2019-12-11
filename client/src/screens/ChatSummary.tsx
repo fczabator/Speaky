@@ -14,7 +14,6 @@ export const ChatSummary: React.FC<RouteComponentProps<Params>> = ({
     params: { _id }
   }
 }) => {
-  console.log('asdoiasjd asoidsaoijd');
   const { data, loading } = useChatQuery({
     variables: { _id }
   });
