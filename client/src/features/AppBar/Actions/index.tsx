@@ -8,8 +8,8 @@ export const Actions = () => {
   return (
     <div>
       <Switch>
-        <Route path="/select-words:chatId?" component={SelectWordsActions} />
-        <Route path="/chat:_id" component={ChatViewActions} />
+        <Route path="/select-words/:chatId?" component={SelectWordsActions} />
+        <Route path="/chat/:_id" component={ChatViewActions} />
       </Switch>
     </div>
   );
