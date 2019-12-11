@@ -30,6 +30,7 @@ export const App = () => {
           client_id={config.clientId}
           redirect_uri={window.location.origin}
           onRedirectCallback={onRedirectCallback}
+          audience={config.audience}
         >
           <Grommet theme={grommetTheme}>
             <ThemeProvider theme={theme}>
