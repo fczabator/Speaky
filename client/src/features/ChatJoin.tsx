@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import chatsQuery from '../api/queries/chats';
 import get from 'lodash/get';
-import { Screen } from '../components/Screen';
 import { TextInput, Button } from 'grommet';
 import { useHistory } from 'react-router';
+import chatsQuery from '../api/queries/chats';
+import { Screen } from '../components/Screen';
 import { useJoinChatMutation } from '../types/apolloTypes';
 import { useNotificationContext } from '../context/useNotification';
 

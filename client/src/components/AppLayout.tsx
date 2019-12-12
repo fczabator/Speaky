@@ -7,9 +7,7 @@ import { useNotificationContext } from '../context/useNotification';
 
 export const AppLayout: React.FC = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = React.useState(false);
-
   const { isVisible, message } = useNotificationContext();
-
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   return (

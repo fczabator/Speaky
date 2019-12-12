@@ -34,12 +34,12 @@ export const grommetTheme = {
   global: {
     colors: {
       brand: {
-        dark: '#00BCD4',
-        light: '#00E5FF'
+        dark: '#7d4cdb',
+        light: '#7d4cdb'
       },
       background: {
         dark: '#222222',
-        light: '#FAFAFA'
+        light: '#F8F8F8'
       },
       'background-strong': {
         dark: '#000000',
@@ -80,7 +80,7 @@ export const grommetTheme = {
       'status-ok': '#00C781',
       'status-unknown': '#CCCCCC',
       'status-disabled': '#CCCCCC',
-      accent: '#009688',
+      accent: '#6fffb0',
       focus: 'brand'
     },
     font: {
