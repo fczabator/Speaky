@@ -5,7 +5,7 @@ import { Button, Box, Heading } from 'grommet';
 import { Screen } from '../components/Screen';
 
 export const Login: React.FC<RouteComponentProps> = props => {
-  const { isAuthenticated, loginWithPopup } = useAuth0();
+  const { isAuthenticated, loginWithPopup, loginWithRedirect } = useAuth0();
 
   if (isAuthenticated) {
     return <Redirect to="/words" />;
@@ -20,7 +20,7 @@ export const Login: React.FC<RouteComponentProps> = props => {
             primary
             color="brand"
             label="Login"
-            onClick={loginWithPopup}
+            onClick={loginWithRedirect}
             fill="horizontal"
           />
         </Box>
