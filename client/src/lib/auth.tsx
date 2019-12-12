@@ -76,6 +76,8 @@ export const Auth0Provider: React.FC<Auth0ProviderArgs> = ({
 
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
+        const token = await auth0FromHook.getTokenSilently();
+        localStorage.setItem('token', token);
         setUser(user);
       }
 
@@ -100,14 +102,6 @@ export const Auth0Provider: React.FC<Auth0ProviderArgs> = ({
     setIsAuthenticated(true);
   };
 
-  const handleRedirectCallback = async () => {
-    setLoading(true);
-    await auth0Client.handleRedirectCallback();
-    const user = await auth0Client.getUser();
-    setLoading(false);
-    setIsAuthenticated(true);
-    setUser(user);
-  };
   return (
     <Auth0Context.Provider
       value={{
@@ -116,9 +110,10 @@ export const Auth0Provider: React.FC<Auth0ProviderArgs> = ({
         loading,
         popupOpen,
         loginWithPopup,
-        handleRedirectCallback,
-        getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),
+        handleRedirectCallback: (...p) =>
+          auth0Client.handleRedirectCallback(...p),
         loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
+        getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),
         getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
         getTokenWithPopup: (...p) => auth0Client.getTokenWithPopup(...p),
         logout: (...p) => auth0Client.logout(...p)
