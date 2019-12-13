@@ -47,9 +47,16 @@ export const Navigation: React.FC<Props> = ({ onSelect }) => {
           margin="small"
           onClick={() => handleClick(route)}
           label={label}
+          color="#ffffff"
         />
       ))}
-      <Anchor key="logout" margin="small" onClick={logout} label="Logout" />
+      <Anchor
+        key="logout"
+        margin="small"
+        onClick={logout}
+        label="Logout"
+        color="#ffffff"
+      />
     </Box>
   );
 };

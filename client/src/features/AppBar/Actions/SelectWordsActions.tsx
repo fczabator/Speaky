@@ -25,7 +25,6 @@ export const SelectWordsActions: React.FC<RouteComponentProps<Params>> = ({
   const history = useHistory();
   const { clearAll, selected } = useAppBarContext();
   const chat = data?.chat;
-  console.log('chat', chat);
 
   const handleClick = () => {
     if (chat) {

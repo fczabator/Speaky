@@ -74,8 +74,7 @@ const getAuthInfo = async (req: Request) => {
     return {
       userId: (data as TokenData).sub
     };
-  } catch (e) {
-    console.log('e', e);
+  } catch {
     if (get(req, 'body.operationName') === 'Login') {
       return {};
     }
@@ -93,7 +92,7 @@ export default async function context({
   try {
     // Establish a database connection
     DB = await getDb();
-  } catch (e) {
+  } catch {
     throw new ApolloError('Cannot connect to DB');
   }
   const authInfo = await getAuthInfo(req);
