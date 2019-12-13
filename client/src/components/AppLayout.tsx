@@ -1,11 +1,11 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Box, Collapsible } from 'grommet';
 import { AppBar } from '../features/AppBar/AppBar';
 import { Navigation } from './Navigation';
 import { Notification } from './Notification';
-import { useNotificationContext } from '../context/useNotification';
 import { useAuth0 } from '../lib/auth';
-import styled from 'styled-components';
+import { useNotificationContext } from '../context/useNotification';
 
 const Menu = styled.div`
   width: 100%;
@@ -22,18 +22,18 @@ export const AppLayout: React.FC = ({ children }) => {
   return (
     <>
       <AppBar
-        onSidebarOpen={toggleSidebar}
-        isSidebarOpen={isSidebarOpen}
         isAuthenticated={isAuthenticated}
+        isSidebarOpen={isSidebarOpen}
+        onSidebarOpen={toggleSidebar}
       />
       {isAuthenticated && (
         <Menu>
           <Collapsible direction="vertical" open={isSidebarOpen}>
             <Box
-              flex
-              basis="full"
-              background="brand"
               align="center"
+              background="brand"
+              basis="full"
+              flex
               justify="center"
             >
               <Navigation onSelect={toggleSidebar} />

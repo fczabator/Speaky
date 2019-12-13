@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, Box } from 'grommet';
-import { useChatQuery } from '../types/apolloTypes';
-import { RouteComponentProps, useHistory } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 import { Screen } from '../components/Screen';
+import { useChatQuery } from '../types/apolloTypes';
 
 interface Params {
   _id: string;
