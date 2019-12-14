@@ -26,29 +26,31 @@ export const AppLayout: React.FC = ({ children }) => {
         isSidebarOpen={isSidebarOpen}
         onSidebarOpen={toggleSidebar}
       />
-      {isAuthenticated && (
-        <Menu>
-          <Collapsible direction="vertical" open={isSidebarOpen}>
-            <Box
-              align="center"
-              background="brand"
-              basis="full"
-              flex
-              justify="center"
-            >
-              <Navigation onSelect={toggleSidebar} />
-            </Box>
-          </Collapsible>
-        </Menu>
-      )}
-      <div
-        style={{
-          backgroundColor: isAuthenticated ? '#F8F8F8' : '#7d4cdb',
-          transition: 'background-color 1s',
-          flex: 1
-        }}
-      >
-        {children}
+      <div style={{ flex: 1 }}>
+        {isAuthenticated && (
+          <Menu>
+            <Collapsible direction="vertical" open={isSidebarOpen}>
+              <Box
+                align="center"
+                background="brand"
+                basis="full"
+                flex
+                justify="center"
+              >
+                <Navigation onSelect={toggleSidebar} />
+              </Box>
+            </Collapsible>
+          </Menu>
+        )}
+        <div
+          style={{
+            backgroundColor: isAuthenticated ? '#F8F8F8' : '#7d4cdb',
+            transition: 'background-color 1s',
+            height: '100%'
+          }}
+        >
+          {children}
+        </div>
       </div>
       {isVisible && <Notification message={message} />}
     </>
