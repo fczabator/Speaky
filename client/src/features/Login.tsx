@@ -19,11 +19,11 @@ export const Login: React.FC = () => {
   return (
     <Screen>
       <Box justify="center" align="center">
-        <Heading>Welcome!</Heading>
+        <Heading color="white">Welcome!</Heading>
         <Box pad="medium" align="center" justify="center" fill="horizontal">
           <Button
             primary
-            color="brand"
+            color="white"
             label="Login"
             onClick={loginWithRedirect}
             fill="horizontal"

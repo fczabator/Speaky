@@ -50,7 +50,7 @@ export const AppBar: React.FC<Props> = ({
           level="3"
           margin="none"
           style={{
-            marginLeft: isAuthenticated ? 0 : '42vw',
+            marginLeft: isAuthenticated ? 0 : '40vw',
             transition: 'margin-left 1s',
             width: '100%'
           }}
