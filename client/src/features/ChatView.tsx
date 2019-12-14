@@ -22,14 +22,9 @@ export const ChatView: React.FC<RouteComponentProps<Params>> = ({
   const [startChat] = useStartChatMutation({
     refetchQueries: [{ query: chatQuery, variables: { _id } }]
   });
-  const { selected, setEntity, setMode, toggleSelected } = useAppBarContext();
+  const { selected, toggleSelected } = useAppBarContext();
   const { showNotification } = useNotificationContext();
   const history = useHistory();
-
-  useEffect(() => {
-    setEntity(_id);
-    setMode('chatView');
-  }, []);
 
   const handleStart = async () => {
     try {

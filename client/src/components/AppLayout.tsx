@@ -41,7 +41,15 @@ export const AppLayout: React.FC = ({ children }) => {
           </Collapsible>
         </Menu>
       )}
-      {children}
+      <div
+        style={{
+          backgroundColor: isAuthenticated ? '#F8F8F8' : '#7d4cdb',
+          transition: 'background-color 1s',
+          flex: 1
+        }}
+      >
+        {children}
+      </div>
       {isVisible && <Notification message={message} />}
     </>
   );

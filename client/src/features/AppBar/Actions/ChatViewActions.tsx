@@ -46,6 +46,7 @@ export const ChatViewActions: React.FC<RouteComponentProps<Params>> = ({
       <Button onClick={handleInviteUser}>invite</Button>
       <Button icon={<Add />} onClick={handleAdd} />
       <Button
+        color="brand"
         icon={<Subtract />}
         label={selected.length ? selected.length : 0}
         onClick={handleRemove}

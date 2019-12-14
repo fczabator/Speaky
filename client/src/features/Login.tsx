@@ -1,11 +1,11 @@
 import React from 'react';
-import { RouteComponentProps, Redirect } from 'react-router';
+import { Redirect } from 'react-router';
 import { useAuth0 } from '../lib/auth';
 import { Button, Box, Heading } from 'grommet';
 import { Screen } from '../components/Screen';
-import { Loader } from '../components/Loader';
+import { FullScreenLoader } from '../components/FullScreenLoader';
 
-export const Login: React.FC<RouteComponentProps> = props => {
+export const Login: React.FC = () => {
   const { isAuthenticated, loginWithRedirect, loading } = useAuth0();
 
   if (isAuthenticated) {
@@ -13,11 +13,7 @@ export const Login: React.FC<RouteComponentProps> = props => {
   }
 
   if (loading) {
-    return (
-      <Box justify="center" align="center" fill="vertical">
-        <Loader />
-      </Box>
-    );
+    return <FullScreenLoader color="white" />;
   }
 
   return (

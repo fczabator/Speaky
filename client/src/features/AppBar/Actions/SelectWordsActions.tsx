@@ -40,6 +40,7 @@ export const SelectWordsActions: React.FC<RouteComponentProps<Params>> = ({
     <div>
       {selected.length ? (
         <Button
+          color="brand"
           icon={chat ? <Add /> : <Checkmark />}
           label={selected.length}
           onClick={handleClick}
