@@ -28,7 +28,6 @@ export const SelectWordsActions: React.FC<RouteComponentProps<Params>> = ({
 
   const handleClick = () => {
     if (chat) {
-      debugger;
       addWordsToChat({ variables: { _id: chatId, wordIds: selected } });
       clearAll();
       history.push(`/chat/${chatId}`);

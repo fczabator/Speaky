@@ -12,23 +12,23 @@ export const AddWordsToChat: React.FC<RouteComponentProps<Params>> = ({
     params: { chatId }
   }
 }) => {
-  console.log('add words to chat');
   const { data, loading } = useChatQuery({
     variables: { _id: chatId }
   });
 
+  const chatWords = data?.chat?.words || [];
+
+  const filterWords = useCallback(
+    (words: Word[]) =>
+      words.filter(
+        word => !chatWords.map(chatWord => chatWord._id).includes(word._id)
+      ),
+    []
+  );
+
   if (loading || !data || !data.chat) {
     return null;
   }
-
-  const {
-    chat: { words: chatWords }
-  } = data;
-
-  const filterWords = (words: Word[]) =>
-    words.filter(
-      word => !chatWords.map(chatWord => chatWord._id).includes(word._id)
-    );
 
   return <SelectWords filterWords={filterWords} />;
 };

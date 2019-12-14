@@ -23,10 +23,10 @@ export const Routes = () => {
         <AuthRoute path="/words" component={Words} />
         <AuthRoute
           exact
-          path="/select-words/:chatId?"
+          path="/select-words/:chatId"
           component={AddWordsToChat}
         />
-        <AuthRoute exact path="/select-words" component={SelectWords} />
+        <AuthRoute path="/select-words" component={SelectWords} />
         <AuthRoute path="/create-chat" component={CreateChat} />
         <AuthRoute path="/chat/:_id" component={ChatView} />
         <AuthRoute path="/chat-invite/:_id" component={ChatInvite} />

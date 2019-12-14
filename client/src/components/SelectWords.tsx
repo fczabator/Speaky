@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { InfiniteScroll } from 'grommet';
-import { RouteComponentProps } from 'react-router';
 import { Screen } from './Screen';
 import { WordBox } from './WordBox';
-import { useWordsQuery, Word, useChatQuery } from '../types/apolloTypes';
+import { useWordsQuery, Word } from '../types/apolloTypes';
 import { useAppBarContext } from '../context/appBarContext';
 
 interface Props {
