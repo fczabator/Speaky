@@ -10,21 +10,23 @@ import { Chats } from './features/Chats';
 import { Chatting } from './features/Chatting';
 import { CreateChat } from './features/CreateChat';
 import { Home } from './features/Home';
-import { Login } from './features/Login';
-import { Route, Switch } from 'react-router-dom';
-import { SelectWords } from './features/SelectWords';
+import { SelectWords } from './components/SelectWords';
 import { Words } from './features/Words';
+import { AddWordsToChat } from './features/AddWordsToChat';
 
 export const Routes = () => {
   return (
     <>
-      {/* <Switch> */}
-      {/* <Route exact path="/login" component={Login} /> */}
       <AppLayout>
         <AuthRoute exact path="/" component={Home} />
         <AuthRoute path="/add-word" component={AddWord} />
         <AuthRoute path="/words" component={Words} />
-        <AuthRoute path="/select-words/:chatId?" component={SelectWords} />
+        <AuthRoute
+          exact
+          path="/select-words/:chatId?"
+          component={AddWordsToChat}
+        />
+        <AuthRoute exact path="/select-words" component={SelectWords} />
         <AuthRoute path="/create-chat" component={CreateChat} />
         <AuthRoute path="/chat/:_id" component={ChatView} />
         <AuthRoute path="/chat-invite/:_id" component={ChatInvite} />
@@ -33,7 +35,6 @@ export const Routes = () => {
         <AuthRoute path="/join-chat" component={ChatJoin} />
         <AuthRoute path="/summary/:_id" component={ChatSummary} />
       </AppLayout>
-      {/* </Switch> */}
     </>
   );
 };
