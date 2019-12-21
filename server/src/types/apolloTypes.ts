@@ -145,6 +145,7 @@ export type Word = {
 };
 
 
+
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (

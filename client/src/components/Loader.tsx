@@ -8,7 +8,6 @@ interface Props {
 }
 
 export const Loader: React.FC<Props> = ({ color, size }) => {
-  console.log(defaultProps);
   return <BounceLoader color={color} size={size} />;
 };
 

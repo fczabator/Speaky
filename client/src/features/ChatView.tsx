@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Text, Box } from 'grommet';
 import { useChatQuery, useStartChatMutation } from '../types/apolloTypes';
 import { RouteComponentProps, useHistory } from 'react-router';
