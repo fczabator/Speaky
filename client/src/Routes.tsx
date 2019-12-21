@@ -7,6 +7,7 @@ import { ChatJoin } from './features/ChatJoin';
 import { ChatSummary } from './features/ChatSummary';
 import { ChatView } from './features/ChatView';
 import { Chats } from './features/Chats';
+import { NoMatch } from './features/NoMatch';
 import { Chatting } from './features/Chatting';
 import { CreateChat } from './features/CreateChat';
 import { Home } from './features/Home';
@@ -14,8 +15,6 @@ import { SelectWords } from './components/SelectWords';
 import { Words } from './features/Words';
 import { AddWordsToChat } from './features/AddWordsToChat';
 import { Route, Switch } from 'react-router-dom';
-
-const NoMatch = () => <div>Not Found :(</div>;
 
 export const Routes = () => {
   return (
