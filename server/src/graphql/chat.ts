@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { ObjectID } from 'mongodb';
-import { Resolvers } from '../types/apolloTypes';
+import { Resolvers, Chat } from '../types/apolloTypes';
 import { ApolloError, UserInputError } from 'apollo-server-core';
 import { checkIfUserIsLoggedIn } from '../util/checks';
 import { mapToObjectId, getInviteCode } from '../util/helpers';
@@ -93,7 +93,7 @@ export const resolvers: Resolvers = {
         throw new ApolloError('Could not create chat');
       }
 
-      return result.ops[0];
+      return <Chat>(<unknown>result.ops[0]);
     },
     addWordsToChat: async (root, { _id, wordIds }, context) => {
       checkIfUserIsLoggedIn(context);
