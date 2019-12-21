@@ -4,7 +4,7 @@
   "scripts": {
     "start": "yarn run serve",
     "start:db": "docker run --rm -p 27017:27017 --name speaky-db --volume speaky-db:/data/db mongo:4.0.10 > '/dev/null' || docker stop speaky-db || true",
-    "build": "yarn run build-ts && yarn run lint",
+    "build": "yarn run build-ts",
     "serve": "node dist/server.js",
     "watch-node": "nodemon dist/server.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"Mongo,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"yarn run start:db\" \"yarn run watch-ts\" \"yarn run watch-node\"",
@@ -47,6 +47,7 @@
     "@types/lodash": "^4.14.134",
     "@types/mocha": "^5.2.7",
     "@types/mongodb": "^3.3.1",
+    "@types/node-fetch": "^2.5.4",
     "@types/winston": "^2.3.9",
     "@typescript-eslint/eslint-plugin": "^1.12.0",
     "@typescript-eslint/parser": "^1.12.0",
