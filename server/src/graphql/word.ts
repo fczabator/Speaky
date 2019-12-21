@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { Resolvers } from '../types/apolloTypes';
+import { Resolvers, Word, Topic } from '../types/apolloTypes';
 import {
   ApolloError,
   UserInputError,
@@ -65,7 +65,7 @@ export const resolvers: Resolvers = {
         throw new ApolloError('Could not create word');
       }
 
-      return result.ops[0];
+      return <Word>(<unknown>result.ops[0]);
     },
     deleteWord: async (root, { _id }, context) => {
       checkIfUserIsLoggedIn(context);

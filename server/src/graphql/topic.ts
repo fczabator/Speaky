@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { Resolvers } from '../types/apolloTypes';
+import { Resolvers, Topic } from '../types/apolloTypes';
 import { ApolloError } from 'apollo-server-core';
 
 export const typeDef = gql`
@@ -25,12 +25,13 @@ export const resolvers: Resolvers = {
   },
   Mutation: {
     createTopic: async (root, input, context) => {
-      const result = await context.DB.collection('topics').insertOne(input);
+      const result = await context.DB.collection<Topic>('topics').insertOne(
+        input
+      );
 
       if (!result.ops || !result.ops[0]) {
         throw new ApolloError('Could not create topic');
       }
-
       return result.ops[0];
     }
   }
