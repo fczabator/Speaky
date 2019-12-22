@@ -5,6 +5,7 @@ generates:
       contextType: ../context#Context
       scalars:
         Date: Date,
+      noSchemaStitching: true
     plugins:
       - typescript
       - typescript-resolvers

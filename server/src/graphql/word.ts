@@ -25,6 +25,24 @@ export const typeDef = gql`
   }
 `;
 
+export const createWord: typeof resolvers.Mutation.createWord = async (
+  root,
+  input,
+  context
+) => {
+  checkIfUserIsLoggedIn(context);
+  const result = await context.DB.collection('words').insertOne({
+    ...input,
+    userId: context.userId
+  });
+
+  if (!result.ops || !result.ops[0]) {
+    throw new ApolloError('Could not create word');
+  }
+
+  return <Word>(<unknown>result.ops[0]);
+};
+
 export const resolvers: Resolvers = {
   Word: {
     learned: async ({ _id }, input, context) => {
@@ -54,19 +72,7 @@ export const resolvers: Resolvers = {
     }
   },
   Mutation: {
-    createWord: async (root, input, context) => {
-      checkIfUserIsLoggedIn(context);
-      const result = await context.DB.collection('words').insertOne({
-        ...input,
-        userId: context.userId
-      });
-
-      if (!result.ops || !result.ops[0]) {
-        throw new ApolloError('Could not create word');
-      }
-
-      return <Word>(<unknown>result.ops[0]);
-    },
+    createWord,
     deleteWord: async (root, { _id }, context) => {
       checkIfUserIsLoggedIn(context);
       const word = await context.DB.collection('words').findOne({ _id });

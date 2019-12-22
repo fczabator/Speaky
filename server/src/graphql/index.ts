@@ -1,6 +1,5 @@
 import { makeExecutableSchema } from 'graphql-tools';
-import { GraphQLDate, GraphQLDateTime, GraphQLTime } from 'graphql-iso-date';
-import { DateTimeResolver, URLResolver } from 'graphql-scalars';
+import { DateTimeResolver } from 'graphql-scalars';
 import merge from 'lodash/merge';
 import { typeDef as Word, resolvers as wordResolvers } from './word';
 import { typeDef as Chat, resolvers as chatResolvers } from './chat';
