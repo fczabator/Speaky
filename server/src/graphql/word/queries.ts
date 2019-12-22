@@ -1,47 +1,11 @@
-import gql from 'graphql-tag';
-import { Resolvers, Word, Topic } from '../types/apolloTypes';
+import { Resolvers } from 'src/types/apolloTypes';
+import { checkIfUserIsLoggedIn } from 'src/util/checks';
+import { createWord } from './mutations';
 import {
   ApolloError,
   UserInputError,
   ForbiddenError
 } from 'apollo-server-core';
-import { checkIfUserIsLoggedIn } from '../util/checks';
-
-export const typeDef = gql`
-  extend type Query {
-    words: [Word!]!
-    word(_id: String!): Word
-  }
-  extend type Mutation {
-    createWord(word: String!, translate: String): Word!
-    deleteWord(_id: String!): Boolean!
-  }
-  type Word {
-    _id: ID!
-    learned: Boolean!
-    translate: String
-    userId: ID!
-    word: String!
-  }
-`;
-
-export const createWord: typeof resolvers.Mutation.createWord = async (
-  root,
-  input,
-  context
-) => {
-  checkIfUserIsLoggedIn(context);
-  const result = await context.DB.collection('words').insertOne({
-    ...input,
-    userId: context.userId
-  });
-
-  if (!result.ops || !result.ops[0]) {
-    throw new ApolloError('Could not create word');
-  }
-
-  return <Word>(<unknown>result.ops[0]);
-};
 
 export const resolvers: Resolvers = {
   Word: {
