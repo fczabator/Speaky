@@ -3,7 +3,7 @@ import { createWord, deleteWord } from '../../graphql/word/mutations';
 import { word as getWord, words as getWords } from '../../graphql/word/queries';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
-describe('insert', () => {
+describe('words', () => {
   let connection: MongoClient;
   let mongoServer: MongoMemoryServer;
   let db: Db;
@@ -27,7 +27,8 @@ describe('insert', () => {
     const mongoURL = await mongoServer.getConnectionString();
     const dbName = await mongoServer.getDbName();
     connection = await MongoClient.connect(mongoURL, {
-      useNewUrlParser: true
+      useNewUrlParser: true,
+      useUnifiedTopology: true
     });
     db = await connection.db(dbName);
     await db.collection('words').insertMany(fixtures);
