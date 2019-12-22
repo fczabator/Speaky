@@ -32,6 +32,8 @@ export const addWordsToChat: typeof resolvers.Mutation.addWordsToChat = async (
   { _id, wordIds },
   context
 ) => {
+  console.log('_id', _id);
+  console.log('wordIds', wordIds);
   checkIfUserIsLoggedIn(context);
   const { modifiedCount } = await context.DB.collection('chats').updateOne(
     { _id: new ObjectID(_id) },

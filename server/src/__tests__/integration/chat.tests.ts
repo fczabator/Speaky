@@ -1,5 +1,5 @@
-import { MongoClient, Db } from 'mongodb';
-import { createChat } from '../../graphql/chat/mutations';
+import { MongoClient, Db, ObjectID } from 'mongodb';
+import { createChat, addWordsToChat } from '../../graphql/chat/mutations';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import * as helpers from '../../util/helpers';
 
@@ -9,7 +9,7 @@ describe('chat', () => {
   let db: Db;
   const fixtures = [
     {
-      _id: '1',
+      _id: new ObjectID().toHexString(),
       name: 'chat1',
       wordIds: ['word-1'],
       userIds: ['someUserId']
@@ -61,5 +61,31 @@ describe('chat', () => {
 
     expect(expectedResult).toEqual(result);
     expect(insertedUser).toEqual(result);
+
+    spy.mockRestore();
+  });
+
+  it('should add words to chat', async () => {
+    const chat = fixtures[0];
+    console.log('chat', chat);
+    const context = { DB: db, userId: chat.userIds[0] };
+    const chatBefore = await db.collection('chats').findOne({ _id: chat._id });
+    const wordIds = ['1', '2', '3'];
+
+    const result = await addWordsToChat(
+      null,
+      { _id: chat._id, wordIds },
+      context,
+      null
+    );
+
+    expect(result).toBeTruthy();
+
+    const updatedChat = await db.collection('chats').findOne({ _id: chat._id });
+
+    expect(updatedChat).toEqual({
+      ...chatBefore,
+      wordIds: [...chatBefore.wordIds, ...wordIds]
+    });
   });
 });
