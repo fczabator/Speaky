@@ -1,7 +1,7 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import { DateTimeResolver } from 'graphql-scalars';
 import merge from 'lodash/merge';
-import { typeDef as Word, resolvers as wordResolvers } from './word';
+import { resolvers as wordResolvers, typeDef as Word } from './word';
 import { typeDef as Chat, resolvers as chatResolvers } from './chat';
 import { typeDef as Topic, resolvers as topicResolvers } from './topic';
 import { Resolvers } from '../types/apolloTypes';
