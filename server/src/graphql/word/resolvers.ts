@@ -1,6 +1,6 @@
 import { Resolvers } from 'src/types/apolloTypes';
-import { checkIfUserIsLoggedIn } from '../../util/checks';
-import { createWord, deleteWord } from './mutations';
+import * as queries from './queries';
+import * as mutations from './mutations';
 
 export const resolvers: Resolvers = {
   Word: {
@@ -16,22 +16,9 @@ export const resolvers: Resolvers = {
     }
   },
   Query: {
-    words: (root, input, context) => {
-      checkIfUserIsLoggedIn(context);
-      return context.DB.collection('words')
-        .find({ userId: context.userId })
-        .toArray();
-    },
-    word: (root, { _id }, context) => {
-      checkIfUserIsLoggedIn(context);
-      return context.DB.collection('words').findOne({
-        _id,
-        userId: context.userId
-      });
-    }
+    ...queries
   },
   Mutation: {
-    createWord,
-    deleteWord
+    ...mutations
   }
 };

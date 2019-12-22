@@ -1,17 +1,26 @@
 import { MongoClient, Db } from 'mongodb';
 import { createWord, deleteWord } from '../../graphql/word/mutations';
+import { word as getWord, words as getWords } from '../../graphql/word/queries';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
 describe('insert', () => {
   let connection: MongoClient;
   let mongoServer: MongoMemoryServer;
   let db: Db;
-  const fixtures = {
-    _id: 'idToDel',
-    translate: 'translate',
-    word: 'word',
-    userId: 'someUserId'
-  };
+  const fixtures = [
+    {
+      _id: '1',
+      translate: 'translate',
+      word: 'word',
+      userId: 'someUserId'
+    },
+    {
+      _id: '2',
+      translate: 'dom',
+      word: 'house',
+      userId: 'someUserId2'
+    }
+  ];
 
   beforeAll(async () => {
     mongoServer = new MongoMemoryServer();
@@ -21,7 +30,7 @@ describe('insert', () => {
       useNewUrlParser: true
     });
     db = await connection.db(dbName);
-    await db.collection('words').insertOne(fixtures);
+    await db.collection('words').insertMany(fixtures);
   });
 
   afterAll(async () => {
@@ -54,12 +63,47 @@ describe('insert', () => {
   });
 
   it('should delete a word from collection', async () => {
-    const word = await db.collection('words').findOne({ _id: fixtures._id });
-    expect(word).toEqual(fixtures);
+    const wordToDel = fixtures[0];
+    const word = await db.collection('words').findOne({ _id: wordToDel._id });
+    expect(word).toEqual(wordToDel);
     const { userId, _id } = word;
 
     await deleteWord(null, { _id }, { userId, DB: db }, null);
     const removedWord = await db.collection('words').findOne({ _id });
     expect(removedWord).toBeNull();
+  });
+
+  it('should query a word', async () => {
+    const wordToQuery = fixtures[1];
+    const context = { userId: wordToQuery.userId, DB: db };
+
+    const otherUserWord = await getWord(
+      null,
+      { _id: wordToQuery._id },
+      { ...context, userId: 'incorrectUserId' },
+      null
+    );
+    expect(otherUserWord).toBeNull();
+
+    const word = await getWord(null, { _id: wordToQuery._id }, context, null);
+
+    expect(word).toEqual(wordToQuery);
+  });
+
+  it('should query words', async () => {
+    const wordToQuery = fixtures[1];
+    const context = { userId: wordToQuery.userId, DB: db };
+
+    const otherUserWords = await getWords(
+      null,
+      { _id: wordToQuery._id },
+      { ...context, userId: 'incorrectUserId' },
+      null
+    );
+    expect(otherUserWords).toEqual([]);
+
+    const word = await getWords(null, { _id: wordToQuery._id }, context, null);
+
+    expect(word).toEqual([wordToQuery]);
   });
 });
