@@ -1,4 +1,4 @@
-import { ObjectID } from 'mongodb';
+import { ObjectID, Db } from 'mongodb';
 import { ApolloError, UserInputError } from 'apollo-server-core';
 import { resolvers } from './resolvers';
 import { Chat } from '../../types/apolloTypes';
@@ -32,11 +32,10 @@ export const addWordsToChat: typeof resolvers.Mutation.addWordsToChat = async (
   { _id, wordIds },
   context
 ) => {
-  console.log('_id', _id);
-  console.log('wordIds', wordIds);
   checkIfUserIsLoggedIn(context);
+
   const { modifiedCount } = await context.DB.collection('chats').updateOne(
-    { _id: new ObjectID(_id) },
+    { _id: _id },
     { $push: { wordIds: { $each: wordIds } } }
   );
   return !!modifiedCount;
@@ -91,9 +90,9 @@ export const startChat: typeof resolvers.Mutation.startChat = async (
   context
 ) => {
   checkIfUserIsLoggedIn(context);
-  const result = await context.DB.collection('chats').findOneAndUpdate(
+  let result = await context.DB.collection('chats').findOneAndUpdate(
     {
-      _id: new ObjectID(_id),
+      _id,
       userIds: context.userId,
       started: { $not: { $elemMatch: { userId: context.userId } } }
     },
@@ -108,9 +107,11 @@ export const startChat: typeof resolvers.Mutation.startChat = async (
     },
     { returnOriginal: false }
   );
+
   if (!result.value) {
     throw new UserInputError('Cannot start the chat');
   }
+
   if (
     result.value.started &&
     result.value.started.length === result.value.userIds.length
@@ -122,11 +123,14 @@ export const startChat: typeof resolvers.Mutation.startChat = async (
     await Promise.all(
       drawedWords.map((wordsSet, index) =>
         context.DB.collection('chats').updateOne(
-          { _id: new ObjectID(_id) },
+          { _id },
           { $set: { [`started.${index}.wordIds`]: wordsSet } }
         )
       )
     );
+    return context.DB.collection('chats').findOne({
+      _id
+    });
   }
 
   return result.value;

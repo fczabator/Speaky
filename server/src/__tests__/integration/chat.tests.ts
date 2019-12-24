@@ -1,5 +1,9 @@
 import { MongoClient, Db, ObjectID } from 'mongodb';
-import { createChat, addWordsToChat } from '../../graphql/chat/mutations';
+import {
+  createChat,
+  addWordsToChat,
+  startChat
+} from '../../graphql/chat/mutations';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import * as helpers from '../../util/helpers';
 
@@ -11,8 +15,8 @@ describe('chat', () => {
     {
       _id: new ObjectID().toHexString(),
       name: 'chat1',
-      wordIds: ['word-1'],
-      userIds: ['someUserId']
+      wordIds: ['word-1', 'word-2'],
+      userIds: ['someUserId', 'otherUserId']
     }
   ];
 
@@ -87,5 +91,40 @@ describe('chat', () => {
       ...chatBefore,
       wordIds: [...chatBefore.wordIds, ...wordIds]
     });
+  });
+
+  it('should start chat', async () => {
+    const chat = fixtures[0];
+    const [firstUserId, secondUserId] = chat.userIds;
+
+    const firstResult = await startChat(
+      null,
+      { _id: chat._id },
+      { DB: db, userId: firstUserId },
+      null
+    );
+
+    const afterFirstStart = await db
+      .collection('chats')
+      .findOne({ _id: chat._id });
+
+    expect(afterFirstStart).toEqual(firstResult);
+    expect(afterFirstStart.started[0].userId).toEqual(firstUserId);
+
+    const secondResult = await startChat(
+      null,
+      { _id: chat._id },
+      { DB: db, userId: secondUserId },
+      null
+    );
+
+    const afterSecondStart = await db
+      .collection('chats')
+      .findOne({ _id: chat._id });
+
+    expect(afterSecondStart).toEqual(secondResult);
+    expect(afterSecondStart.started[1].userId).toEqual(secondUserId);
+    expect(afterSecondStart.started[0].wordIds.length).toBeGreaterThan(0);
+    expect(afterSecondStart.started[1].wordIds.length).toBeGreaterThan(0);
   });
 });
