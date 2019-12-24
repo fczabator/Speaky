@@ -1,5 +1,5 @@
 import isEqual from 'lodash/isEqual';
-import { generateWords } from '../../src/util/wordsGenerator';
+import { generateWords } from '../../util/wordsGenerator';
 
 describe('wordsGenerator', () => {
   it('should draw words for two users', () => {
