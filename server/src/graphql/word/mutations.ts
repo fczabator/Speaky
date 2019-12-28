@@ -13,7 +13,7 @@ export const createWord: typeof resolvers.Mutation.createWord = async (
   context
 ) => {
   checkIfUserIsLoggedIn(context);
-  const result = await context.DB.collection('words').insertOne({
+  const result = await context.DB.collection<Word>('words').insertOne({
     ...input,
     userId: context.userId
   });
@@ -22,7 +22,7 @@ export const createWord: typeof resolvers.Mutation.createWord = async (
     throw new ApolloError('Could not create word');
   }
 
-  return <Word>(<unknown>result.ops[0]);
+  return result.ops[0];
 };
 
 export const deleteWord: typeof resolvers.Mutation.deleteWord = async (

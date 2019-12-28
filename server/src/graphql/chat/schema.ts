@@ -18,15 +18,12 @@ export const typeDef = gql`
     date: DateTime
     userId: ID!
     words: [Word!]!
-    wordIds: [String!]!
   }
   type Chat {
     _id: ID!
     name: String!
-    wordIds: [ID!]!
     words: [Word!]!
     topics: [Topic!]
-    topicIds: [ID!]
     userIds: [ID!]!
     inviteCode: String!
     started: [StartedChat!]!

@@ -3,6 +3,9 @@ generates:
   ./src/types/apolloTypes.ts:
     config:
       contextType: ../context#Context
+      mappers:
+        Chat: ./types#ChatParent
+        StartedChat: ./types#StartedChatParent
       scalars:
         Date: Date,
       noSchemaStitching: true

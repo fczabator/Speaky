@@ -5,6 +5,7 @@ import { Chat } from '../../types/apolloTypes';
 import { checkIfUserIsLoggedIn } from '../../util/checks';
 import { getInviteCode } from '../../util/helpers';
 import { generateWords } from '../../util/wordsGenerator';
+import { ChatParent } from 'src/types/types';
 
 export const createChat: typeof resolvers.Mutation.createChat = async (
   root,
@@ -12,7 +13,7 @@ export const createChat: typeof resolvers.Mutation.createChat = async (
   context
 ) => {
   checkIfUserIsLoggedIn(context);
-  const result = await context.DB.collection('chats').insertOne({
+  const result = await context.DB.collection<ChatParent>('chats').insertOne({
     ...input,
     userIds: [context.userId],
     inviteCode: getInviteCode(),
@@ -24,7 +25,7 @@ export const createChat: typeof resolvers.Mutation.createChat = async (
     throw new ApolloError('Could not create chat');
   }
 
-  return <Chat>(<unknown>result.ops[0]);
+  return result.ops[0];
 };
 
 export const addWordsToChat: typeof resolvers.Mutation.addWordsToChat = async (
