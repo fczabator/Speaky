@@ -1,4 +1,4 @@
-import { ObjectID, Db } from 'mongodb';
+import { ObjectID } from 'mongodb';
 import { ApolloError, UserInputError } from 'apollo-server-core';
 import { resolvers } from './resolvers';
 import { Chat } from '../../types/apolloTypes';

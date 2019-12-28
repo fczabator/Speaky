@@ -2,7 +2,8 @@ import { MongoClient, Db, ObjectID } from 'mongodb';
 import {
   createChat,
   addWordsToChat,
-  startChat
+  startChat,
+  completeChatWord
 } from '../../graphql/chat/mutations';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import * as helpers from '../../util/helpers';
@@ -126,5 +127,30 @@ describe('chat', () => {
     expect(afterSecondStart.started[1].userId).toEqual(secondUserId);
     expect(afterSecondStart.started[0].wordIds.length).toBeGreaterThan(0);
     expect(afterSecondStart.started[1].wordIds.length).toBeGreaterThan(0);
+  });
+
+  it('should mark word as completed in chat', async () => {
+    const chat = fixtures[0];
+    const [firstUserId] = chat.userIds;
+
+    const startedChat = await startChat(
+      null,
+      { _id: chat._id },
+      { DB: db, userId: firstUserId },
+      null
+    );
+    console.log('startedChat', startedChat);
+
+    const result = await completeChatWord(
+      null,
+      { _id: chat._id, wordId: startedChat.started[0].wordIds[0] },
+      { DB: db, userId: startedChat.started[0].userId },
+      null
+    );
+    console.log('result', result);
+
+    expect(result.completedWordIds).toContain(
+      startedChat.started[0].wordIds[0]
+    );
   });
 });
