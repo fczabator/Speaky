@@ -8,7 +8,7 @@ export default gql`
       isCompleted
       words {
         _id
-        word
+        phrase
         translate
         userId
         learned

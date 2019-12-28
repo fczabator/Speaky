@@ -17,10 +17,8 @@ export type Chat = {
    __typename?: 'Chat',
   _id: Scalars['ID'],
   name: Scalars['String'],
-  wordIds: Array<Scalars['ID']>,
   words: Array<Word>,
   topics?: Maybe<Array<Topic>>,
-  topicIds?: Maybe<Array<Scalars['ID']>>,
   userIds: Array<Scalars['ID']>,
   inviteCode: Scalars['String'],
   started: Array<StartedChat>,
@@ -46,7 +44,7 @@ export type Mutation = {
 
 
 export type MutationCreateWordArgs = {
-  word: Scalars['String'],
+  phrase: Scalars['String'],
   translate?: Maybe<Scalars['String']>
 };
 
@@ -126,7 +124,6 @@ export type StartedChat = {
   date?: Maybe<Scalars['DateTime']>,
   userId: Scalars['ID'],
   words: Array<Word>,
-  wordIds: Array<Scalars['String']>,
 };
 
 export type Topic = {
@@ -138,10 +135,10 @@ export type Topic = {
 export type Word = {
    __typename?: 'Word',
   _id: Scalars['ID'],
-  learned: Scalars['Boolean'],
+  learned?: Maybe<Scalars['Boolean']>,
   translate?: Maybe<Scalars['String']>,
   userId: Scalars['ID'],
-  word: Scalars['String'],
+  phrase: Scalars['String'],
 };
 
 export type AddWordsToChatMutationVariables = {
@@ -192,7 +189,7 @@ export type CreateChatMutation = (
 );
 
 export type CreateWordMutationVariables = {
-  word: Scalars['String'],
+  phrase: Scalars['String'],
   translate?: Maybe<Scalars['String']>
 };
 
@@ -201,7 +198,7 @@ export type CreateWordMutation = (
   { __typename?: 'Mutation' }
   & { createWord: (
     { __typename?: 'Word' }
-    & Pick<Word, '_id' | 'translate' | 'word'>
+    & Pick<Word, '_id' | 'translate' | 'phrase'>
   ) }
 );
 
@@ -251,19 +248,19 @@ export type ChatQuery = (
   { __typename?: 'Query' }
   & { chat: Maybe<(
     { __typename?: 'Chat' }
-    & Pick<Chat, '_id' | 'name' | 'isCompleted' | 'inviteCode' | 'userIds' | 'wordIds' | 'topicIds' | 'completedWordIds'>
+    & Pick<Chat, '_id' | 'name' | 'isCompleted' | 'inviteCode' | 'userIds' | 'completedWordIds'>
     & { words: Array<(
       { __typename?: 'Word' }
-      & Pick<Word, '_id' | 'word' | 'translate' | 'userId' | 'learned'>
+      & Pick<Word, '_id' | 'phrase' | 'translate' | 'userId' | 'learned'>
     )>, topics: Maybe<Array<(
       { __typename?: 'Topic' }
       & Pick<Topic, '_id' | 'name'>
     )>>, started: Array<(
       { __typename?: 'StartedChat' }
-      & Pick<StartedChat, 'date' | 'userId' | 'wordIds'>
+      & Pick<StartedChat, 'date' | 'userId'>
       & { words: Array<(
         { __typename?: 'Word' }
-        & Pick<Word, '_id' | 'word' | 'translate' | 'userId' | 'learned'>
+        & Pick<Word, '_id' | 'phrase' | 'translate' | 'userId' | 'learned'>
       )> }
     )> }
   )> }
@@ -279,7 +276,7 @@ export type ChatsQuery = (
     & Pick<Chat, '_id' | 'name' | 'isCompleted'>
     & { words: Array<(
       { __typename?: 'Word' }
-      & Pick<Word, '_id' | 'word' | 'translate' | 'userId' | 'learned'>
+      & Pick<Word, '_id' | 'phrase' | 'translate' | 'userId' | 'learned'>
     )>, topics: Maybe<Array<(
       { __typename?: 'Topic' }
       & Pick<Topic, '_id'>
@@ -294,7 +291,7 @@ export type WordsQuery = (
   { __typename?: 'Query' }
   & { words: Array<(
     { __typename?: 'Word' }
-    & Pick<Word, '_id' | 'word' | 'translate' | 'userId' | 'learned'>
+    & Pick<Word, '_id' | 'phrase' | 'translate' | 'userId' | 'learned'>
   )> }
 );
 
@@ -405,11 +402,11 @@ export type CreateChatMutationHookResult = ReturnType<typeof useCreateChatMutati
 export type CreateChatMutationResult = ApolloReactCommon.MutationResult<CreateChatMutation>;
 export type CreateChatMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateChatMutation, CreateChatMutationVariables>;
 export const CreateWordDocument = gql`
-    mutation createWord($word: String!, $translate: String) {
-  createWord(word: $word, translate: $translate) {
+    mutation createWord($phrase: String!, $translate: String) {
+  createWord(phrase: $phrase, translate: $translate) {
     _id
     translate
-    word
+    phrase
   }
 }
     `;
@@ -428,7 +425,7 @@ export type CreateWordMutationFn = ApolloReactCommon.MutationFunction<CreateWord
  * @example
  * const [createWordMutation, { data, loading, error }] = useCreateWordMutation({
  *   variables: {
- *      word: // value for 'word'
+ *      phrase: // value for 'phrase'
  *      translate: // value for 'translate'
  *   },
  * });
@@ -542,7 +539,7 @@ export const ChatDocument = gql`
     isCompleted
     words {
       _id
-      word
+      phrase
       translate
       userId
       learned
@@ -555,18 +552,15 @@ export const ChatDocument = gql`
     started {
       date
       userId
-      wordIds
       words {
         _id
-        word
+        phrase
         translate
         userId
         learned
       }
     }
     userIds
-    wordIds
-    topicIds
     completedWordIds
   }
 }
@@ -605,7 +599,7 @@ export const ChatsDocument = gql`
     isCompleted
     words {
       _id
-      word
+      phrase
       translate
       userId
       learned
@@ -645,7 +639,7 @@ export const WordsDocument = gql`
     query words {
   words {
     _id
-    word
+    phrase
     translate
     userId
     learned

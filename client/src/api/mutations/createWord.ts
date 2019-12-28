@@ -1,11 +1,11 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  mutation createWord($word: String!, $translate: String) {
-    createWord(word: $word, translate: $translate) {
+  mutation createWord($phrase: String!, $translate: String) {
+    createWord(phrase: $phrase, translate: $translate) {
       _id
       translate
-      word
+      phrase
     }
   }
 `;

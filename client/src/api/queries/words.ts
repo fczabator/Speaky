@@ -4,7 +4,7 @@ export default gql`
   query words {
     words {
       _id
-      word
+      phrase
       translate
       userId
       learned

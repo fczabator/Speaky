@@ -8,7 +8,7 @@ export default gql`
       isCompleted
       words {
         _id
-        word
+        phrase
         translate
         userId
         learned
@@ -21,18 +21,15 @@ export default gql`
       started {
         date
         userId
-        wordIds
         words {
           _id
-          word
+          phrase
           translate
           userId
           learned
         }
       }
       userIds
-      wordIds
-      topicIds
       completedWordIds
     }
   }
