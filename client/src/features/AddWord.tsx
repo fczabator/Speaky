@@ -7,7 +7,7 @@ import { useNotificationContext } from '../context/useNotification';
 
 // @TODO add formik or any other form package
 export const AddWord: React.FC = () => {
-  const [word, setWord] = React.useState('');
+  const [phrase, setPhrase] = React.useState('');
   const [translation, setTranslation] = React.useState('');
   const [createWord] = useCreateWordMutation({
     refetchQueries: [{ query: wordsQuery }]
@@ -15,21 +15,21 @@ export const AddWord: React.FC = () => {
   const { showNotification } = useNotificationContext();
 
   const handleAddWord = () => {
-    if (word === '' || translation === '') {
+    if (phrase === '' || translation === '') {
       showNotification('Please fill the form');
       return;
     }
 
-    createWord({ variables: { word, translate: translation } });
-    showNotification(`${word} has been added!`);
-    setWord('');
+    createWord({ variables: { phrase, translate: translation } });
+    showNotification(`${phrase} has been added!`);
+    setPhrase('');
     setTranslation('');
   };
 
   return (
     <Screen>
       <FormField label="Word">
-        <TextInput value={word} onChange={e => setWord(e.target.value)} />
+        <TextInput value={phrase} onChange={e => setPhrase(e.target.value)} />
       </FormField>
       <FormField label="Translation">
         <TextInput

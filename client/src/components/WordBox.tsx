@@ -10,7 +10,7 @@ type Props = {
 };
 
 export const WordBox: React.FC<Props> = ({
-  word: { _id, word, translate },
+  word: { _id, phrase, translate },
   onClick,
   isSelected,
   withTranslation
@@ -26,7 +26,7 @@ export const WordBox: React.FC<Props> = ({
     background={isSelected ? 'brand' : 'white'}
     onClick={() => onClick && onClick(_id)}
   >
-    <Text size="large">{word}</Text>
+    <Text size="large">{phrase}</Text>
     {withTranslation && <Text size="medium">{translate}</Text>}
   </Box>
 );
