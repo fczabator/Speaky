@@ -17,7 +17,7 @@ export const WordBox: React.FC<Props> = ({
 }) => (
   <Box
     animation={['fadeIn']}
-    elevation="medium"
+    elevation="xsmall"
     margin="small"
     pad="small"
     direction="column"

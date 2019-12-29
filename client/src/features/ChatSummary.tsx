@@ -1,9 +1,9 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { useChatQuery } from '../types/apolloTypes';
-import { WordBox } from '../components/WordBox';
 import { Heading, Text, Box } from 'grommet';
 import { Screen } from '../components/Screen';
+import { WordList } from '../components/WordList';
 
 interface Params {
   _id: string;
@@ -28,9 +28,7 @@ export const ChatSummary: React.FC<RouteComponentProps<Params>> = ({
         <Heading>Congrats!</Heading>
         <Text>You did it!</Text>
         <Text>Learned words:</Text>
-        {data.chat.words.map(word => (
-          <WordBox key={word._id} word={word} />
-        ))}
+        <WordList words={data.chat.words} />
       </Box>
     </Screen>
   );
