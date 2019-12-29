@@ -58,7 +58,7 @@ export const AppBar: React.FC<Props> = ({
           Speaky
         </Heading>
       </Box>
-      <Actions />
+      {isAuthenticated && <Actions />}
     </Box>
   );
 };

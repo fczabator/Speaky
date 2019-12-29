@@ -5,24 +5,12 @@ import { useAuth0 } from '../lib/auth';
 
 const navigationItems = [
   {
-    label: 'New word',
-    route: '/add-word'
-  },
-  {
     label: 'Words',
     route: '/words'
   },
   {
-    label: 'New chat',
-    route: '/select-words'
-  },
-  {
     label: 'Chats',
     route: '/chats'
-  },
-  {
-    label: 'Join chat',
-    route: '/join-chat'
   }
 ];
 
