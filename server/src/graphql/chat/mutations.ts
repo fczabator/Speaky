@@ -1,7 +1,6 @@
 import { ObjectID } from 'mongodb';
 import { ApolloError, UserInputError } from 'apollo-server-core';
 import { resolvers } from './resolvers';
-import { Chat } from '../../types/apolloTypes';
 import { checkIfUserIsLoggedIn } from '../../util/checks';
 import { getInviteCode } from '../../util/helpers';
 import { generateWords } from '../../util/wordsGenerator';
@@ -145,10 +144,11 @@ export const completeChatWord: typeof resolvers.Mutation.completeChatWord = asyn
   checkIfUserIsLoggedIn(context);
   const result = await context.DB.collection('chats').findOneAndUpdate(
     {
-      _id: new ObjectID(_id),
+      _id,
       started: { $elemMatch: { userId: context.userId } }
     },
-    { $push: { completedWordIds: wordId } }
+    { $push: { completedWordIds: wordId } },
+    { returnOriginal: false }
   );
 
   if (!result.value) {
