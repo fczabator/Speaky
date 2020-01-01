@@ -16,6 +16,7 @@ export default gql`
       topics {
         _id
         name
+        userId
       }
       inviteCode
       started {

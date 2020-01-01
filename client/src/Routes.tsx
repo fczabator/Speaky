@@ -15,6 +15,7 @@ import { SelectWords } from './components/SelectWords';
 import { Words } from './features/Words';
 import { AddWordsToChat } from './features/AddWordsToChat';
 import { Route, Switch } from 'react-router-dom';
+import { CreateTopic } from './features/CreateTopic';
 
 export const Routes = () => {
   return (
@@ -37,6 +38,7 @@ export const Routes = () => {
           <AuthRoute path="/chats" component={Chats} />
           <AuthRoute path="/join-chat" component={ChatJoin} />
           <AuthRoute path="/summary/:_id" component={ChatSummary} />
+          <AuthRoute path="/create-topic" component={CreateTopic} />
           <Route component={NoMatch} />
         </Switch>
       </AppLayout>

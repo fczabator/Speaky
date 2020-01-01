@@ -11,6 +11,10 @@ const navigationItems = [
   {
     label: 'Chats',
     route: '/chats'
+  },
+  {
+    label: 'Topics',
+    route: '/create-topic'
   }
 ];
 
