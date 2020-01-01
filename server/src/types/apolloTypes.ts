@@ -97,7 +97,8 @@ export type MutationCompleteChatWordArgs = {
 
 
 export type MutationCreateTopicArgs = {
-  name: Scalars['String']
+  name: Scalars['String'],
+  description?: Maybe<Scalars['String']>
 };
 
 export type Query = {
@@ -108,6 +109,7 @@ export type Query = {
   chats: Array<Chat>,
   chat?: Maybe<Chat>,
   topics: Array<Topic>,
+  topic?: Maybe<Topic>,
 };
 
 
@@ -117,6 +119,11 @@ export type QueryWordArgs = {
 
 
 export type QueryChatArgs = {
+  _id: Scalars['String']
+};
+
+
+export type QueryTopicArgs = {
   _id: Scalars['String']
 };
 
@@ -131,6 +138,8 @@ export type Topic = {
    __typename?: 'Topic',
   _id: Scalars['ID'],
   name: Scalars['String'],
+  description?: Maybe<Scalars['String']>,
+  userId: Scalars['ID'],
 };
 
 export type Word = {
@@ -268,6 +277,7 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
   chats?: Resolver<Array<ResolversTypes['Chat']>, ParentType, ContextType>,
   chat?: Resolver<Maybe<ResolversTypes['Chat']>, ParentType, ContextType, RequireFields<QueryChatArgs, '_id'>>,
   topics?: Resolver<Array<ResolversTypes['Topic']>, ParentType, ContextType>,
+  topic?: Resolver<Maybe<ResolversTypes['Topic']>, ParentType, ContextType, RequireFields<QueryTopicArgs, '_id'>>,
 };
 
 export type StartedChatResolvers<ContextType = Context, ParentType extends ResolversParentTypes['StartedChat'] = ResolversParentTypes['StartedChat']> = {
@@ -279,6 +289,8 @@ export type StartedChatResolvers<ContextType = Context, ParentType extends Resol
 export type TopicResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Topic'] = ResolversParentTypes['Topic']> = {
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  userId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
 };
 
 export type WordResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Word'] = ResolversParentTypes['Word']> = {

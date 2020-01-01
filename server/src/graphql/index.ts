@@ -3,9 +3,10 @@ import { DateTimeResolver } from 'graphql-scalars';
 import merge from 'lodash/merge';
 import { resolvers as wordResolvers } from './word';
 import { resolvers as chatResolvers } from './chat';
+import { resolvers as topicResolvers } from './topic';
 import { typeDef as Chat } from './chat/schema';
 import { typeDef as Word } from './word/schema';
-import { typeDef as Topic, resolvers as topicResolvers } from './topic';
+import { typeDef as Topic } from './topic/schema';
 import { Resolvers } from '../types/apolloTypes';
 import gql from 'graphql-tag';
 

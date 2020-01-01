@@ -11,13 +11,13 @@ describe('words', () => {
     {
       _id: '1',
       translate: 'translate',
-      word: 'word',
+      phrase: 'word',
       userId: 'someUserId'
     },
     {
       _id: '2',
       translate: 'dom',
-      word: 'house',
+      phrase: 'house',
       userId: 'someUserId2'
     }
   ];
@@ -45,7 +45,7 @@ describe('words', () => {
     const newWord = {
       _id: 'some-user-id',
       translate: 'Dom',
-      word: 'House'
+      phrase: 'House'
     };
 
     const expectedResult = {
