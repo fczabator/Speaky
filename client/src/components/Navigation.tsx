@@ -14,7 +14,7 @@ const navigationItems = [
   },
   {
     label: 'Topics',
-    route: '/create-topic'
+    route: '/topics'
   }
 ];
 

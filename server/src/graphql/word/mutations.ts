@@ -12,6 +12,7 @@ export const createWord: typeof resolvers.Mutation.createWord = async (
   input,
   context
 ) => {
+  console.log('context', context);
   checkIfUserIsLoggedIn(context);
   const result = await context.DB.collection<Word>('words').insertOne({
     ...input,

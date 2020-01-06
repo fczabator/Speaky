@@ -307,6 +307,17 @@ export type ChatsQuery = (
   )> }
 );
 
+export type TopicsQueryVariables = {};
+
+
+export type TopicsQuery = (
+  { __typename?: 'Query' }
+  & { topics: Array<(
+    { __typename?: 'Topic' }
+    & Pick<Topic, '_id' | 'name' | 'description' | 'userId'>
+  )> }
+);
+
 export type WordsQueryVariables = {};
 
 
@@ -694,6 +705,41 @@ export function useChatsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOp
 export type ChatsQueryHookResult = ReturnType<typeof useChatsQuery>;
 export type ChatsLazyQueryHookResult = ReturnType<typeof useChatsLazyQuery>;
 export type ChatsQueryResult = ApolloReactCommon.QueryResult<ChatsQuery, ChatsQueryVariables>;
+export const TopicsDocument = gql`
+    query topics {
+  topics {
+    _id
+    name
+    description
+    userId
+  }
+}
+    `;
+
+/**
+ * __useTopicsQuery__
+ *
+ * To run a query within a React component, call `useTopicsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTopicsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTopicsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useTopicsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<TopicsQuery, TopicsQueryVariables>) {
+        return ApolloReactHooks.useQuery<TopicsQuery, TopicsQueryVariables>(TopicsDocument, baseOptions);
+      }
+export function useTopicsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<TopicsQuery, TopicsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<TopicsQuery, TopicsQueryVariables>(TopicsDocument, baseOptions);
+        }
+export type TopicsQueryHookResult = ReturnType<typeof useTopicsQuery>;
+export type TopicsLazyQueryHookResult = ReturnType<typeof useTopicsLazyQuery>;
+export type TopicsQueryResult = ApolloReactCommon.QueryResult<TopicsQuery, TopicsQueryVariables>;
 export const WordsDocument = gql`
     query words {
   words {

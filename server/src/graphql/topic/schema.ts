@@ -12,6 +12,6 @@ export const typeDef = gql`
     _id: ID!
     name: String!
     description: String
-    userId: ID!
+    userId: ID
   }
 `;

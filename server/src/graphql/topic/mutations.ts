@@ -8,6 +8,7 @@ export const createTopic: typeof resolvers.Mutation.createTopic = async (
   input,
   context
 ) => {
+  console.log('context', context);
   checkIfUserIsLoggedIn(context);
   const result = await context.DB.collection<Topic>('topics').insertOne({
     ...input,
