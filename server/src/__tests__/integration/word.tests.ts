@@ -45,7 +45,7 @@ describe('words', () => {
     const newWord = {
       _id: 'some-user-id',
       translate: 'Dom',
-      word: 'House'
+      phrase: 'House'
     };
 
     const expectedResult = {
